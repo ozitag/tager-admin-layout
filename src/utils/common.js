@@ -1,8 +1,4 @@
-import { removeAccessToken } from '@tager/admin-services';
-
-export function isAbsoluteUrl(url) {
-  return ['https:', 'http:'].some((protocol) => url.startsWith(protocol));
-}
+import { removeAccessToken, isAbsoluteUrl } from '@tager/admin-services';
 
 export function getLogoUrl(logoPath) {
   if (!logoPath) return null;

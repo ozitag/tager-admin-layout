@@ -12,7 +12,7 @@ export default {
   output: [
     {
       file: 'dist/index.esm.js',
-      format: 'es'
+      format: 'es',
     },
     {
       file: 'dist/index.umd.js',
@@ -22,8 +22,8 @@ export default {
         vue: 'Vue',
         'vue-router': 'VueRouter',
         '@tager/admin-services': 'adminServices',
-        '@tager/admin-ui': 'adminUi'
-      }
+        '@tager/admin-ui': 'adminUi',
+      },
     },
     {
       file: 'dist/index.min.js',
@@ -33,25 +33,25 @@ export default {
         vue: 'Vue',
         'vue-router': 'VueRouter',
         '@tager/admin-services': 'adminServices',
-        '@tager/admin-ui': 'adminUi'
-      }
-    }
+        '@tager/admin-ui': 'adminUi',
+      },
+    },
   ],
   external: [
     'vue',
     'vue-router',
     '@tager/admin-services',
     '@tager/admin-ui',
-    '@babel/runtime'
+    '@babel/runtime',
   ],
   plugins: [
     alias({
       entries: [
         {
           find: /^@\/(.*)$/,
-          replacement: `${path.resolve(__dirname, 'src')}/$1`
-        }
-      ]
+          replacement: `${path.resolve(__dirname, 'src')}/$1`,
+        },
+      ],
     }),
     resolve({ extensions: ['.js', '.css', '.svg', '.vue'] }),
     commonjs(),
@@ -60,7 +60,7 @@ export default {
     babel({
       presets: ['@babel/preset-env'],
       plugins: ['@babel/plugin-transform-runtime'],
-      babelHelpers: 'runtime'
-    })
-  ]
+      babelHelpers: 'runtime',
+    }),
+  ],
 };

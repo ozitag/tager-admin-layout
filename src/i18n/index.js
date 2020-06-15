@@ -5,7 +5,7 @@ import russian from './locales/ru';
 
 const LOCALE_MAP = {
   EN: english,
-  RU: russian
+  RU: russian,
 };
 
 export function t(key, options) {
@@ -15,13 +15,13 @@ export function t(key, options) {
     console.log('%c Translate: ', 'color: green', [
       currentLanguage,
       key,
-      LOCALE_MAP[currentLanguage][key]
+      LOCALE_MAP[currentLanguage][key],
     ]);
   }
   return LOCALE_MAP[currentLanguage][key];
 }
 
-export const TranslatePlugin = VueConstructor => {
+export const TranslatePlugin = (VueConstructor) => {
   VueConstructor.prototype.$t = t;
   VueConstructor.$t = t;
 };

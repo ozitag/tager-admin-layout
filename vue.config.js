@@ -1,11 +1,12 @@
 module.exports = {
+  runtimeCompiler: true,
   pages: {
     index: {
-      entry: 'src/dev.js'
-    }
+      entry: 'src/dev.js',
+    },
   },
   publicPath: process.env.VUE_APP_PUBLIC_PATH || '/',
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     const svgRule = config.module.rule('svg');
 
     svgRule.uses.clear();
@@ -17,5 +18,5 @@ module.exports = {
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
       .options({ svgo: { plugins: [{ removeViewBox: false }] } });
-  }
+  },
 };

@@ -1,4 +1,5 @@
 import Vue, { VueConstructor } from 'vue';
+import { ExtendedVue } from 'vue/types/vue';
 
 export type ToastVariant = 'success' | 'warning' | 'danger';
 
@@ -24,4 +25,20 @@ declare module 'vue/types/vue' {
   }
 }
 
-export declare const BaseLayout: VueConstructor<Vue>;
+export type MenuItemType = {
+  id: string;
+  name: string;
+  path: string;
+  icon: string;
+  children?: Array<{ name: string; path: string }>;
+};
+
+export declare const BaseLayout: ExtendedVue<
+  Vue,
+  {},
+  {},
+  {},
+  { sidebarMenuList: Array<MenuItemType> }
+>;
+
+export declare const NotFound: VueConstructor<Vue>;

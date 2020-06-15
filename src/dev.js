@@ -4,6 +4,7 @@ import { configStore } from '@tager/admin-services';
 import '@tager/admin-ui/dist/admin-ui.css';
 
 import BaseLayout from '@/components/BaseLayout.vue';
+import NotFound from '@/views/NotFound';
 
 const TEST_CONFIG = {
   APP_NAME: 'OZiTAG_ADMIN',
@@ -13,19 +14,19 @@ const TEST_CONFIG = {
     small: {
       logo: 'logo-small.svg',
       label: 'OZi',
-      'label-color': '#DD6900'
+      'label-color': '#DD6900',
     },
     large: {
       logo: 'logo.svg',
       label: 'OZiTAG',
-      'label-color': '#DD6900'
-    }
+      'label-color': '#DD6900',
+    },
   },
   SPLASH_SCREEN: {
     enabled: true,
     logo: 'logo.svg',
-    background: '#1e1e1e'
-  }
+    background: '#1e1e1e',
+  },
 };
 
 configStore.setConfig(TEST_CONFIG);
@@ -35,7 +36,13 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: []
+  routes: [
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound,
+    },
+  ],
 });
 
 const sidebarMenuList = [
@@ -47,20 +54,20 @@ const sidebarMenuList = [
     children: [
       {
         path: '/presets',
-        name: 'All presets'
+        name: 'All presets',
       },
       {
         path: '/presets/create',
-        name: 'Create presets'
-      }
-    ]
+        name: 'Create presets',
+      },
+    ],
   },
 
   {
     id: 'orders',
     name: 'Orders',
     path: '/orders',
-    icon: 'assignment'
+    icon: 'assignment',
   },
   {
     id: 'settings',
@@ -70,17 +77,25 @@ const sidebarMenuList = [
     children: [
       {
         path: '/settings/common',
-        name: 'Common'
+        name: 'Common',
       },
       {
         path: '/settings/seo',
-        name: 'SEO'
-      }
-    ]
-  }
+        name: 'SEO',
+      },
+    ],
+  },
 ];
 
 new Vue({
   router,
-  render: h => h(BaseLayout, { props: { sidebarMenuList } })
+  components: { BaseLayout },
+  data() {
+    return { sidebarMenuList };
+  },
+  template: `
+    <base-layout v-bind:sidebar-menu-list="sidebarMenuList">
+      <router-view/>
+    </base-layout>
+  `,
 }).$mount('#app');

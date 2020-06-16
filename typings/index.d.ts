@@ -2,6 +2,7 @@ import Vue, { VueConstructor } from 'vue';
 import { ExtendedVue } from 'vue/types/vue';
 import VueRouter, { Route, RouteConfig, RouterOptions } from 'vue-router';
 import { Nullish } from '@tager/admin-services';
+import { IconName } from '@tager/admin-ui';
 
 export type ToastVariant = 'success' | 'warning' | 'danger';
 
@@ -31,7 +32,7 @@ export type MenuItemType = {
   id: string;
   name: string;
   path: string;
-  icon: string;
+  icon: IconName;
   children?: Array<{ name: string; path: string }>;
 };
 

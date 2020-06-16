@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-layout",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -28,7 +28,7 @@
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@tager/admin-services": "0.0.3",
-    "@tager/admin-ui": "0.0.4",
+    "@tager/admin-ui": "0.0.5",
     "@vue/cli-plugin-babel": "~4.3.0",
     "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-plugin-router": "~4.3.0",
@@ -53,7 +53,7 @@
   },
   "peerDependencies": {
     "@tager/admin-services": "0.0.3",
-    "@tager/admin-ui": "0.0.4",
+    "@tager/admin-ui": "0.0.5",
     "vue": "2.6.x",
     "vue-router": "3.3.x"
   },

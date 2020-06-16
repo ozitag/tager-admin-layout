@@ -1,5 +1,7 @@
 import Vue, { VueConstructor } from 'vue';
 import { ExtendedVue } from 'vue/types/vue';
+import VueRouter, { Route, RouteConfig, RouterOptions } from 'vue-router';
+import { Nullish } from '@tager/admin-services';
 
 export type ToastVariant = 'success' | 'warning' | 'danger';
 
@@ -40,5 +42,28 @@ export declare const BaseLayout: ExtendedVue<
   {},
   { sidebarMenuList: Array<MenuItemType> }
 >;
+
+export type Breadcrumb = { path: string; label: Nullish<string> };
+
+export type RouteMeta = {
+  getBreadcrumbs: (route: CustomRoute) => Array<Breadcrumb>;
+};
+
+export type CustomRoute = Omit<Route, 'meta'> & {
+  meta?: RouteMeta;
+};
+
+export type CustomRouteConfig = Omit<RouteConfig, 'meta'> & {
+  meta?: RouteMeta;
+};
+
+export type CustomRouterOptions = Omit<RouterOptions, 'routes'> & {
+  routes?: Array<CustomRouteConfig>;
+};
+
+export declare function createRouter(
+  routerOptions?: CustomRouterOptions,
+  params?: { useNotFoundRoute?: boolean; useTitleSync?: boolean }
+): VueRouter;
 
 export declare const NotFound: VueConstructor<Vue>;

@@ -1,10 +1,9 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import { configStore } from '@tager/admin-services';
 import '@tager/admin-ui/dist/admin-ui.css';
 
 import BaseLayout from '@/components/BaseLayout.vue';
-import NotFound from '@/views/NotFound';
+import { createRouter } from '@/router';
 
 const TEST_CONFIG = {
   APP_NAME: 'OZiTAG_ADMIN',
@@ -31,19 +30,7 @@ const TEST_CONFIG = {
 
 configStore.setConfig(TEST_CONFIG);
 
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '*',
-      name: 'NotFound',
-      component: NotFound,
-    },
-  ],
-});
+const router = createRouter();
 
 const sidebarMenuList = [
   {

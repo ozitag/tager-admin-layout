@@ -2,19 +2,26 @@
   <aside :class="['sidebar', { collapsed: isCollapsed, hovered: isHovered }]">
     <div class="sidebar-inner">
       <div class="sidebar-top">
-        <div v-if="shouldDisplayLogo" class="logo-container">
-          <img :src="logoUrl" alt="" />
+        <div class="sidebar-brand">
+            <div v-if="shouldDisplayLogo" class="logo-container">
+              <img :src="logoUrl" alt="" />
+            </div>
+            <span
+              v-if="shouldDisplayBrandName"
+              class="sidebar-top-title"
+              :style="{ color: brandNameColor }"
+            >
+              {{ brandName }}
+            </span>
         </div>
-        <span
-          v-if="shouldDisplayBrandName"
-          class="sidebar-top-title"
-          :style="{ color: brandNameColor }"
-        >
-          {{ brandName }}
-        </span>
+
+        <div v-if="Boolean(appVersion)" class="sidebar-version">
+            <span class="version-word">ver.</span> {{ appVersion }}
+        </div>
       </div>
 
-      <div class="sidebar-body">
+
+      <div :class="['sidebar-body', { 'with-version': Boolean(appVersion) }]">
         <ul
           class="menu-list"
           @mouseover="handleMouseOver"
@@ -65,9 +72,6 @@
         </ul>
         <div class="footer">
           <span class="brand">TAGER</span>
-          <span v-if="Boolean(appVersion)" class="version-block">
-            <span class="version-word">ver.</span> {{ appVersion }}
-          </span>
         </div>
       </div>
     </div>
@@ -234,13 +238,27 @@ export default Vue.extend({
 
 .sidebar-top {
   border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
-  line-height: 0;
-  padding: 0 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.sidebar-brand{
   display: flex;
   align-items: center;
   white-space: nowrap;
-
+  padding: 0 0.5rem;
   height: 66px;
+  line-height: 0;
+}
+
+.sidebar-version {
+  display: block;
+  padding: 0.2rem;
+  font-size: 0.9rem;
+  text-align: center;
+
+  .collapsed &{
+    display: none;
+  }
 }
 
 .logo-container {
@@ -273,15 +291,23 @@ export default Vue.extend({
 }
 
 .sidebar-body {
-  height: calc(100vh - 65px);
+  height: calc(100vh - 57px);
   display: flex;
   flex-direction: column;
+  padding: 1rem 0;
+
+  &.with-version {
+    height: calc(100vh - 80px);
+  }
+
+  .collapsed &{
+    height: calc(100vh - 57px);
+  }
 }
 
 .menu-list {
   flex: 1;
   list-style-type: none;
-  padding: 2rem 0;
 }
 
 .menu-item {
@@ -393,10 +419,6 @@ export default Vue.extend({
     display: block;
     font-weight: 600;
     letter-spacing: 0.2em;
-  }
-
-  .version-block {
-    font-size: 0.75rem;
   }
 }
 </style>

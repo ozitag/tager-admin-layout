@@ -136,12 +136,13 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 .left-block {
   display: flex;
   align-items: center;
+  margin-left: -5px;
 }
 
 .breadcrumbs {

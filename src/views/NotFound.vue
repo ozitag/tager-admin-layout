@@ -21,10 +21,11 @@
 <script lang="js">
 import Vue from 'vue';
 import LampSvgImage from '@/assets/svg/lamp.svg';
+import { BaseButton } from '@tager/admin-ui';
 
 export default Vue.extend({
   name: 'NotFound',
-  components: { LampSvgImage },
+  components: { LampSvgImage, BaseButton },
   methods: {
     goToHome() {
       this.$router.push('/');

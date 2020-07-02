@@ -331,7 +331,7 @@ export default Vue.extend({
   align-items: center;
   width: 100%;
   color: rgba(0,0,0,.5);
-  padding: 4px 15px 4px 10px;
+  padding: 4px 15px 4px 15px;
   position: relative;
   white-space: nowrap;
   min-width: 1px;

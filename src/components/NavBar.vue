@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="right-block">
         <span class="user-name">{{ userName }}</span>
         <base-button
           variant="outline-secondary"
@@ -136,16 +136,24 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 25px;
+}
+
+.right-block{
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
 
 .left-block {
   display: flex;
   align-items: center;
+  margin-left: -20px;
 }
 
 .breadcrumbs {
-  margin-left: 2rem;
+  margin-left: 1rem;
+  font-size: 0.9rem;
 
   ul {
     display: flex;
@@ -154,7 +162,6 @@ export default Vue.extend({
   li {
     display: inline-flex;
     align-items: center;
-    line-height: 1.5rem;
 
     a {
       &:hover:not(.active) {
@@ -163,6 +170,7 @@ export default Vue.extend({
 
       &.active {
         cursor: default;
+        color: #000;
       }
     }
 
@@ -173,13 +181,15 @@ export default Vue.extend({
     }
 
     svg {
-      margin: 0 0.3rem;
+      margin: 0 0.2rem;
+      width: 16px;
+      height: 16px;
     }
   }
 }
 
 .user-name {
   font-weight: 600;
-  margin-right: 2rem;
+  margin-right: 1.5rem;
 }
 </style>

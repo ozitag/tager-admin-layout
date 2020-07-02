@@ -144,9 +144,9 @@ export default Vue.extend({
 }
 
 .main {
-  background-color: #f9fafb;
+  background-color: #f3f3f3;
   min-height: 100vh;
-  padding: 85px 20px 20px;
+  padding: 75px 10px 0 10px;
   display: flex;
   flex-direction: column;
 }

@@ -2,19 +2,25 @@
   <aside :class="['sidebar', { collapsed: isCollapsed, hovered: isHovered }]">
     <div class="sidebar-inner">
       <div class="sidebar-top">
-        <div v-if="shouldDisplayLogo" class="logo-container">
-          <img :src="logoUrl" alt="" />
+        <div class="sidebar-brand">
+          <div v-if="shouldDisplayLogo" class="logo-container">
+            <img :src="logoUrl" alt="" />
+          </div>
+          <span
+            v-if="shouldDisplayBrandName"
+            class="sidebar-top-title"
+            :style="{ color: brandNameColor }"
+          >
+            {{ brandName }}
+          </span>
         </div>
-        <span
-          v-if="shouldDisplayBrandName"
-          class="sidebar-top-title"
-          :style="{ color: brandNameColor }"
-        >
-          {{ brandName }}
-        </span>
       </div>
 
-      <div class="sidebar-body">
+      <div :class="['sidebar-body']">
+        <div v-if="Boolean(appVersion)" class="sidebar-version">
+          <span class="version-word">ver.</span> {{ appVersion }}
+        </div>
+
         <ul
           class="menu-list"
           @mouseover="handleMouseOver"
@@ -23,8 +29,13 @@
           <li
             v-for="menuItem in menuItemList"
             :key="menuItem.id"
-            :class="['menu-item', { active: isMenuItemActive(menuItem.id) }]"
-            :data-expanded="isMenuItemOpen(menuItem.id)"
+            :class="[
+              'menu-item',
+              {
+                active: isMenuItemActive(menuItem.id),
+                expanded: isMenuItemOpen(menuItem.id),
+              },
+            ]"
           >
             <component
               :is="menuItem.children ? 'button' : 'router-link'"
@@ -65,9 +76,6 @@
         </ul>
         <div class="footer">
           <span class="brand">TAGER</span>
-          <span v-if="Boolean(appVersion)" class="version-block">
-            <span class="version-word">ver.</span> {{ appVersion }}
-          </span>
         </div>
       </div>
     </div>
@@ -203,7 +211,7 @@ export default Vue.extend({
       margin-left: 0;
     }
 
-    .menu-item[data-expanded='true'] .child-menu-list,
+    .menu-item.expanded .child-menu-list,
     .menu-link-name,
     .arrow-icon-container {
       display: none;
@@ -218,10 +226,6 @@ export default Vue.extend({
         letter-spacing: normal;
         font-size: 16px;
       }
-
-      .version-word {
-        display: none;
-      }
     }
   }
 }
@@ -234,13 +238,30 @@ export default Vue.extend({
 
 .sidebar-top {
   border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
-  line-height: 0;
-  padding: 0 0.5rem;
+}
+
+.sidebar-brand {
   display: flex;
   align-items: center;
   white-space: nowrap;
-
+  padding: 0 0.5rem;
   height: 66px;
+  line-height: 0;
+}
+
+.sidebar-version {
+  display: block;
+  padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: -15px;
+  white-space: nowrap;
+
+  .collapsed & {
+    .version-word {
+      display: none;
+    }
+  }
 }
 
 .logo-container {
@@ -267,39 +288,31 @@ export default Vue.extend({
 
   font-size: 1.5rem;
   line-height: 1;
-  font-weight: 500;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
   margin-left: 1rem;
   flex: 1;
 }
 
 .sidebar-body {
-  height: calc(100vh - 65px);
+  height: calc(100vh - 51px);
   display: flex;
   flex-direction: column;
+  padding: 1rem 0;
 }
 
 .menu-list {
   flex: 1;
   list-style-type: none;
-  padding: 2rem 0;
 }
 
 .menu-item {
   cursor: pointer;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.03);
-  }
-
   &.active {
-    background-color: #d5fafe;
-
-    .menu-link {
-      font-weight: 600;
-    }
   }
 
-  &[data-expanded='true'] {
+  &.expanded {
     .arrow-icon-container svg {
       transform: rotate(180deg);
     }
@@ -314,29 +327,31 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   width: 100%;
-  font-weight: 500;
-  color: #666;
-  padding: 5px 30px 5px 15px;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 4px 15px 4px 15px;
   position: relative;
   white-space: nowrap;
   min-width: 1px;
 
   &:hover {
-    color: #333;
-    text-decoration: none;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .expanded & {
+    color: rgba(0, 0, 0, 0.7);
   }
 }
 
 .menu-link-name {
   font-size: 1rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   flex-shrink: 0;
 }
 
 .menu-link-icon-container {
   width: 35px;
   height: 35px;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   flex-shrink: 0;
 
   display: flex;
@@ -345,47 +360,59 @@ export default Vue.extend({
 
   svg {
     display: block;
+    width: 20px;
+    height: 20px;
   }
 }
 
 .arrow-icon-container {
   margin-left: auto;
+  transform: rotate(180deg);
 
   svg {
-    transition: transform 0.1s ease-in;
+    transition: transform 0.2s linear;
     display: block;
+    width: 20px;
+    height: 20px;
+    transform: rotate(90deg);
   }
 }
 
 .child-menu-list {
   display: none;
-  padding-left: 50px;
+  background: #fafafa;
+  padding: 10px 0;
 }
 
 .child-menu-item {
+  padding: 0 0 0 50px;
+  &:first-child {
+    padding-top: 0;
+    margin-top: -5px;
+  }
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 
 .child-menu-link {
   display: block;
   color: #888;
-  padding: 10px 15px;
   white-space: nowrap;
+  padding: 7px 15px;
   font-size: 0.95rem;
 
   &:hover {
     color: #555;
-    text-decoration: underline;
   }
 
   &.active {
-    color: #555;
-    font-weight: 500;
-    text-decoration: underline;
+    color: #000;
   }
 }
 
 .footer {
-  padding: 0.75rem 0.5rem 1rem;
+  padding: 0.75rem 0.5rem 0.75rem;
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.0625);
 
@@ -393,10 +420,6 @@ export default Vue.extend({
     display: block;
     font-weight: 600;
     letter-spacing: 0.2em;
-  }
-
-  .version-block {
-    font-size: 0.75rem;
   }
 }
 </style>

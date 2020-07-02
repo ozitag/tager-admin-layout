@@ -822,6 +822,16 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-classic@^19.0.2":
+  version "19.0.2"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-19.0.2.tgz#ecab0e38d3f6fa7560f6937d18f711243b20b978"
+  integrity sha512-yz2M9Q6jMy9zF+JiQiSoaG/m7Eu48H+Yi3FgtVGDFpLDqGUJntNsW26g3qZld5Pa4pgVPRmDcfKHzLTWAo3iRg==
+
+"@ckeditor/ckeditor5-vue@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-vue/-/ckeditor5-vue-1.0.1.tgz#cddb99609f61b647214b704656c08a15b6a53865"
+  integrity sha512-4MaQwZ04cWwqYW0732sg2aqx9ILeHIP0LSLKUuLCLR21qYONZPvxY/V/czh1DH99toaL/iwPvEoJtO2ldriPaA==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -940,17 +950,19 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.0.tgz#623aa40623550e3b94767cffeb096a6fb597ed09"
   integrity sha512-9GvTek+7cVw7r+L7TNGOG1astZJWXz2h5q4BqMXl28KN+24iSCm1xo+RhZOZvwdT3bzNe9hD7riJc/lBoO7mgg==
 
-"@tager/admin-services@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.0.3.tgz#18639b70f83973b3caabab8d40350e7953fd1a82"
-  integrity sha512-sdZnRHW+xh5mFO+r4Kp08co398B16l8Cq2lJ9jv6I3qvdSU0SH8D5Df7XnDDouifMCW7hi6mIUVkW728p/OwCQ==
+"@tager/admin-services@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.0.7.tgz#713582f66c2da5962f355025fc711b0db7ad6fd1"
+  integrity sha512-0iYuAxfSjOWRiyubDWy/atEjAN7wECCdHNBJFTeKLErDcxlIzdDCWgnpGW8I5SdXUduAYDj8Th1mIa6dpFATwQ==
 
-"@tager/admin-ui@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.0.4.tgz#84b4dc67c902836dca92d022d1363b6aa4bc472c"
-  integrity sha512-pBsnZUyJwHX3qBtF1C/LcIzNkjmruhpR/Z4c9wpnC54LTslqh8/wQbq9SayMfFPHt0NGftK9/Zl9K4JkccDX6w==
+"@tager/admin-ui@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.3.0.tgz#34081edbc9bbb8c0f81ec1e2f4f3662914efa25e"
+  integrity sha512-oBDYPi3AA+GJqSe8+BxID1ZAxEQ7bZ0rmuLiOOpO1/AYg/0jhwirMIV9K+I5CF646oiuyMwUdDdQ07B8w3wCDw==
   dependencies:
     "@babel/runtime" "^7.10.2"
+    "@ckeditor/ckeditor5-build-classic" "^19.0.2"
+    "@ckeditor/ckeditor5-vue" "^1.0.1"
     lodash.kebabcase "^4.1.1"
 
 "@types/babel-types@*", "@types/babel-types@^7.0.0":

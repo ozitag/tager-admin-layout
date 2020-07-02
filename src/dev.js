@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import { configStore } from '@tager/admin-services';
+import { AdminUiPlugin } from '@tager/admin-ui';
 import '@tager/admin-ui/dist/admin-ui.css';
 
-import BaseLayout from '@/components/BaseLayout.vue';
+import PageLayout from '@/components/PageLayout.vue';
+import ContentLayout from '@/components/ContentLayout.vue';
 import { createRouter } from '@/router';
 
 const TEST_CONFIG = {
@@ -74,15 +76,24 @@ const sidebarMenuList = [
   },
 ];
 
+Vue.use(AdminUiPlugin);
+
 new Vue({
   router,
-  components: { BaseLayout },
+  components: { PageLayout, ContentLayout },
   data() {
     return { sidebarMenuList };
   },
   template: `
-    <base-layout v-bind:sidebar-menu-list="sidebarMenuList">
-      <router-view/>
-    </base-layout>
+    <page-layout v-bind:sidebar-menu-list="sidebarMenuList">
+        <content-layout>
+            <template v-slot:top>
+                <page-title>Page title</page-title>
+            </template>
+            <template v-slot:content>
+                Page content
+            </template>
+        </content-layout>
+    </page-layout>
   `,
 }).$mount('#app');

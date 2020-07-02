@@ -21,7 +21,10 @@ export default Vue.extend({
   name: 'Toast',
   components: { SvgIcon },
   props: {
-    toast: Object
+    toast: {
+      type: Object,
+      required: true
+    }
   },
   data(){
     return {
@@ -145,8 +148,6 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   padding: 0.25rem 0.75rem;
-  color: #6c757d;
-  background-color: hsla(0, 0%, 100%, 0.85);
   background-clip: padding-box;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 

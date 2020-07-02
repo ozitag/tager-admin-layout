@@ -31,8 +31,8 @@
 <script>
 import Vue from 'vue';
 import { request, configStore, RequestError } from '@tager/admin-services';
+import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
 
-import ToastPlugin, { ToastProvider } from '@/components/Toast';
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/NavBar.vue';
 import SplashScreen from '@/components/SplashScreen.vue';
@@ -47,13 +47,13 @@ Vue.use(ToastPlugin);
 Vue.use(TranslatePlugin);
 
 export default Vue.extend({
-  name: 'BaseLayout',
+  name: 'PageLayout',
   components: { Sidebar, Navbar, ToastProvider, SplashScreen },
   props: {
     sidebarMenuList: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     const isSidebarCollapsed =
@@ -65,7 +65,7 @@ export default Vue.extend({
       profile: null,
       isLoading: true,
       isSplashScreenEnabled: Boolean(config.SPLASH_SCREEN?.enabled),
-      isTimeoutInProgress: false
+      isTimeoutInProgress: false,
     };
   },
   computed: {
@@ -83,15 +83,15 @@ export default Vue.extend({
         this.isSplashScreenEnabled &&
         (this.isTimeoutInProgress || this.isLoading)
       );
-    }
+    },
   },
   mounted() {
     getProfile()
-      .then(response => {
+      .then((response) => {
         this.profile = response.data;
         this.isLoading = false;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
 
         if (
@@ -106,7 +106,7 @@ export default Vue.extend({
           this.$toast({
             variant: 'danger',
             title: 'Error',
-            body: 'Server error'
+            body: 'Server error',
           });
         }
       });
@@ -125,8 +125,8 @@ export default Vue.extend({
         'isSidebarCollapsed',
         String(this.isSidebarCollapsed)
       );
-    }
-  }
+    },
+  },
 });
 </script>
 

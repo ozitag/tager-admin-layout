@@ -4,30 +4,6 @@ import VueRouter, { Route, RouteConfig, RouterOptions } from 'vue-router';
 import { Nullish } from '@tager/admin-services';
 import { IconName } from '@tager/admin-ui';
 
-export type ToastVariant = 'success' | 'warning' | 'danger';
-
-export type ToastParams = {
-  variant: ToastVariant;
-  title: string;
-  body: string;
-};
-
-export type ToastItem = ToastParams & {
-  id: number;
-};
-
-export type ToastFunction = (params: ToastParams) => void;
-
-declare module 'vue/types/vue' {
-  // 3. Declare augmentation for Vue
-  interface Vue {
-    $toast: ToastFunction;
-  }
-  interface VueConstructor {
-    $toast: ToastFunction;
-  }
-}
-
 export type MenuItemType = {
   id: string;
   name: string;
@@ -36,7 +12,7 @@ export type MenuItemType = {
   children?: Array<{ name: string; path: string }>;
 };
 
-export declare const BaseLayout: ExtendedVue<
+export declare const PageLayout: ExtendedVue<
   Vue,
   {},
   {},

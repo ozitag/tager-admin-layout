@@ -3,8 +3,8 @@ import { configStore } from '@tager/admin-services';
 import { AdminUiPlugin } from '@tager/admin-ui';
 import '@tager/admin-ui/dist/admin-ui.css';
 
+import Page from '@/components/Page';
 import PageLayout from '@/components/PageLayout.vue';
-import ContentLayout from '@/components/ContentLayout.vue';
 import { createRouter } from '@/router';
 
 const TEST_CONFIG = {
@@ -80,20 +80,32 @@ Vue.use(AdminUiPlugin);
 
 new Vue({
   router,
-  components: { PageLayout, ContentLayout },
+  components: { PageLayout, Page },
   data() {
-    return { sidebarMenuList };
+    return {
+      sidebarMenuList,
+      headerButtons: [
+        { variant: 'secondary', text: 'say cow2', onClick: this.sayCow },
+        {
+          variant: 'secondary',
+          text: 'Create entity link',
+          href: 'http://ozitag.com',
+        },
+      ],
+    };
+  },
+  methods: {
+    sayCow() {
+      alert('Cooow');
+    },
   },
   template: `
     <page-layout v-bind:sidebar-menu-list="sidebarMenuList">
-        <content-layout>
-            <template v-slot:top>
-                <page-title>Page title</page-title>
-            </template>
+        <page title="Page Title" :header-buttons="headerButtons">
             <template v-slot:content>
                 Page content
             </template>
-        </content-layout>
+        </page>
     </page-layout>
   `,
 }).$mount('#app');

@@ -136,7 +136,7 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 25px;
 }
 
 .right-block{
@@ -148,7 +148,7 @@ export default Vue.extend({
 .left-block {
   display: flex;
   align-items: center;
-  margin-left: -5px;
+  margin-left: -20px;
 }
 
 .breadcrumbs {

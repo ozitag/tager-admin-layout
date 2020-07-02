@@ -1,4 +1,4 @@
-import Vue, { VueConstructor } from 'vue';
+import Vue, { PluginFunction, VueConstructor } from 'vue';
 import VueRouter, { Route, RouteConfig, RouterOptions } from 'vue-router';
 import { Nullish } from '@tager/admin-services';
 import { IconName } from '@tager/admin-ui';
@@ -47,3 +47,5 @@ export type TopButtonConfig = {
   href?: string;
   target?: string;
 };
+
+export declare const AdminLayoutPlugin: PluginFunction<undefined>;

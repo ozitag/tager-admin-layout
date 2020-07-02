@@ -102,6 +102,9 @@ new Vue({
   template: `
     <page-layout v-bind:sidebar-menu-list="sidebarMenuList">
         <page title="Page Title" :header-buttons="headerButtons">
+<!--            <template v-slot:top>-->
+<!--                Page content2-->
+<!--            </template>-->
             <template v-slot:content>
                 Page content
             </template>

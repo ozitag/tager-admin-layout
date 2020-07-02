@@ -8,7 +8,7 @@
     ></top>
 
     <div class="content">
-      <slot></slot>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>

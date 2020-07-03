@@ -136,7 +136,7 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 25px;
+  padding: 0 15px 0 25px
 }
 
 .right-block {

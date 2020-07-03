@@ -1,7 +1,6 @@
 <script lang="js">
 import Vue from 'vue';
 import { BaseButton, PageTitle } from '@tager/admin-ui';
-import { isAbsoluteUrl } from '@tager/admin-services';
 
 export default Vue.extend({
   name: 'Top',
@@ -33,11 +32,6 @@ export default Vue.extend({
             },
             on: {
               click: (event) => {
-                if (buttonConfig.href && !isAbsoluteUrl(buttonConfig.href)) {
-                  event.preventDefault();
-                  this.$router.push(buttonConfig.href);
-                }
-
                 if (buttonConfig.onClick) {
                   buttonConfig.onClick(event);
                 }

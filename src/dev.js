@@ -3,9 +3,8 @@ import { configStore } from '@tager/admin-services';
 import { AdminUiPlugin } from '@tager/admin-ui';
 import '@tager/admin-ui/dist/admin-ui.css';
 
-import Page from '@/components/Page';
-import PageLayout from '@/components/PageLayout.vue';
 import { createRouter } from '@/router';
+import { AdminLayoutPlugin } from '@/plugin';
 
 const TEST_CONFIG = {
   APP_NAME: 'OZiTAG_ADMIN',
@@ -77,10 +76,10 @@ const sidebarMenuList = [
 ];
 
 Vue.use(AdminUiPlugin);
+Vue.use(AdminLayoutPlugin);
 
 new Vue({
   router,
-  components: { PageLayout, Page },
   data() {
     return {
       sidebarMenuList,

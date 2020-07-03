@@ -100,7 +100,7 @@ new Vue({
   },
   template: `
     <page-layout v-bind:sidebar-menu-list="sidebarMenuList">
-        <page title="Page Title" :header-buttons="headerButtons" is-footer-hidden>
+        <page title="Page Title" :header-buttons="headerButtons">
             <template v-slot:content>
                 <div style="max-width: 400px;">
                     What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the

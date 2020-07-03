@@ -81,6 +81,8 @@ export default Vue.extend({
   align-items: center;
   border-top: 1px solid #eee;
   padding: 10px 15px;
-  min-height: 60px;
+  min-height: 50px;
+  background: #fff;
+  margin: 0 -15px -10px;
 }
 </style>

@@ -415,6 +415,10 @@ export default Vue.extend({
   padding: 0.75rem 0.5rem 0.75rem;
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.0625);
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .brand {
     display: block;

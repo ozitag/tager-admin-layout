@@ -1,5 +1,5 @@
-import Page from '@/components/Page';
-import PageLayout from '@/components/PageLayout';
+import Page from './components/Page';
+import PageLayout from './components/PageLayout';
 
 export function AdminLayoutPlugin(Vue) {
   Vue.component('page', Page);

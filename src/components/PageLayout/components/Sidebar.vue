@@ -86,7 +86,7 @@
 import Vue from 'vue';
 import { SvgIcon } from '@tager/admin-ui';
 
-import { getLogoUrl } from '@/utils/common';
+import { getLogoUrl } from '../../../utils/common';
 
 export default Vue.extend({
   components: { SvgIcon },

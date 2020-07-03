@@ -38,7 +38,7 @@ import Vue from 'vue';
 import { request, RequestError } from '@tager/admin-services';
 import { BaseButton, SvgIcon } from '@tager/admin-ui';
 
-import { isDevelopment, isProduction, removeTokenAndRedirectToLogin } from '@/utils/common';
+import { isDevelopment, isProduction, removeTokenAndRedirectToLogin } from '../../../utils/common';
 
 function signOut() {
   return request.post({ path: '/self/logout' });
@@ -139,7 +139,7 @@ export default Vue.extend({
   padding: 0 25px;
 }
 
-.right-block{
+.right-block {
   display: flex;
   align-items: center;
   margin-left: 10px;

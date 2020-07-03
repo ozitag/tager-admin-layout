@@ -15,6 +15,7 @@
 
 <script lang="js">
 import Vue from 'vue';
+
 import Top from './components/Top';
 
 export default Vue.extend({

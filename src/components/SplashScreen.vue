@@ -7,7 +7,8 @@
 
 <script lang="js">
 import Vue from 'vue';
-import { getLogoUrl } from '@/utils/common';
+
+import { getLogoUrl } from '../utils/common';
 
 export default Vue.extend({
   name: 'SplashScreen',

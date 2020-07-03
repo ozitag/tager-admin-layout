@@ -3,8 +3,8 @@ import { configStore } from '@tager/admin-services';
 import { AdminUiPlugin } from '@tager/admin-ui';
 import '@tager/admin-ui/dist/admin-ui.css';
 
-import { createRouter } from '@/router';
-import { AdminLayoutPlugin } from '@/plugin';
+import { createRouter } from './router';
+import { AdminLayoutPlugin } from './plugin';
 
 const TEST_CONFIG = {
   APP_NAME: 'OZiTAG_ADMIN',

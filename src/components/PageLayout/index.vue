@@ -33,9 +33,12 @@ import Vue from 'vue';
 import { request, configStore, RequestError } from '@tager/admin-services';
 import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
 
-import SplashScreen from '@/components/SplashScreen.vue';
-import { TranslatePlugin } from '@/i18n';
-import { isProduction, removeTokenAndRedirectToLogin } from '@/utils/common';
+import SplashScreen from '../SplashScreen.vue';
+import { TranslatePlugin } from '../../i18n';
+import {
+  isProduction,
+  removeTokenAndRedirectToLogin,
+} from '../../utils/common';
 
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/NavBar.vue';

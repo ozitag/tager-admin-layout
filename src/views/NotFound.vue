@@ -20,8 +20,9 @@
 
 <script lang="js">
 import Vue from 'vue';
-import LampSvgImage from '@/assets/svg/lamp.svg';
 import { BaseButton } from '@tager/admin-ui';
+
+import LampSvgImage from '../assets/svg/lamp.svg';
 
 export default Vue.extend({
   name: 'NotFound',

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { configStore } from '@tager/admin-services';
 
-import NotFound from '@/views/NotFound';
+import NotFound from './views/NotFound';
 
 const NOT_FOUND_ROUTE = {
   path: '*',

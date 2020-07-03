@@ -1,6 +1,3 @@
-import path from 'path';
-
-import alias from '@rollup/plugin-alias';
 import resolve from '@rollup/plugin-node-resolve';
 import svg from 'rollup-plugin-vue-inline-svg';
 import vue from 'rollup-plugin-vue';
@@ -45,14 +42,6 @@ export default {
     '@babel/runtime',
   ],
   plugins: [
-    alias({
-      entries: [
-        {
-          find: /^@\/(.*)$/,
-          replacement: `${path.resolve(__dirname, 'src')}/$1`,
-        },
-      ],
-    }),
     resolve({ extensions: ['.js', '.css', '.svg', '.vue'] }),
     commonjs(),
     svg({ svgoConfig: { plugins: [{ removeViewBox: false }] } }),

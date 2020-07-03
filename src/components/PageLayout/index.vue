@@ -150,7 +150,7 @@ export default Vue.extend({
 .main {
   background-color: #f3f3f3;
   min-height: 100vh;
-  padding: 75px 0 0 10px;
+  padding: 75px 10px 0 10px;
   display: flex;
   flex-direction: column;
 }

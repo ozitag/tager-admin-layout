@@ -46,12 +46,12 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .container {
-  width: 100%;
   padding: 0;
   background: #fff;
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-right: -10px;
 }
 
 .content-outer {

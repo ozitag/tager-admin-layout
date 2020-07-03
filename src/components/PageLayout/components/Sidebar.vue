@@ -415,7 +415,7 @@ export default Vue.extend({
   padding: 0.75rem 0.5rem 0.75rem;
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.0625);
-  min-height: 50px;
+  min-height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -423,7 +423,8 @@ export default Vue.extend({
   .brand {
     display: block;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
+    font-size: 20px;
   }
 }
 </style>

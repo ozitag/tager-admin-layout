@@ -80,7 +80,7 @@ export default Vue.extend({
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #eee;
-  padding: 10px 15px;
+  padding: 8px 15px;
   min-height: 50px;
   background: #fff;
   margin: 0 0 0;

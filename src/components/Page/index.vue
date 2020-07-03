@@ -7,9 +7,17 @@
       :top-slot="$slots.top"
     ></top>
 
-    <div class="content">
-      <slot name="content"></slot>
+    <div class="content-outer">
+      <div class="content">
+        <div class="content-inner">
+          <slot name="content"></slot>
+        </div>
+      </div>
     </div>
+
+    <footer v-if="!isFooterHidden" class="footer">
+      <slot name="footer"></slot>
+    </footer>
   </div>
 </template>
 
@@ -30,7 +38,8 @@ export default Vue.extend({
       type: Array,
       default: () => []
     },
-    isHeaderHidden: Boolean
+    isHeaderHidden: Boolean,
+    isFooterHidden: Boolean
   },
 });
 </script>
@@ -41,10 +50,37 @@ export default Vue.extend({
   padding: 0;
   background: #fff;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-outer {
+  position: relative;
+  background-color: white;
+  padding: 1rem;
+  flex: 1;
 }
 
 .content {
-  background-color: white;
-  padding: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.content-inner {
+  max-height: 100%;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding: 10px 15px;
+  min-height: 60px;
 }
 </style>

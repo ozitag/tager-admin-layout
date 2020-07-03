@@ -81,7 +81,7 @@ export default Vue.extend({
   align-items: center;
   border-top: 1px solid #eee;
   padding: 8px 15px;
-  min-height: 50px;
+  min-height: 55px;
   background: #fff;
   margin: 0 0 0;
   font-size: 14px;

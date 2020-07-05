@@ -15,9 +15,14 @@
       </div>
     </div>
 
-    <footer v-if="!isFooterHidden" class="footer">
-      <slot name="footer"></slot>
-    </footer>
+    <page-footer
+      v-if="isFooterEnabled"
+      :back-href="footer.backHref"
+      :back-label="footer.backLabel"
+      :on-submit="footer.onSubmit"
+      :submit-label="footer.submitLabel"
+      :footer-slot="$slots.footer"
+    ></page-footer>
   </div>
 </template>
 
@@ -25,10 +30,11 @@
 import Vue from 'vue';
 
 import Top from './components/Top';
+import PageFooter from './components/PageFooter';
 
 export default Vue.extend({
   name: 'Page',
-  components: { Top },
+  components: { Top, PageFooter },
   props: {
     title: {
       type: String,
@@ -38,8 +44,16 @@ export default Vue.extend({
       type: Array,
       default: () => []
     },
+    footer: {
+      type: Object,
+      default: () => { return {}; }
+    },
     isHeaderHidden: Boolean,
-    isFooterHidden: Boolean
+  },
+  computed: {
+    isFooterEnabled() {
+      return this.$slots.footer || Object.keys(this.footer).length !== 0;
+    }
   },
 });
 </script>
@@ -73,17 +87,5 @@ export default Vue.extend({
   max-height: 100%;
   overflow: auto;
   padding: 1rem;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #eee;
-  padding: 8px 15px;
-  min-height: 55px;
-  background: #fff;
-  margin: 0 0 0;
-  font-size: 14px;
 }
 </style>

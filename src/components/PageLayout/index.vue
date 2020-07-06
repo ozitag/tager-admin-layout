@@ -13,7 +13,10 @@
         :brand-config="brandConfig"
       />
       <div
-        :class="['page-container', { 'sidebar-collapsed': isSidebarCollapsed }]"
+        :class="[
+          'page-layout-container',
+          { 'sidebar-collapsed': isSidebarCollapsed },
+        ]"
       >
         <navbar
           :is-sidebar-collapsed="isSidebarCollapsed"
@@ -135,7 +138,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.page-container {
+.page-layout-container {
   position: relative;
   min-height: 100vh;
   transition: all 0.3s linear;

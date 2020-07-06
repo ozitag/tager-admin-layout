@@ -1,7 +1,11 @@
 import Vue, { PluginFunction, VueConstructor } from 'vue';
-import VueRouter, { Route, RouteConfig, RouterOptions } from 'vue-router';
+import VueRouter, { Route, RouterOptions } from 'vue-router';
 import { Nullish } from '@tager/admin-services';
 import { IconName } from '@tager/admin-ui';
+import {
+  RouteConfigMultipleViews,
+  RouteConfigSingleView,
+} from 'vue-router/types/router';
 
 export type MenuItemType = {
   id: string;
@@ -21,17 +25,26 @@ export type RouteMeta = {
   getBreadcrumbs: (route: CustomRoute) => Array<Breadcrumb>;
 };
 
-export type CustomRoute = Omit<Route, 'meta'> & {
+export interface CustomRoute extends Route {
   meta?: RouteMeta;
-};
+}
 
-export type CustomRouteConfig = Omit<RouteConfig, 'meta'> & {
+export interface CustomRouteConfigSingleView extends RouteConfigSingleView {
   meta?: RouteMeta;
-};
+}
 
-export type CustomRouterOptions = Omit<RouterOptions, 'routes'> & {
+export interface CustomRouteConfigMultipleViews
+  extends RouteConfigMultipleViews {
+  meta?: RouteMeta;
+}
+
+export type CustomRouteConfig =
+  | CustomRouteConfigSingleView
+  | CustomRouteConfigMultipleViews;
+
+export interface CustomRouterOptions extends RouterOptions {
   routes?: Array<CustomRouteConfig>;
-};
+}
 
 export declare function createRouter(
   routerOptions?: CustomRouterOptions,

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="page-container">
     <top
       v-if="!isHeaderHidden"
       :title="title"
@@ -59,7 +59,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.container {
+.page-container {
   padding: 0;
   background: #fff;
   flex: 1;

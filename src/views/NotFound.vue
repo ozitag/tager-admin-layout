@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="not-found-page-container">
     <div class="image-container">
       <lamp-svg-image />
     </div>
@@ -36,7 +36,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.container {
+.not-found-page-container {
   flex: 1;
   width: 100%;
   padding: 0 15px;

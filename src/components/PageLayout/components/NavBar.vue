@@ -48,7 +48,10 @@ export default Vue.extend({
   components: { SvgIcon, BaseButton },
   props: {
     isSidebarCollapsed: Boolean,
-    userName: String
+    userName: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
@@ -136,7 +139,7 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px 0 25px
+  padding: 0 15px 0 25px;
 }
 
 .right-block {

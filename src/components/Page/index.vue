@@ -21,6 +21,7 @@
       :back-label="footer.backLabel"
       :on-submit="footer.onSubmit"
       :submit-label="footer.submitLabel"
+      :is-submitting="footer.isSubmitting"
       :footer-slot="$slots.footer"
     ></page-footer>
   </div>

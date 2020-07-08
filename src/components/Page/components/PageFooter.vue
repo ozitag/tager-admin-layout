@@ -24,6 +24,7 @@ export default Vue.extend({
       type: String,
       default: 'Submit'
     },
+    isSubmitButtonDisabled: Boolean,
     isSubmitting: Boolean,
     footerSlot: {
       type: [Object, Array],
@@ -41,7 +42,11 @@ export default Vue.extend({
         }, context.props.backLabel),
         createElement(BaseButton, {
           class: 'footer-button',
-          props: { variant: 'primary', loading: context.props.isSubmitting },
+          props: {
+            variant: 'primary',
+            loading: context.props.isSubmitting,
+            disabled: context.props.isSubmitButtonDisabled
+          },
           on: {
             click: (event) => {
               context.props.onSubmit(event);

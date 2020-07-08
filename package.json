@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-layout",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -29,7 +29,7 @@
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@tager/admin-services": "^0.0.7",
-    "@tager/admin-ui": "^0.4.9-rc.1",
+    "@tager/admin-ui": "^0.4.9",
     "@vue/cli-plugin-babel": "~4.4.6",
     "@vue/cli-plugin-eslint": "~4.4.6",
     "@vue/cli-plugin-router": "~4.4.6",

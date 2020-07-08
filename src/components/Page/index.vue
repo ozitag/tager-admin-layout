@@ -8,8 +8,13 @@
     ></top>
 
     <div class="content-outer">
-      <div class="content">
+      <div :class="['content', { loading: isContentLoading }]">
+        <div class="content-loading-overlay">
+          <spinner size="50" />
+        </div>
+
         <div class="content-inner">
+          <slot name="default"></slot>
           <slot name="content"></slot>
         </div>
       </div>
@@ -21,6 +26,7 @@
       :back-label="footer.backLabel"
       :on-submit="footer.onSubmit"
       :submit-label="footer.submitLabel"
+      :is-submit-button-disabled="isContentLoading"
       :is-submitting="footer.isSubmitting"
       :footer-slot="$slots.footer"
     ></page-footer>
@@ -49,6 +55,7 @@ export default Vue.extend({
       type: Object,
       default: () => { return {}; }
     },
+    isContentLoading: Boolean,
     isHeaderHidden: Boolean,
   },
   computed: {
@@ -72,7 +79,6 @@ export default Vue.extend({
 .content-outer {
   position: relative;
   background-color: white;
-  padding: 1rem;
   flex: 1;
 }
 
@@ -82,6 +88,29 @@ export default Vue.extend({
   right: 0;
   bottom: 0;
   left: 0;
+
+  &.loading {
+    .content-inner {
+      filter: blur(3px);
+    }
+
+    .content-loading-overlay {
+      display: flex;
+    }
+  }
+}
+
+.content-loading-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(243, 243, 243, 0.25);
+  z-index: 10;
 }
 
 .content-inner {

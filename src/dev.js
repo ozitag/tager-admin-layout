@@ -31,7 +31,7 @@ const TEST_CONFIG = {
 
 configStore.setConfig(TEST_CONFIG);
 
-const router = createRouter();
+const router = createRouter({}, { useTitleSync: false });
 
 const sidebarMenuList = [
   {
@@ -102,8 +102,9 @@ new Vue({
     },
   },
   template: `
-      <page-layout v-bind:sidebar-menu-list="sidebarMenuList">
+      <page-layout v-bind:sidebar-menu-list="sidebarMenuList" >
           <page title="Page Title" :header-buttons="headerButtons"
+                :is-content-loading="false"
                 :footer="{ backHref: '/home', backLabel: 'Back to presets', submitLabel: 'Submit form', onSubmit: saySubmit, isSubmitting: false }">
               <template v-slot:content>
                   <div style="max-width: 400px;">
@@ -156,7 +157,6 @@ new Vue({
                       injected humour, or non-characteristic words etc.
                   </div>
               </template>
-
               <!--            <template slot="footer">-->
               <!--                <h2>Footer</h2>-->
               <!--                <base-button></base-button>-->

@@ -33,25 +33,30 @@
 
 <script>
 import Vue from 'vue';
-import { request, configStore, RequestError } from '@tager/admin-services';
+import {
+  configStore,
+  RequestError,
+  addTranslations,
+} from '@tager/admin-services';
 import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
 
 import SplashScreen from '../SplashScreen.vue';
-import { TranslatePlugin } from '../../i18n';
 import {
   isProduction,
   removeTokenAndRedirectToLogin,
 } from '../../utils/common';
 
+import RU from '../../i18n/locales/ru';
+import EN from '../../i18n/locales/en';
+
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/NavBar.vue';
+import { getUserProfile } from '../../services/requests';
 
-function getProfile() {
-  return request.get({ path: '/self' });
-}
+addTranslations('ru', 'layout', RU);
+addTranslations('en', 'layout', EN);
 
 Vue.use(ToastPlugin);
-Vue.use(TranslatePlugin);
 
 export default Vue.extend({
   name: 'PageLayout',
@@ -93,7 +98,7 @@ export default Vue.extend({
     },
   },
   mounted() {
-    getProfile()
+    getUserProfile()
       .then((response) => {
         this.profile = response.data;
         this.isLoading = false;

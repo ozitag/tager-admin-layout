@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { configStore } from '@tager/admin-services';
+import { configStore, TranslationPlugin } from '@tager/admin-services';
 import { AdminUiPlugin } from '@tager/admin-ui';
 import '@tager/admin-ui/dist/admin-ui.css';
 
@@ -77,6 +77,7 @@ const sidebarMenuList = [
 
 Vue.use(AdminUiPlugin);
 Vue.use(AdminLayoutPlugin);
+Vue.use(TranslationPlugin);
 
 new Vue({
   router,
@@ -91,6 +92,7 @@ new Vue({
           href: 'http://ozitag.com',
         },
       ],
+      displayRouterView: true,
     };
   },
   methods: {
@@ -103,7 +105,8 @@ new Vue({
   },
   template: `
       <page-layout v-bind:sidebar-menu-list="sidebarMenuList" >
-          <page title="Page Title" :header-buttons="headerButtons"
+          <router-view v-if="displayRouterView"/>
+          <page v-else title="Page Title" :header-buttons="headerButtons"
                 :is-content-loading="false"
                 :footer="{ backHref: '/home', backLabel: 'Back to presets', submitLabel: 'Submit form', onSubmit: saySubmit, isSubmitting: false }">
               <template v-slot:content>

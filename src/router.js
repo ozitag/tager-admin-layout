@@ -3,11 +3,25 @@ import VueRouter from 'vue-router';
 import { configStore } from '@tager/admin-services';
 
 import NotFound from './views/NotFound';
+import UpdateProfileForm from './views/UpdateProfileForm';
+import UpdateUserPasswordForm from './views/UpdateUserPasswordForm';
 
 const NOT_FOUND_ROUTE = {
   path: '*',
   name: 'Not Found',
   component: NotFound,
+};
+
+const USER_PROFILE_FORM_ROUTE = {
+  path: '/profile',
+  name: 'Change profile',
+  component: UpdateProfileForm,
+};
+
+const USER_PASSWORD_FORM_ROUTE = {
+  path: '/profile/password',
+  name: 'Change password',
+  component: UpdateUserPasswordForm,
 };
 
 export function createRouter(userRouterOptions = {}, userParams = {}) {
@@ -16,10 +30,14 @@ export function createRouter(userRouterOptions = {}, userParams = {}) {
   const defaultRouterOptions = {
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: [NOT_FOUND_ROUTE],
+    routes: [
+      USER_PASSWORD_FORM_ROUTE,
+      USER_PROFILE_FORM_ROUTE,
+      NOT_FOUND_ROUTE,
+    ],
   };
   const defaultParams = {
-    useNotFoundRoute: true,
+    shouldMergeRoutes: true,
     useTitleSync: true,
   };
 
@@ -29,9 +47,13 @@ export function createRouter(userRouterOptions = {}, userParams = {}) {
   };
   const params = { ...defaultParams, ...userParams };
 
-  if (params.useNotFoundRoute) {
-    routerOptions.routes = [...routerOptions.routes, NOT_FOUND_ROUTE];
+  if (params.shouldMergeRoutes) {
+    routerOptions.routes = [
+      ...(userRouterOptions.routes ?? []),
+      ...defaultRouterOptions.routes,
+    ];
   }
+  console.log('routerOptions', routerOptions);
 
   const router = new VueRouter(routerOptions);
 

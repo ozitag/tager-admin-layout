@@ -48,7 +48,7 @@ export interface CustomRouterOptions extends RouterOptions {
 
 export declare function createRouter(
   routerOptions?: CustomRouterOptions,
-  params?: { useNotFoundRoute?: boolean; useTitleSync?: boolean }
+  params?: { shouldMergeRoutes?: boolean; useTitleSync?: boolean }
 ): VueRouter;
 
 export type TopButtonConfig = {

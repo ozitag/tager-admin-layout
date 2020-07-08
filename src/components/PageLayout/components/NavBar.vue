@@ -19,14 +19,7 @@
       </div>
 
       <div class="right-block">
-        <span class="user-name">{{ userName }}</span>
-        <base-button
-          variant="outline-secondary"
-          :loading="isSignOutInProgress"
-          @click="logout"
-        >
-          {{ $t('logout') }}
-        </base-button>
+        <profile-dropdown :user-name="userName" />
       </div>
     </div>
   </div>
@@ -34,18 +27,12 @@
 
 <script lang="js">
 import Vue from 'vue';
-
-import { request, RequestError } from '@tager/admin-services';
 import { BaseButton, SvgIcon } from '@tager/admin-ui';
 
-import { isDevelopment, isProduction, removeTokenAndRedirectToLogin } from '../../../utils/common';
-
-function signOut() {
-  return request.post({ path: '/self/logout' });
-}
+import ProfileDropdown from './ProfileDropdown';
 
 export default Vue.extend({
-  components: { SvgIcon, BaseButton },
+  components: { SvgIcon, BaseButton, ProfileDropdown },
   props: {
     isSidebarCollapsed: Boolean,
     userName: {
@@ -55,7 +42,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      isSignOutInProgress: false
+      isSignOutInProgress: false,
     };
   },
   computed: {
@@ -67,49 +54,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    logout() {
-      const handleError = () => {
-        this.$toast({
-          variant: 'danger',
-          title: 'Error',
-          body: 'Server error'
-        });
-        this.isSignOutInProgress = false;
-      };
-
-      const handleRedirect = () => {
-        if (isDevelopment()) {
-          this.isSignOutInProgress = false;
-        } else {
-          removeTokenAndRedirectToLogin();
-        }
-      };
-
-      this.isSignOutInProgress = true;
-
-      signOut()
-        .then(response => {
-          if (response.success) {
-            handleRedirect();
-          } else {
-            handleError();
-          }
-        })
-        .catch(error => {
-          console.error(error);
-
-          if (error instanceof RequestError && error.status.code === 401 && isProduction()) {
-            removeTokenAndRedirectToLogin();
-          } else {
-            this.$toast({
-              variant: 'danger',
-              title: 'Error',
-              body: 'Server error'
-            });
-            this.isSignOutInProgress = false;
-          }
-        });
-    },
     toggleSidebar() {
       this.$emit('sidebar-toggle');
     }
@@ -189,10 +133,5 @@ export default Vue.extend({
       height: 16px;
     }
   }
-}
-
-.user-name {
-  font-weight: 600;
-  margin-right: 1.5rem;
 }
 </style>

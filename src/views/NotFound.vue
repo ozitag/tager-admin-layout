@@ -5,13 +5,13 @@
     </div>
     <div class="content">
       <h1 class="status-code">404</h1>
-      <h3 class="status-text">{{ $t('pageNotFoundTitle') }}</h3>
+      <h3 class="status-text">{{ $t('layout:pageNotFoundTitle') }}</h3>
       <p class="message">
-        {{ $t('pageNotFoundMessage') }}
+        {{ $t('layout:pageNotFoundMessage') }}
       </p>
       <div>
         <base-button variant="outline-secondary" @click="goToHome">
-          {{ $t('goToHome') }}
+          {{ $t('layout:goToHome') }}
         </base-button>
       </div>
     </div>

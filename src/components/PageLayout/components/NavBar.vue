@@ -70,6 +70,7 @@ export default Vue.extend({
   padding: 0;
   position: fixed;
   transition: width 0.3s linear;
+  min-width: 500px;
   width: calc(100% - 280px);
   z-index: 800;
 

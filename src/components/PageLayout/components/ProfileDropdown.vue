@@ -98,7 +98,6 @@ export default Vue.extend({
 <style scoped lang="scss">
 .dropdown {
   position: relative;
-  margin-right: 1.5rem;
 
   .menu {
     right: 0;

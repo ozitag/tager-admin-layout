@@ -1,10 +1,12 @@
 import Vue from 'vue';
-import { configStore, TranslationPlugin } from '@tager/admin-services';
+import { configStore, i18n } from '@tager/admin-services';
 import { AdminUiPlugin } from '@tager/admin-ui';
 import '@tager/admin-ui/dist/admin-ui.css';
 
 import { createRouter } from './router';
 import { AdminLayoutPlugin } from './plugin';
+import RU from './i18n/locales/ru';
+import EN from './i18n/locales/en';
 
 const TEST_CONFIG = {
   APP_NAME: 'OZiTAG_ADMIN',
@@ -77,33 +79,38 @@ const sidebarMenuList = [
 
 Vue.use(AdminUiPlugin);
 Vue.use(AdminLayoutPlugin);
-Vue.use(TranslationPlugin);
 
-new Vue({
-  router,
-  data() {
-    return {
-      sidebarMenuList,
-      headerButtons: [
-        { variant: 'secondary', text: 'say cow2', onClick: this.sayCow },
-        {
-          variant: 'secondary',
-          text: 'Create entity link',
-          href: 'http://ozitag.com',
-        },
-      ],
-      displayRouterView: true,
-    };
-  },
-  methods: {
-    sayCow() {
-      alert('Cooow');
+i18n.addTranslations('ru', 'layout', RU);
+i18n.addTranslations('en', 'layout', EN);
+
+i18n.init({ debug: true, lng: 'ru' }).then(() => {
+  Vue.use(i18n.getPlugin());
+
+  new Vue({
+    router,
+    data() {
+      return {
+        sidebarMenuList,
+        headerButtons: [
+          { variant: 'secondary', text: 'say cow2', onClick: this.sayCow },
+          {
+            variant: 'secondary',
+            text: 'Create entity link',
+            href: 'http://ozitag.com',
+          },
+        ],
+        displayRouterView: true,
+      };
     },
-    saySubmit() {
-      alert('submiiiit');
+    methods: {
+      sayCow() {
+        alert('Cooow');
+      },
+      saySubmit() {
+        alert('submiiiit');
+      },
     },
-  },
-  template: `
+    template: `
       <page-layout v-bind:sidebar-menu-list="sidebarMenuList" >
           <router-view v-if="displayRouterView"/>
           <page v-else title="Page Title" :header-buttons="headerButtons"
@@ -167,4 +174,5 @@ new Vue({
           </page>
       </page-layout>
   `,
-}).$mount('#app');
+  }).$mount('#app');
+});

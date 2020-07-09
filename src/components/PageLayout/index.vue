@@ -33,11 +33,7 @@
 
 <script>
 import Vue from 'vue';
-import {
-  configStore,
-  RequestError,
-  addTranslations,
-} from '@tager/admin-services';
+import { configStore, RequestError } from '@tager/admin-services';
 import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
 
 import SplashScreen from '../SplashScreen.vue';
@@ -46,15 +42,9 @@ import {
   removeTokenAndRedirectToLogin,
 } from '../../utils/common';
 
-import RU from '../../i18n/locales/ru';
-import EN from '../../i18n/locales/en';
-
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/NavBar.vue';
 import { getUserProfile } from '../../services/requests';
-
-addTranslations('ru', 'layout', RU);
-addTranslations('en', 'layout', EN);
 
 Vue.use(ToastPlugin);
 

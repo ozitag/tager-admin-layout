@@ -1,9 +1,9 @@
 <template>
   <page
-    title="Change password"
+    :title="$t('layout:changeUserPassword')"
     :footer="{
       backHref: '/',
-      backLabel: 'Back',
+      backLabel: $t('layout:back'),
       onSubmit: submitForm,
       isSubmitting: isSubmitting,
     }"
@@ -12,15 +12,17 @@
       <form-field
         v-model="values.oldPassword"
         name="oldPassword"
-        label="Current password"
+        :label="$t('layout:currentPassword')"
         :error="errors.oldPassword"
+        type="password"
       />
 
       <form-field
         v-model="values.newPassword"
         name="newPassword"
-        label="New password"
+        :label="$t('layout:newPassword')"
         :error="errors.newPassword"
+        type="password"
       />
     </form>
   </page>
@@ -34,7 +36,7 @@ import {
 import { updateUserPassword } from '../services/requests';
 
 export default Vue.extend({
-  name: 'UpdateProfileForm',
+  name: 'UpdateUserPasswordForm',
   data() {
     return {
       values: {
@@ -49,8 +51,6 @@ export default Vue.extend({
     submitForm() {
       this.isSubmitting = true;
 
-      console.log('Submit form', this.values);
-
       updateUserPassword(this.values)
         .then(() => {
           this.errors = {};
@@ -59,7 +59,7 @@ export default Vue.extend({
           this.$toast({
             variant: 'success',
             title: 'Success',
-            body: `Password successfully changed`,
+            body: this.$t('layout:changeUserPasswordSuccess'),
           });
         })
         .catch((error) => {
@@ -68,7 +68,7 @@ export default Vue.extend({
           this.$toast({
             variant: 'danger',
             title: 'Error',
-            body: `Password update was failed`,
+            body: this.$t('layout:changeUserPasswordFailure'),
           });
         })
         .finally(() => {

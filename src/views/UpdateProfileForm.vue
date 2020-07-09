@@ -1,10 +1,10 @@
 <template>
   <page
-    title="Change profile"
+    :title="$t('layout:changeUserProfile')"
     :is-content-loading="isInitialLoading"
     :footer="{
       backHref: '/',
-      backLabel: 'Back',
+      backLabel: $t('layout:back'),
       onSubmit: submitForm,
       isSubmitting: isSubmitting,
     }"
@@ -13,14 +13,14 @@
       <form-field
         v-model="values.name"
         name="name"
-        label="Name"
+        :label="$t('layout:name')"
         :error="errors.name"
       />
 
       <form-field
         v-model="values.email"
         name="email"
-        label="Email"
+        :label="$t('layout:email')"
         :error="errors.email"
       />
     </form>
@@ -100,7 +100,7 @@ export default Vue.extend({
           this.$toast({
             variant: 'success',
             title: 'Success',
-            body: `Profile successfully changed`,
+            body: this.$t('layout:changeUserProfileSuccess'),
           });
         })
         .catch((error) => {
@@ -109,7 +109,7 @@ export default Vue.extend({
           this.$toast({
             variant: 'danger',
             title: 'Error',
-            body: `Profile update was failed`,
+            body: this.$t('layout:changeUserProfileFailure'),
           });
         })
         .finally(() => {

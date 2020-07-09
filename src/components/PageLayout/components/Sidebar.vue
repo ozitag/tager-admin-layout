@@ -32,8 +32,8 @@
             :class="[
               'menu-item',
               {
-                active: isMenuItemActive(menuItem.id),
-                expanded: isMenuItemOpen(menuItem.id),
+                active: menuItem.id === activeItemId,
+                expanded: openItemIdList.includes(menuItem.id),
               },
             ]"
           >
@@ -150,9 +150,33 @@ export default Vue.extend({
       } else {
         return Boolean(this.brandName);
       }
+    },
+    activeItemId() {
+      const activeItem = this.menuItemList.find(
+        menuItem => menuItem.children
+          ? menuItem.children.some(
+            childItem => childItem.path === this.$route.path
+          )
+          : menuItem.path === this.$route.path
+      );
+
+      return activeItem ? activeItem.id : null;
     }
   },
+  watch: {
+    activeItemId() {
+      this.openActiveItem();
+    }
+  },
+  mounted() {
+    this.openActiveItem();
+  },
   methods: {
+    openActiveItem() {
+      if (this.activeItemId && !this.openItemIdList.includes(this.activeItemId)) {
+        this.openItemIdList.push(this.activeItemId);
+      }
+    },
     handleMouseOver() {
       this.isHovered = true;
     },
@@ -166,22 +190,6 @@ export default Vue.extend({
         this.openItemIdList.push(itemId);
       }
     },
-    isMenuItemActive(itemId) {
-      const foundItem = this.menuItemList.find(
-        menuItem => menuItem.id === itemId
-      );
-
-      if (!foundItem) return false;
-
-      return foundItem.children
-        ? foundItem.children.some(
-          childItem => childItem.path === this.$route.path
-        )
-        : foundItem.path === this.$route.path;
-    },
-    isMenuItemOpen(itemId) {
-      return this.openItemIdList.includes(itemId);
-    }
   }
 });
 </script>
@@ -386,10 +394,12 @@ export default Vue.extend({
 
 .child-menu-item {
   padding: 0 0 0 50px;
+
   &:first-child {
     padding-top: 0;
     margin-top: -5px;
   }
+
   &:last-child {
     padding-bottom: 0;
   }

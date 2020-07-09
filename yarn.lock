@@ -1663,10 +1663,10 @@
   dependencies:
     i18next "^19.5.4"
 
-"@tager/admin-ui@^0.4.12":
-  version "0.4.12"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.4.12.tgz#d79c0f30ff7d96d64e431c2f793732b795a6caf6"
-  integrity sha512-v2VxT0L60wnLkG+Dj7EQc4rLcsmk5IsU/yGK/fWbEJZs8DaJ8iLHP0+xoX9OZsoWrS0SgWIkY9aE/SfMBGqCow==
+"@tager/admin-ui@^0.4.13":
+  version "0.4.13"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.4.13.tgz#836608e4cd908f2c8a934a7c96844d7fac0146a1"
+  integrity sha512-wiDRflFYv+XQyRXM/4eal4h7DS/qJPb5mdOLJ8J8FusOEefR/IX0ODDm6erIza3mirs9H/W1SI5iG2peMhP4pg==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@ckeditor/ckeditor5-build-classic" "^19.0.2"

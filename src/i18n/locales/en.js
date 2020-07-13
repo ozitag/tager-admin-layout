@@ -18,6 +18,7 @@ const EN = {
   pageNotFoundMessage:
     'The page you are looking for does not exist or has been moved.',
   goToHome: 'Go To Home',
+  openWebsite: 'Open website',
 };
 
 export default EN;

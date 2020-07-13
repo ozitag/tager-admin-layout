@@ -19,7 +19,16 @@
       </div>
 
       <div class="right-block">
-        <profile-dropdown :user-name="userName" />
+        <base-button
+          v-if="Boolean(websiteLink)"
+          variant="outline-secondary"
+          class="website-button"
+          :href="websiteLink.url"
+          target="_blank"
+        >
+          {{ websiteLink.label }}
+        </base-button>
+        <profile-dropdown v-if="userName" :user-name="userName" />
       </div>
     </div>
   </div>
@@ -38,6 +47,10 @@ export default Vue.extend({
     userName: {
       type: String,
       default: ''
+    },
+    websiteLink: {
+      type: Object,
+      default: null
     }
   },
   data() {
@@ -91,6 +104,10 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   margin-left: 10px;
+
+  .website-button:not(:last-child) {
+    margin-right: 2rem;
+  }
 }
 
 .left-block {

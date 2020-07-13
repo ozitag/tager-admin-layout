@@ -111,7 +111,7 @@ i18n.init({ debug: true, lng: 'ru' }).then(() => {
       },
     },
     template: `
-      <page-layout v-bind:sidebar-menu-list="sidebarMenuList" >
+      <page-layout v-bind:sidebar-menu-list="sidebarMenuList">
           <router-view v-if="displayRouterView"/>
           <page v-else title="Page Title" :header-buttons="headerButtons"
                 :is-content-loading="false"

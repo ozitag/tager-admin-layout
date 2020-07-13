@@ -18,6 +18,7 @@ const RU = {
   pageNotFoundMessage:
     'Страница, которую вы ищете, не существует или была удалена.',
   goToHome: 'Перейти на главную',
+  openWebsite: 'Открыть сайт',
 };
 
 export default RU;

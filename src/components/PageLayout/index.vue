@@ -21,6 +21,7 @@
         <navbar
           :is-sidebar-collapsed="isSidebarCollapsed"
           :user-name="userName"
+          :website-link="computedWebsiteLink"
           @sidebar-toggle="handleSidebarToggle"
         ></navbar>
         <main class="main">
@@ -41,10 +42,10 @@ import {
   isProduction,
   removeTokenAndRedirectToLogin,
 } from '../../utils/common';
+import { getUserProfile } from '../../services/requests';
 
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/NavBar.vue';
-import { getUserProfile } from '../../services/requests';
 
 Vue.use(ToastPlugin);
 
@@ -55,6 +56,10 @@ export default Vue.extend({
     sidebarMenuList: {
       type: Array,
       default: () => [],
+    },
+    websiteLink: {
+      type: Object,
+      default: () => ({}),
     },
   },
   data() {
@@ -85,6 +90,14 @@ export default Vue.extend({
         this.isSplashScreenEnabled &&
         (this.isTimeoutInProgress || this.isLoading)
       );
+    },
+    computedWebsiteLink() {
+      const defaultLink = {
+        url: process.env.VUE_APP_WEBSITE_URL || window.location.origin,
+        label: this.$t('layout:openWebsite'),
+      };
+
+      return this.websiteLink ? { ...defaultLink, ...this.websiteLink } : null;
     },
   },
   mounted() {

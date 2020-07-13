@@ -6,6 +6,8 @@ import NotFound from './views/NotFound';
 import UpdateProfileForm from './views/UpdateProfileForm';
 import UpdateUserPasswordForm from './views/UpdateUserPasswordForm';
 
+const HOME_BREADCRUMB = { path: '/', label: 'Home' };
+
 const NOT_FOUND_ROUTE = {
   path: '*',
   name: 'Not Found',
@@ -16,12 +18,24 @@ const USER_PROFILE_FORM_ROUTE = {
   path: '/profile',
   name: 'Change profile',
   component: UpdateProfileForm,
+  meta: {
+    getBreadcrumbs: (route) => [
+      HOME_BREADCRUMB,
+      { path: route.path, label: route.name },
+    ],
+  },
 };
 
 const USER_PASSWORD_FORM_ROUTE = {
   path: '/profile/password',
   name: 'Change password',
   component: UpdateUserPasswordForm,
+  meta: {
+    getBreadcrumbs: (route) => [
+      HOME_BREADCRUMB,
+      { path: route.path, label: route.name },
+    ],
+  },
 };
 
 export function createRouter(userRouterOptions = {}, userParams = {}) {

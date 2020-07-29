@@ -1656,17 +1656,17 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.0.tgz#623aa40623550e3b94767cffeb096a6fb597ed09"
   integrity sha512-9GvTek+7cVw7r+L7TNGOG1astZJWXz2h5q4BqMXl28KN+24iSCm1xo+RhZOZvwdT3bzNe9hD7riJc/lBoO7mgg==
 
-"@tager/admin-services@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.1.5.tgz#1b489c0028ac9bb1d60cc141404dcdd15a9374fb"
-  integrity sha512-7tPiRFZ2IvcrrWlC9NmWn2J0fT7THQnCR32r/7fZrM+lSJhmi8QdMJvdPkP5JauSKaKtMIIApDQFrM5u5GY5tw==
+"@tager/admin-services@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.0.tgz#b7c4fe0bb6fe1270959e7685f1a360f401ee2573"
+  integrity sha512-I7/7XQXLvdxsFE7noKNZHQrfPADw4bLDoV4YuipEcZ3U67ILmnfM+njxfHWGPK2bTo3bqQjEw0A1SGHdFhFv9Q==
   dependencies:
-    i18next "^19.5.4"
+    i18next "^19.6.3"
 
-"@tager/admin-ui@^0.4.18":
-  version "0.4.18"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.4.18.tgz#1a6e254d7d43f9b224cd2205b5bf66d918d0a708"
-  integrity sha512-r44obiobon3mQvQemu+0CvWHZMSe1fGBx+UL/jh6nVNZTI8EGwp+FVyHW+pkPgUTUOkbUBQ0z7tsi2boyeaEWg==
+"@tager/admin-ui@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.5.2.tgz#faa1312ac40e38a1920c7700e69f551919290635"
+  integrity sha512-tyM8Ru1zYZ4PcfXGU3lVwAfJ6JlDZt362L2KUo0zzAX4RvRvuQ1Y+lnT9c3xJ4qCPO4lIR+jfg4hz8Ln/RH9Yg==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@ckeditor/ckeditor5-build-classic" "^19.0.2"
@@ -5417,10 +5417,10 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
-i18next@^19.5.4:
-  version "19.5.4"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.5.4.tgz#86e4b44993621f39ab53f95a24afa69caea0a452"
-  integrity sha512-fty+v8v0Unn8KufOajoZ6OR5aKme/lP+BdbT5rirTXE8wdj6LbsbG9DwtI9VtMeru1PEf+L530Cq3IRmovMJGQ==
+i18next@^19.6.3:
+  version "19.6.3"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.6.3.tgz#ce2346161b35c4c5ab691b0674119c7b349c0817"
+  integrity sha512-eYr98kw/C5z6kY21ti745p4IvbOJwY8F2T9tf/Lvy5lFnYRqE45+bppSgMPmcZZqYNT+xO0N0x6rexVR2wtZZQ==
   dependencies:
     "@babel/runtime" "^7.10.1"
 

@@ -84,11 +84,11 @@ export default Vue.extend({
   position: fixed;
   transition: width 0.3s linear;
   min-width: 500px;
-  width: calc(100% - 280px);
+  width: calc(100% - var(--sidebar-width));
   z-index: 800;
 
   &.sidebar-collapsed {
-    width: calc(100% - 70px);
+    width: calc(100% - var(--sidebar-colapsed-width));
   }
 }
 

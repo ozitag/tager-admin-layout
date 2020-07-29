@@ -3,8 +3,12 @@
     <div class="sidebar-inner">
       <div class="sidebar-top">
         <div class="sidebar-brand">
-          <div v-if="shouldDisplayLogo" class="logo-container">
-            <img :src="logoUrl" alt="" />
+          <div
+            v-if="shouldDisplayLogo"
+            class="logo-container"
+            data-sidebar-logo-container
+          >
+            <img :src="logoUrl" alt="" data-sidebar-logo />
           </div>
           <span
             v-if="shouldDisplayBrandName"
@@ -16,7 +20,7 @@
         </div>
       </div>
 
-      <div :class="['sidebar-body']">
+      <div class="sidebar-body">
         <div v-if="Boolean(appVersion)" class="sidebar-version">
           <span class="version-word">ver.</span> {{ appVersion }}
         </div>
@@ -202,14 +206,15 @@ export default Vue.extend({
   position: fixed;
   top: 0;
   transition: width 0.3s linear;
-  width: 280px;
+  width: var(--sidebar-width);
   z-index: 1000;
 
   &.collapsed:not(.hovered) {
-    width: 70px;
+    width: var(--sidebar-colapsed-width);
 
     .sidebar-top {
-      width: 70px;
+      min-width: var(--sidebar-colapsed-width);
+      width: var(--sidebar-colapsed-width);
       border-bottom: 1px solid transparent;
       justify-content: center;
     }
@@ -246,6 +251,7 @@ export default Vue.extend({
 
 .sidebar-top {
   border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
+  min-width: var(--sidebar-width);
 }
 
 .sidebar-brand {

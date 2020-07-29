@@ -145,16 +145,23 @@ export default Vue.extend({
 });
 </script>
 
+<style>
+:root {
+  --sidebar-width: 280px;
+  --sidebar-colapsed-width: 70px;
+}
+</style>
+
 <style scoped lang="scss">
 .page-layout-container {
   position: relative;
   min-height: 100vh;
   transition: all 0.3s linear;
-  padding-left: 280px;
+  padding-left: var(--sidebar-width);
   z-index: 1;
 
   &.sidebar-collapsed {
-    padding-left: 70px;
+    padding-left: var(--sidebar-colapsed-width);
   }
 }
 

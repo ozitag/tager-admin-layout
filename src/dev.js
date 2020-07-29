@@ -7,31 +7,9 @@ import { createRouter } from './router';
 import { AdminLayoutPlugin } from './plugin';
 import RU from './i18n/locales/ru';
 import EN from './i18n/locales/en';
+import { GETCLEAN_CONFIG } from '@/config';
 
-const TEST_CONFIG = {
-  APP_NAME: 'OZiTAG_ADMIN',
-  TITLE_TEMPLATE: 'OZiTAG Admin - {{title}}',
-  LANGUAGE: 'EN',
-  BRAND: {
-    small: {
-      logo: 'logo-small.svg',
-      label: 'OZi',
-      'label-color': '#DD6900',
-    },
-    large: {
-      logo: 'logo.svg',
-      label: 'OZiTAG',
-      'label-color': '#DD6900',
-    },
-  },
-  SPLASH_SCREEN: {
-    enabled: true,
-    logo: 'logo.svg',
-    background: '#1e1e1e',
-  },
-};
-
-configStore.setConfig(TEST_CONFIG);
+configStore.setConfig(GETCLEAN_CONFIG);
 
 const router = createRouter({}, { useTitleSync: false });
 

@@ -11,9 +11,9 @@
 
 <script lang="js">
 import Vue from 'vue';
-import { RequestError } from '@tager/admin-services';
+import { removeAuthTokensAndRedirectToAuthPage, RequestError } from '@tager/admin-services';
 
-import { isDevelopment, isProduction, removeTokenAndRedirectToLogin } from '../../../utils/common';
+import { isDevelopment, isProduction } from '../../../utils/common';
 import { signOut } from '../../../services/requests';
 
 export default Vue.extend({
@@ -61,7 +61,7 @@ export default Vue.extend({
         if (isDevelopment()) {
           this.isSignOutInProgress = false;
         } else {
-          removeTokenAndRedirectToLogin();
+          removeAuthTokensAndRedirectToAuthPage();
         }
       };
 
@@ -79,7 +79,7 @@ export default Vue.extend({
           console.error(error);
 
           if (error instanceof RequestError && error.status.code === 401 && isProduction()) {
-            removeTokenAndRedirectToLogin();
+            removeAuthTokensAndRedirectToAuthPage();
           } else {
             this.$toast({
               variant: 'danger',

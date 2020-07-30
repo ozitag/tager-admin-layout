@@ -1,4 +1,4 @@
-import { removeAccessToken, isAbsoluteUrl } from '@tager/admin-services';
+import { isAbsoluteUrl } from '@tager/admin-services';
 
 export function getLogoUrl(logoPath) {
   if (!logoPath) return null;
@@ -12,12 +12,4 @@ export function isDevelopment() {
 
 export function isProduction() {
   return process.env.NODE_ENV === 'production';
-}
-
-export function removeTokenAndRedirectToLogin() {
-  removeAccessToken();
-
-  if (isProduction()) {
-    window.location.href = '/admin/auth';
-  }
 }

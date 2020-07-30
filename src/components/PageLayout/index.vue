@@ -34,14 +34,14 @@
 
 <script>
 import Vue from 'vue';
-import { configStore, RequestError } from '@tager/admin-services';
+import {
+  configStore,
+  removeAuthTokensAndRedirectToAuthPage,
+} from '@tager/admin-services';
 import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
 
 import SplashScreen from '../SplashScreen.vue';
-import {
-  isProduction,
-  removeTokenAndRedirectToLogin,
-} from '../../utils/common';
+import { isProduction } from '../../utils/common';
 import { getUserProfile } from '../../services/requests';
 
 import Sidebar from './components/Sidebar.vue';
@@ -110,7 +110,7 @@ export default Vue.extend({
         console.error(error);
 
         if (isProduction()) {
-          removeTokenAndRedirectToLogin();
+          removeAuthTokensAndRedirectToAuthPage();
         } else {
           this.isLoading = false;
 

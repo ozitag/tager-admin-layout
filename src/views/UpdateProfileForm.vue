@@ -30,10 +30,10 @@
 <script lang="js">
 import Vue from 'vue';
 import {
-  convertRequestErrorToMap, RequestError
+  convertRequestErrorToMap, removeAuthTokensAndRedirectToAuthPage, RequestError
 } from '@tager/admin-services';
 import { getUserProfile, updateUserProfile } from '../services/requests';
-import { isProduction, removeTokenAndRedirectToLogin } from '../utils/common';
+import { isProduction } from '../utils/common';
 
 export default Vue.extend({
   name: 'UpdateProfileForm',
@@ -41,40 +41,40 @@ export default Vue.extend({
     return {
       values: {
         name: '',
-        email: '',
+        email: ''
       },
       errors: {},
       isSubmitting: false,
-      isInitialLoading: false,
+      isInitialLoading: false
     };
   },
   mounted() {
-      this.isInitialLoading = true;
+    this.isInitialLoading = true;
 
     getUserProfile()
-            .then((response) => {
-              this.values = this.convertProfileToInitialValues(response.data)
-              this.isLoading = false;
-            })
-            .catch((error) => {
-              console.error(error);
+        .then((response) => {
+          this.values = this.convertProfileToInitialValues(response.data);
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
 
-              if (
-                      error instanceof RequestError &&
-                      error.status.code === 401 &&
-                      isProduction()
-              ) {
-                removeTokenAndRedirectToLogin();
-              } else {
-                this.isLoading = false;
+          if (
+              error instanceof RequestError &&
+              error.status.code === 401 &&
+              isProduction()
+          ) {
+            removeAuthTokensAndRedirectToAuthPage();
+          } else {
+            this.isLoading = false;
 
-                this.$toast({
-                  variant: 'danger',
-                  title: 'Error',
-                  body: 'Server error',
-                });
-              }
-            })
+            this.$toast({
+              variant: 'danger',
+              title: 'Error',
+              body: 'Server error'
+            });
+          }
+        })
         .finally(() => {
           this.isInitialLoading = false;
         });
@@ -84,7 +84,7 @@ export default Vue.extend({
     convertProfileToInitialValues(profile) {
       return {
         name: profile.name,
-        email: profile.email,
+        email: profile.email
       };
     },
     submitForm() {
@@ -93,30 +93,30 @@ export default Vue.extend({
       console.log('Submit form', this.values);
 
       updateUserProfile(this.values)
-        .then(() => {
-          this.errors = {};
-          this.$router.push('/');
+          .then(() => {
+            this.errors = {};
+            this.$router.push('/');
 
-          this.$toast({
-            variant: 'success',
-            title: 'Success',
-            body: this.$t('layout:changeUserProfileSuccess'),
+            this.$toast({
+              variant: 'success',
+              title: 'Success',
+              body: this.$t('layout:changeUserProfileSuccess')
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            this.errors = convertRequestErrorToMap(error);
+            this.$toast({
+              variant: 'danger',
+              title: 'Error',
+              body: this.$t('layout:changeUserProfileFailure')
+            });
+          })
+          .finally(() => {
+            this.isSubmitting = false;
           });
-        })
-        .catch((error) => {
-          console.error(error);
-          this.errors = convertRequestErrorToMap(error);
-          this.$toast({
-            variant: 'danger',
-            title: 'Error',
-            body: this.$t('layout:changeUserProfileFailure'),
-          });
-        })
-        .finally(() => {
-          this.isSubmitting = false;
-        });
-    },
-  },
+    }
+  }
 });
 </script>
 

@@ -109,11 +109,7 @@ export default Vue.extend({
       .catch((error) => {
         console.error(error);
 
-        if (
-          error instanceof RequestError &&
-          error.status.code === 401 &&
-          isProduction()
-        ) {
+        if (isProduction()) {
           removeTokenAndRedirectToLogin();
         } else {
           this.isLoading = false;

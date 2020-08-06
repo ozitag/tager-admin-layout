@@ -1658,10 +1658,10 @@
   dependencies:
     i18next "^19.6.3"
 
-"@tager/admin-ui@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.5.3.tgz#0227685528b28a6e8a219b4277055529f5c3b1d2"
-  integrity sha512-I07CcUTX/f+mRO1YJPpoZFtvrSfvV+l+eNlu6bZPtx/5BQap3N+wmigvfVkYVw+D3aF06Wd77d5rsGThT1S36g==
+"@tager/admin-ui@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.6.0.tgz#1bad808e8df1f4aec8b0b030f5ffca2701e33107"
+  integrity sha512-gf2XtR4Ffn+8wDg6t0eO4xMBo7biqhlUkEmnqXGpAArqusKDQhCLJgnV7Gn2E0UQUnpv8Ok3Sq5SDFEHAtG0Ow==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@ckeditor/ckeditor5-vue" "^1.0.1"

@@ -16,40 +16,38 @@ const router = createRouter({}, { useTitleSync: false });
 const sidebarMenuList = [
   {
     id: 'catalog',
-    name: 'Catalog',
-    path: '',
+    text: 'Catalog',
     icon: 'viewList',
     children: [
       {
-        path: '/presets',
-        name: 'All presets',
+        url: '/presets',
+        text: 'All presets',
       },
       {
-        path: '/presets/create',
-        name: 'Create presets',
+        url: '/presets/create',
+        text: 'Create presets',
       },
     ],
   },
 
   {
     id: 'orders',
-    name: 'Orders',
-    path: '/orders',
+    text: 'Orders',
+    url: '/orders',
     icon: 'assignment',
   },
   {
     id: 'settings',
-    name: 'Settings',
-    path: '',
+    text: 'Settings',
     icon: 'settings',
     children: [
       {
-        path: '/settings/common',
-        name: 'Common',
+        url: '/settings/common',
+        text: 'Common',
       },
       {
-        path: '/settings/seo',
-        name: 'SEO',
+        url: '/settings/seo',
+        text: 'SEO',
       },
     ],
   },

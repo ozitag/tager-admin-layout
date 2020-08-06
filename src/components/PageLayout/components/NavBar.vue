@@ -9,8 +9,8 @@
         <div class="breadcrumbs">
           <ul>
             <li v-for="(breadcrumb, index) of breadcrumbList" :key="index">
-              <router-link exact active-class="active" :to="breadcrumb.path">
-                {{ breadcrumb.label }}
+              <router-link exact active-class="active" :to="breadcrumb.url">
+                {{ breadcrumb.text }}
               </router-link>
               <svg-icon name="chevronRight" />
             </li>

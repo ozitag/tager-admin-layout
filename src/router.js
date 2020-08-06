@@ -6,7 +6,7 @@ import NotFound from './views/NotFound';
 import UpdateProfileForm from './views/UpdateProfileForm';
 import UpdateUserPasswordForm from './views/UpdateUserPasswordForm';
 
-const HOME_BREADCRUMB = { path: '/', label: 'Home' };
+const HOME_BREADCRUMB = { url: '/', text: 'Home' };
 
 const NOT_FOUND_ROUTE = {
   path: '*',
@@ -21,7 +21,7 @@ const USER_PROFILE_FORM_ROUTE = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: route.name },
+      { url: route.path, text: route.name },
     ],
   },
 };
@@ -33,7 +33,7 @@ const USER_PASSWORD_FORM_ROUTE = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: route.name },
+      { url: route.path, text: route.name },
     ],
   },
 };
@@ -67,7 +67,6 @@ export function createRouter(userRouterOptions = {}, userParams = {}) {
       ...defaultRouterOptions.routes,
     ];
   }
-  console.log('routerOptions', routerOptions);
 
   const router = new VueRouter(routerOptions);
 

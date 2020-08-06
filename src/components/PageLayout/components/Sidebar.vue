@@ -44,7 +44,7 @@
             <component
               :is="menuItem.children ? 'button' : 'router-link'"
               class="menu-link"
-              :to="menuItem.children ? undefined : menuItem.path"
+              :to="menuItem.children ? undefined : menuItem.url"
               @click="
                 menuItem.children ? toggleMenuItem(menuItem.id) : undefined
               "
@@ -52,7 +52,7 @@
               <span class="menu-link-icon-container">
                 <svg-icon :name="menuItem.icon" />
               </span>
-              <span class="menu-link-name">{{ menuItem.name }}</span>
+              <span class="menu-link-name">{{ menuItem.text }}</span>
               <span
                 v-show="Array.isArray(menuItem.children)"
                 class="arrow-icon-container"
@@ -63,16 +63,16 @@
             <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
               <li
                 v-for="childItem of menuItem.children"
-                :key="childItem.path"
+                :key="childItem.url"
                 class="child-menu-item"
               >
                 <router-link
                   active-class="active"
                   class="child-menu-link"
-                  :to="childItem.path"
+                  :to="childItem.url"
                   exact
                 >
-                  {{ childItem.name }}
+                  {{ childItem.text }}
                 </router-link>
               </li>
             </ul>
@@ -159,9 +159,9 @@ export default Vue.extend({
       const activeItem = this.menuItemList.find(
         menuItem => menuItem.children
           ? menuItem.children.some(
-            childItem => childItem.path === this.$route.path
+            childItem => childItem.url === this.$route.path
           )
-          : menuItem.path === this.$route.path
+          : menuItem.url === this.$route.path
       );
 
       return activeItem ? activeItem.id : null;

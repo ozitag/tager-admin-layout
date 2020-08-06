@@ -29,14 +29,14 @@ export default Vue.extend({
       isHovered: false,
       isOpen: false,
       options: [
-        { type: 'link', label: this.$t('layout:changeUserProfile'), href: '/profile' },
+        { type: 'link', text: this.$t('layout:changeUserProfile'), url: '/profile' },
         {
           type: 'link',
-          label: this.$t('layout:changeUserPassword'),
-          href: '/profile/password'
+          text: this.$t('layout:changeUserPassword'),
+          url: '/profile/password'
         },
         { type: 'divider' },
-        { type: 'button', label: this.$t('layout:logout'), onClick: this.logout }
+        { type: 'button', text: this.$t('layout:logout'), onClick: this.logout }
       ]
     };
   },

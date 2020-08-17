@@ -284,10 +284,11 @@ export default Vue.extend({
   flex-shrink: 0;
   max-width: 100%;
   margin: 0 auto;
+  display: flex;
 
   img {
     width: auto;
-    height: 100%;
+    max-width: 100%;
     object-fit: contain;
   }
 }

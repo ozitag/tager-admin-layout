@@ -30,10 +30,9 @@
 <script lang="js">
 import Vue from 'vue';
 import {
-  convertRequestErrorToMap, removeAuthTokensAndRedirectToAuthPage, RequestError
+  convertRequestErrorToMap
 } from '@tager/admin-services';
 import { getUserProfile, updateUserProfile } from '../services/requests';
-import { isProduction } from '../utils/common';
 
 export default Vue.extend({
   name: 'UpdateProfileForm',
@@ -59,21 +58,13 @@ export default Vue.extend({
         .catch((error) => {
           console.error(error);
 
-          if (
-              error instanceof RequestError &&
-              error.status.code === 401 &&
-              isProduction()
-          ) {
-            removeAuthTokensAndRedirectToAuthPage();
-          } else {
-            this.isLoading = false;
+          this.isLoading = false;
 
-            this.$toast({
-              variant: 'danger',
-              title: 'Error',
-              body: 'Server error'
-            });
-          }
+          this.$toast({
+            variant: 'danger',
+            title: 'Error',
+            body: 'Server error'
+          });
         })
         .finally(() => {
           this.isInitialLoading = false;

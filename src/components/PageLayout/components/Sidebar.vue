@@ -307,6 +307,10 @@ export default Vue.extend({
   font-weight: 600;
   margin-left: 1rem;
   flex: 1;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .sidebar-body {

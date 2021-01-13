@@ -6,7 +6,7 @@
       v-show="isSplashScreenVisible"
       :config="splashScreenConfig"
     />
-    <div v-show="!isSplashScreenVisible">
+    <div>
       <sidebar
         :is-collapsed="isSidebarCollapsed"
         :menu-item-list="sidebarMenuList"

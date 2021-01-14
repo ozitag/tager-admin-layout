@@ -285,10 +285,13 @@ export default Vue.extend({
   max-width: 100%;
   margin: 0 auto;
   display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
     width: auto;
-    max-width: 100%;
+    max-width: 90%;
+    max-height: 90%;
     object-fit: contain;
   }
 }

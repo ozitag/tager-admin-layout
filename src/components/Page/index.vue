@@ -88,6 +88,7 @@ export default Vue.extend({
   right: 0;
   bottom: 0;
   left: 0;
+  display: flex;
 
   &.loading {
     .content-inner {
@@ -117,5 +118,6 @@ export default Vue.extend({
   max-height: 100%;
   overflow: auto;
   padding: 1rem;
+  flex: 1;
 }
 </style>

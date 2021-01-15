@@ -326,6 +326,25 @@ export default Vue.extend({
 .menu-list {
   flex: 1;
   list-style-type: none;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 0.375rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(170, 170, 170, 0.6);
+
+    &:hover {
+      background-color: rgba(153, 153, 153, 0.6);
+    }
+  }
 }
 
 .menu-item {

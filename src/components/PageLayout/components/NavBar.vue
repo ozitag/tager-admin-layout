@@ -26,7 +26,7 @@
           :href="websiteLink.url"
           target="_blank"
         >
-          {{ websiteLink.label }}
+          {{ websiteLink.text }}
         </base-button>
         <profile-dropdown v-if="userName" :user-name="userName" />
       </div>

@@ -34,7 +34,7 @@
 
 <script>
 import Vue from 'vue';
-import { configStore } from '@tager/admin-services';
+import { configStore, isAbsoluteUrl } from '@tager/admin-services';
 import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
 
 import SplashScreen from '../SplashScreen.vue';
@@ -55,7 +55,7 @@ export default Vue.extend({
     },
     websiteLink: {
       type: Object,
-      default: () => ({}),
+      default: null,
     },
   },
   data() {
@@ -88,12 +88,24 @@ export default Vue.extend({
       );
     },
     computedWebsiteLink() {
-      const defaultLink = {
-        url: process.env.VUE_APP_WEBSITE_URL || window.location.origin,
-        label: this.$t('layout:openWebsite'),
-      };
+      if (this.websiteLink) return this.websiteLink;
 
-      return this.websiteLink ? { ...defaultLink, ...this.websiteLink } : null;
+      const urlFromEnv = process.env.VUE_APP_WEBSITE_BUTTON_URL;
+
+      const isDisabled = ['false', 'null'].includes(urlFromEnv);
+
+      if (isDisabled) return null;
+
+      const url = isAbsoluteUrl(urlFromEnv)
+        ? urlFromEnv
+        : isAbsoluteUrl(process.env.VUE_APP_WEBSITE_URL)
+        ? process.env.VUE_APP_WEBSITE_URL
+        : window.location.origin;
+
+      return {
+        url,
+        text: this.$t('layout:openWebsite'),
+      };
     },
   },
   mounted() {

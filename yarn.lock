@@ -1594,6 +1594,11 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@popperjs/core@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
+  integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
+
 "@rollup/plugin-alias@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.1.tgz#bb96cf37fefeb0a953a6566c284855c7d1cd290c"
@@ -1658,26 +1663,30 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.0.tgz#623aa40623550e3b94767cffeb096a6fb597ed09"
   integrity sha512-9GvTek+7cVw7r+L7TNGOG1astZJWXz2h5q4BqMXl28KN+24iSCm1xo+RhZOZvwdT3bzNe9hD7riJc/lBoO7mgg==
 
-"@tager/admin-services@^0.2.13":
-  version "0.2.13"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.13.tgz#d889088061548a653d73db47ee67ac047f51fdad"
-  integrity sha512-LMh+SUn4IK31Y0wsN+BTa6nmU30BTJgnIaxxCqncIgOYWDTzO7chUZIq29eDwIyJTTRVJzeLz2Y2mnhatu3WMw==
+"@tager/admin-services@^0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.18.tgz#f5e9baac71f4fb7cdcc22ed88aef317cdbaf0b44"
+  integrity sha512-Cxqai8fxeL/rhQXROsEGJwhall6RVKXf0MX0lKGHxzmQYM3hRI8GJvv9iQ3bgoZwAkNG7hcKLavwt2MDhWK9Ww==
   dependencies:
     i18next "^19.7.0"
     nanoid "^3.1.12"
     zod "^1.11.9"
 
-"@tager/admin-ui@^0.7.17":
-  version "0.7.17"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.7.17.tgz#5b1df8e7268550559a34d4d6eb38bfec69680306"
-  integrity sha512-INvyqR8FAch76M3ZduOQnMWVN0S1WYenVzvSzaZJT187kWQkXF/8VAx0g0S6uIKSfoaTwhzfh8c8Cj/EtP3qNw==
+"@tager/admin-ui@^0.8.17":
+  version "0.8.17"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.17.tgz#146825e048fb8bd821dd87c227655024ded28533"
+  integrity sha512-CKsOTLs2FL3QT8zaimXzdGdqIwPhr2H4W/746L8O25ftlEbvY4F2g6WvVsFwgexfTJ+rDB7ZUmC1ybxgI/Tk5A==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"
+    "@popperjs/core" "^2.6.0"
     "@tager/admin-wysiwyg" "^0.1.0"
+    autosize "^4.0.2"
     leaflet "^1.7.1"
+    lodash.debounce "^4.0.8"
     lodash.get "^4.4.2"
     lodash.kebabcase "^4.1.1"
+    smoothscroll-polyfill "^0.4.4"
     vue-color "^2.7.1"
 
 "@tager/admin-wysiwyg@^0.1.0":
@@ -2543,6 +2552,11 @@ autoprefixer@^9.8.0:
     num2fraction "^1.2.2"
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
+
+autosize@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-4.0.2.tgz#073cfd07c8bf45da4b9fd153437f5bafbba1e4c9"
+  integrity sha512-jnSyH2d+qdfPGpWlcuhGiHmqBJ6g3X+8T+iRwFrHPLVcdoGJE/x6Qicm6aDHfTsbgZKxyV8UU/YB2p4cjKDRRA==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -6277,6 +6291,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
+
 lodash.defaultsdeep@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz#512e9bd721d272d94e3d3a63653fa17516741ca6"
@@ -8849,6 +8868,11 @@ slice-ansi@^2.1.0:
     ansi-styles "^3.2.0"
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
+
+smoothscroll-polyfill@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
+  integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

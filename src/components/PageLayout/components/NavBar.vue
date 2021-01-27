@@ -20,7 +20,7 @@
 
       <div class="right-block">
         <base-button
-          v-if="Boolean(websiteLink)"
+          v-if="Boolean(websiteLink) && userName"
           variant="outline-secondary"
           class="website-button"
           :href="websiteLink.url"
@@ -29,6 +29,7 @@
           {{ websiteLink.label }}
         </base-button>
         <profile-dropdown v-if="userName" :user-name="userName" />
+        <spinner v-else class="auth-spinner" size="30" />
       </div>
     </div>
   </div>
@@ -36,12 +37,17 @@
 
 <script lang="js">
 import Vue from 'vue';
-import { BaseButton, SvgIcon } from '@tager/admin-ui';
+import { BaseButton, SvgIcon, Spinner } from '@tager/admin-ui';
 
 import ProfileDropdown from './ProfileDropdown';
 
 export default Vue.extend({
-  components: { SvgIcon, BaseButton, ProfileDropdown },
+  components: {
+    SvgIcon,
+    BaseButton,
+    Spinner,
+    ProfileDropdown,
+  },
   props: {
     isSidebarCollapsed: Boolean,
     userName: {
@@ -98,6 +104,10 @@ export default Vue.extend({
   align-items: center;
   justify-content: space-between;
   padding: 0 15px 0 25px;
+}
+
+.auth-spinner {
+  color: var(--primary);
 }
 
 .right-block {

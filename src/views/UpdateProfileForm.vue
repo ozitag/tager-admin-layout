@@ -78,15 +78,16 @@ export default Vue.extend({
         email: profile.email
       };
     },
-    submitForm() {
+    submitForm({ shouldExit }) {
       this.isSubmitting = true;
-
-      console.log('Submit form', this.values);
 
       updateUserProfile(this.values)
           .then(() => {
             this.errors = {};
-            this.$router.push('/');
+
+            if (shouldExit) {
+              this.$router.push('/');
+            }
 
             this.$toast({
               variant: 'success',

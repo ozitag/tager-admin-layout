@@ -22,7 +22,11 @@ export default Vue.extend({
     },
     submitLabel: {
       type: String,
-      default: 'Submit'
+      default: ''
+    },
+    submitAndExitLabel: {
+      type: String,
+      default: ''
     },
     isSubmitButtonDisabled: Boolean,
     isSubmitting: Boolean,
@@ -40,19 +44,35 @@ export default Vue.extend({
           class: 'footer-button',
           props: { variant: 'secondary', href: context.props.backHref }
         }, context.props.backLabel),
-        createElement(BaseButton, {
-          class: 'footer-button',
-          props: {
-            variant: 'primary',
-            loading: context.props.isSubmitting,
-            disabled: context.props.isSubmitButtonDisabled
-          },
-          on: {
-            click: (event) => {
-              context.props.onSubmit(event);
-            }
-          },
-        }, context.props.submitLabel),
+        createElement('div', { class: 'bottom-right'}, [
+          createElement(BaseButton, {
+            class: 'footer-button',
+            props: {
+              variant: 'primary',
+              loading: context.props.isSubmitting,
+              disabled: context.props.isSubmitButtonDisabled
+            },
+            on: {
+              click: () => {
+                context.props.onSubmit({ shouldExit: false });
+              }
+            },
+          }, context.props.submitLabel || context.parent.$t('layout:save')),
+
+          createElement(BaseButton, {
+            class: 'footer-button',
+            props: {
+              variant: 'primary',
+              loading: context.props.isSubmitting,
+              disabled: context.props.isSubmitButtonDisabled,
+            },
+            on: {
+              click: () => {
+                context.props.onSubmit({ shouldExit: true });
+              }
+            },
+          }, context.props.submitAndExitLabel || context.parent.$t('layout:saveAndExit')),
+        ]),
       ])
     ]);
   }
@@ -81,5 +101,11 @@ export default Vue.extend({
 
 .footer-button {
   min-width: 100px;
+}
+
+.bottom-right {
+  .footer-button:first-child {
+    margin-right: 1rem;
+  }
 }
 </style>

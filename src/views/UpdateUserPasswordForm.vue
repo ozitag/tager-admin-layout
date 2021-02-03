@@ -48,13 +48,16 @@ export default Vue.extend({
     };
   },
   methods: {
-    submitForm() {
+    submitForm({ shouldExit }) {
       this.isSubmitting = true;
 
       updateUserPassword(this.values)
         .then(() => {
           this.errors = {};
-          this.$router.push('/');
+
+          if (shouldExit) {
+            this.$router.push('/');
+          }
 
           this.$toast({
             variant: 'success',

@@ -26,7 +26,9 @@
       :back-label="footer.backLabel"
       :on-submit="footer.onSubmit"
       :submit-label="footer.submitLabel"
-      :is-submit-button-disabled="isContentLoading"
+      :is-submit-button-disabled="
+        footer.isSubmitButtonDisabled || isContentLoading
+      "
       :is-submitting="footer.isSubmitting"
       :footer-slot="$slots.footer"
     ></page-footer>

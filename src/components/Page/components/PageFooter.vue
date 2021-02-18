@@ -8,74 +8,98 @@ export default Vue.extend({
   props: {
     backHref: {
       type: String,
-      default: '/'
+      default: '/',
     },
     backLabel: {
       type: String,
-      default: 'Back'
+      default: 'Back',
     },
     onSubmit: {
       type: Function,
       default: () => {
         console.error('Please, specify "onSubmit" prop for page footer');
-      }
+      },
     },
     submitLabel: {
       type: String,
-      default: ''
+      default: '',
     },
     submitAndExitLabel: {
       type: String,
-      default: ''
+      default: '',
     },
     isSubmitButtonDisabled: Boolean,
     isSubmitting: Boolean,
     footerSlot: {
       type: [Object, Array],
-      default: null
-    }
+      default: null,
+    },
   },
   render(createElement, context) {
     if (context.props.footerSlot) return context.props.footerSlot;
 
+    function goBack() {
+      if (context.root.$previousRoute) {
+        context.parent.$router.back();
+      } else {
+        context.parent.$router.push(context.props.backHref);
+      }
+    }
+
     return createElement('footer', { class: 'page-footer' }, [
       createElement('div', { class: 'bottom' }, [
-        createElement(BaseButton, {
-          class: 'footer-button',
-          props: { variant: 'secondary', href: context.props.backHref }
-        }, context.props.backLabel),
-        createElement('div', { class: 'bottom-right'}, [
-          createElement(BaseButton, {
+        createElement(
+          BaseButton,
+          {
             class: 'footer-button',
-            props: {
-              variant: 'primary',
-              loading: context.props.isSubmitting,
-              disabled: context.props.isSubmitButtonDisabled
-            },
+            props: { variant: 'secondary' },
             on: {
-              click: () => {
-                context.props.onSubmit({ shouldExit: false });
-              }
+              click: goBack,
             },
-          }, context.props.submitLabel || context.parent.$t('layout:save')),
+          },
+          context.props.backLabel
+        ),
+        createElement('div', { class: 'bottom-right' }, [
+          createElement(
+            BaseButton,
+            {
+              class: 'footer-button',
+              props: {
+                variant: 'primary',
+                loading: context.props.isSubmitting,
+                disabled: context.props.isSubmitButtonDisabled,
+              },
+              on: {
+                click: () => {
+                  context.props.onSubmit({ shouldExit: false });
+                },
+              },
+            },
+            context.props.submitLabel || context.parent.$t('layout:save')
+          ),
 
-          createElement(BaseButton, {
-            class: 'footer-button',
-            props: {
-              variant: 'primary',
-              loading: context.props.isSubmitting,
-              disabled: context.props.isSubmitButtonDisabled,
+          createElement(
+            BaseButton,
+            {
+              class: 'footer-button',
+              props: {
+                variant: 'primary',
+                loading: context.props.isSubmitting,
+                disabled: context.props.isSubmitButtonDisabled,
+              },
+              on: {
+                click: () => {
+                  context.props.onSubmit({ shouldExit: true });
+                },
+              },
             },
-            on: {
-              click: () => {
-                context.props.onSubmit({ shouldExit: true });
-              }
-            },
-          }, context.props.submitAndExitLabel || context.parent.$t('layout:saveAndExit')),
+            context.props.submitAndExitLabel ||
+              context.parent.$t('layout:saveAndExit')
+          ),
         ]),
-      ])
+      ]),
     ]);
-  }
+  },
 });
 </script>
 

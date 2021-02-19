@@ -39,11 +39,7 @@ export default Vue.extend({
     if (context.props.footerSlot) return context.props.footerSlot;
 
     function goBack() {
-      /**
-       * `vue-router` doesn't change history change for initial route.
-       * And I hope this behavior will not be changed in future
-       */
-      if (window.history.state) {
+      if (context.root.$previousRoute) {
         context.parent.$router.back();
       } else {
         context.parent.$router.push(context.props.backHref);

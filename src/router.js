@@ -70,6 +70,11 @@ export function createRouter(userRouterOptions = {}, userParams = {}) {
 
   const router = new VueRouter(routerOptions);
 
+  router.beforeEach((to, from, next) => {
+    router.app.$previousRoute = from === VueRouter.START_LOCATION ? null : from;
+    next();
+  });
+
   if (params.useTitleSync) {
     router.afterEach((routeTo) => {
       const pageName = routeTo.name ?? 'Not Found';

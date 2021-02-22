@@ -68,7 +68,7 @@ export default Vue.extend({
     breadcrumbList() {
       const routeMeta = this.$route?.meta;
       return routeMeta?.getBreadcrumbs
-        ? routeMeta.getBreadcrumbs(this.$route)
+        ? routeMeta.getBreadcrumbs(this.$route, this.$t)
         : [];
     }
   },

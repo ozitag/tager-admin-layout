@@ -5,6 +5,7 @@ import {
   RouteConfigMultipleViews,
   RouteConfigSingleView,
 } from 'vue-router/types/router';
+import { TFunction } from 'i18next';
 
 export type MenuItemType =
   | {
@@ -29,7 +30,7 @@ export declare const NotFoundView: VueConstructor<Vue>;
 export type Breadcrumb = LinkType;
 
 export type RouteMeta = {
-  getBreadcrumbs: (route: CustomRoute) => Array<Breadcrumb>;
+  getBreadcrumbs: (route: CustomRoute, t: TFunction) => Array<Breadcrumb>;
 };
 
 export interface CustomRoute extends Route {

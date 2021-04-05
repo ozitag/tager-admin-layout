@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-layout",
-  "version": "0.4.13",
+  "version": "0.5.0",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",

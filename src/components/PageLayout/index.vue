@@ -1,12 +1,13 @@
 <template>
   <div>
     <toast-provider />
-
     <splash-screen
       v-show="isSplashScreenVisible"
       :config="splashScreenConfig"
     />
-    <div>
+
+    <ErrorPage v-if="error" :code="error.code" :text="error.text" />
+    <div v-else>
       <sidebar
         :is-collapsed="isSidebarCollapsed"
         :menu-item-list="sidebarMenuList"
@@ -34,20 +35,27 @@
 
 <script>
 import Vue from 'vue';
-import { configStore, isAbsoluteUrl } from '@tager/admin-services';
-import { ToastProvider, ToastPlugin } from '@tager/admin-ui';
+import {
+  configStore,
+  isAbsoluteUrl,
+  removeAuthTokensAndRedirectToAuthPage,
+  RequestError,
+} from '@tager/admin-services';
+import { ToastPlugin, ToastProvider } from '@tager/admin-ui';
 
 import SplashScreen from '../SplashScreen.vue';
 import { getUserProfile } from '../../services/requests';
 
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/NavBar.vue';
+import { isProduction, parseUserResponse } from '@/utils/common';
+import ErrorPage from './components/ErrorPage';
 
 Vue.use(ToastPlugin);
 
 export default Vue.extend({
   name: 'PageLayout',
-  components: { Sidebar, Navbar, ToastProvider, SplashScreen },
+  components: { Sidebar, Navbar, ToastProvider, SplashScreen, ErrorPage },
   props: {
     sidebarMenuList: {
       type: Array,
@@ -69,6 +77,7 @@ export default Vue.extend({
       isLoading: true,
       isSplashScreenEnabled: Boolean(config.SPLASH_SCREEN?.enabled),
       isTimeoutInProgress: false,
+      error: null,
     };
   },
   computed: {
@@ -111,7 +120,7 @@ export default Vue.extend({
   mounted() {
     getUserProfile()
       .then((response) => {
-        this.profile = response.data;
+        this.profile = parseUserResponse(response.data);
         this.isLoading = false;
       })
       .catch((error) => {
@@ -119,11 +128,30 @@ export default Vue.extend({
 
         this.isLoading = false;
 
-        this.$toast({
-          variant: 'danger',
-          title: 'Error',
-          body: 'Server error',
-        });
+        if (isProduction()) {
+          if (error instanceof RequestError) {
+            if (error.status >= 500) {
+              this.error = { code: error.status, text: error.statusText };
+              return;
+            }
+
+            if (error.status >= 400 && error.status < 500) {
+              removeAuthTokensAndRedirectToAuthPage();
+              return;
+            }
+          }
+
+          this.error = {
+            code: 'Error',
+            text: 'Something goes wrong. Please ask administrator',
+          };
+        } else {
+          this.$toast({
+            variant: 'danger',
+            title: 'Error',
+            body: 'User profile fetching has been failed',
+          });
+        }
       });
 
     if (this.isSplashScreenEnabled) {

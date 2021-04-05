@@ -13,3 +13,14 @@ export function isDevelopment() {
 export function isProduction() {
   return process.env.NODE_ENV === 'production';
 }
+
+export function parseUserResponse(response) {
+  if (
+    typeof response === 'object' &&
+    typeof response.name === 'string' &&
+    typeof response.email === 'string'
+  )
+    return { name: response.name, email: response.email };
+
+  throw new Error('Invalid user profile response');
+}

@@ -48,7 +48,7 @@ import { getUserProfile } from '../../services/requests';
 
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/NavBar.vue';
-import { isProduction, parseUserResponse } from '@/utils/common';
+import { isProduction, parseUserResponse } from '../../utils/common';
 import ErrorPage from './components/ErrorPage';
 
 Vue.use(ToastPlugin);

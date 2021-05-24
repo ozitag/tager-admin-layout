@@ -73,7 +73,7 @@ export default Vue.extend({
   .status-text {
     max-width: 100%;
     margin-top: 15px;
-    font-size: 60px;
+    font-size: 55px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #000;

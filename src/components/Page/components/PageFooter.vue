@@ -1,105 +1,109 @@
 <script lang="js">
-import Vue from 'vue';
-import { BaseButton } from '@tager/admin-ui';
+import Vue from "vue";
+import { BaseButton } from "@tager/admin-ui";
 
 export default Vue.extend({
-  name: 'PageFooter',
+  name: "PageFooter",
   functional: true,
   props: {
     backHref: {
       type: String,
-      default: '/',
+      default: "/"
     },
     backLabel: {
       type: String,
-      default: 'Back',
+      default: "Back"
     },
     onSubmit: {
       type: Function,
       default: () => {
-        console.error('Please, specify "onSubmit" prop for page footer');
-      },
+        console.error("Please, specify \"onSubmit\" prop for page footer");
+      }
     },
     submitLabel: {
       type: String,
-      default: '',
+      default: ""
     },
     submitAndExitLabel: {
       type: String,
-      default: '',
+      default: ""
     },
     isSubmitButtonDisabled: Boolean,
     isSubmitting: Boolean,
     footerSlot: {
       type: [Object, Array],
-      default: null,
-    },
+      default: null
+    }
   },
   render(createElement, context) {
     if (context.props.footerSlot) return context.props.footerSlot;
 
     function goBack() {
-      if (context.root.$previousRoute) {
+      if (context.root && context.root.$previousRoute) {
         context.parent.$router.back();
-      } else {
+      } else if (context.parent && context.parent.root && context.parent.root && context.parent.root.$previousRoute) {
+        context.parent.$router.back();
+      } else if (context.props.backHref) {
         context.parent.$router.push(context.props.backHref);
+      } else {
+        console.error("Please, specify \"backHref\" prop for page footer");
       }
     }
 
-    return createElement('footer', { class: 'page-footer' }, [
-      createElement('div', { class: 'bottom' }, [
+    return createElement("footer", { class: "page-footer" }, [
+      createElement("div", { class: "bottom" }, [
         createElement(
           BaseButton,
           {
-            class: 'footer-button',
-            props: { variant: 'secondary' },
+            class: "footer-button",
+            props: { variant: "secondary" },
             on: {
-              click: goBack,
-            },
+              click: goBack
+            }
           },
           context.props.backLabel
         ),
-        createElement('div', { class: 'bottom-right' }, [
+        createElement("div", { class: "bottom-right" }, [
           createElement(
             BaseButton,
             {
-              class: 'footer-button',
+              class: "footer-button",
               props: {
-                variant: 'primary',
+                variant: "primary",
                 loading: context.props.isSubmitting,
-                disabled: context.props.isSubmitButtonDisabled,
+                disabled: context.props.isSubmitButtonDisabled
               },
               on: {
                 click: () => {
                   context.props.onSubmit({ shouldExit: false });
-                },
-              },
+                }
+              }
             },
-            context.props.submitLabel || context.parent.$t('layout:save')
+            context.props.submitLabel || context.parent.$t("layout:save")
           ),
 
           createElement(
             BaseButton,
             {
-              class: 'footer-button',
+              class: "footer-button",
               props: {
-                variant: 'primary',
+                variant: "primary",
                 loading: context.props.isSubmitting,
-                disabled: context.props.isSubmitButtonDisabled,
+                disabled: context.props.isSubmitButtonDisabled
               },
               on: {
                 click: () => {
                   context.props.onSubmit({ shouldExit: true });
-                },
-              },
+                }
+              }
             },
             context.props.submitAndExitLabel ||
-              context.parent.$t('layout:saveAndExit')
-          ),
-        ]),
-      ]),
+            context.parent.$t("layout:saveAndExit")
+          )
+        ])
+      ])
     ]);
-  },
+  }
 });
 </script>
 

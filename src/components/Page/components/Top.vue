@@ -63,10 +63,10 @@ export default Vue.extend({
 
 .button-list {
   display: flex;
-  button{
+  button,a{
     white-space: nowrap;
   }
-  button:not(:last-child) {
+  button:not(:last-child), a:not(:last-child) {
     margin-right: 1rem;
   }
 }

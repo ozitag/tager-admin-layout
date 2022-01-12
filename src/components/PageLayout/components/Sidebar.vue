@@ -18,9 +18,14 @@
             {{ brandName }}
           </span>
         </div>
+        <span
+          v-if="shouldDisplaySubtitle" class="sidebar-top-subtitle"
+        >
+            {{ subtitle }}
+          </span>
       </div>
 
-      <div class="sidebar-body">
+      <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': shouldDisplaySubtitle }]">
         <div v-if="Boolean(appVersion)" class="sidebar-version">
           <span class="version-word">ver.</span> {{ appVersion }}
         </div>
@@ -87,10 +92,10 @@
 </template>
 
 <script lang="js">
-import Vue from 'vue';
-import { SvgIcon } from '@tager/admin-ui';
+import Vue from "vue";
+import { SvgIcon } from "@tager/admin-ui";
 
-import { getLogoUrl } from '../../../utils/common';
+import { getLogoUrl } from "../../../utils/common";
 
 export default Vue.extend({
   components: { SvgIcon },
@@ -125,22 +130,25 @@ export default Vue.extend({
     },
     brandName() {
       if (this.isCollapsed && !this.isHovered) {
-        return this.brandConfig.small.label ?? '';
+        return this.brandConfig.small.label ?? "";
       } else {
-        return this.brandConfig.large.label ?? '';
+        return this.brandConfig.large.label ?? "";
       }
+    },
+    subtitle() {
+      return this.brandConfig.subtitle ?? "";
     },
     brandNameColor() {
       if (this.isCollapsed && !this.isHovered) {
         return (
-          this.brandConfig.small['label-color'] ??
-          this.brandConfig.large['label-color'] ??
+          this.brandConfig.small["label-color"] ??
+          this.brandConfig.large["label-color"] ??
           undefined
         );
       } else {
         return (
-          this.brandConfig.large['label-color'] ??
-          this.brandConfig.small['label-color'] ??
+          this.brandConfig.large["label-color"] ??
+          this.brandConfig.small["label-color"] ??
           undefined
         );
       }
@@ -153,6 +161,13 @@ export default Vue.extend({
         return !this.shouldDisplayLogo && Boolean(this.brandName);
       } else {
         return Boolean(this.brandName);
+      }
+    },
+    shouldDisplaySubtitle() {
+      if (this.isCollapsed && !this.isHovered) {
+        return !this.shouldDisplayLogo && Boolean(this.brandName);
+      } else {
+        return Boolean(this.brandName) && Boolean(this.brandName);
       }
     },
     activeItemId() {
@@ -193,7 +208,7 @@ export default Vue.extend({
       } else {
         this.openItemIdList.push(itemId);
       }
-    },
+    }
   }
 });
 </script>
@@ -209,6 +224,18 @@ export default Vue.extend({
   width: var(--sidebar-width);
   z-index: 1000;
 
+  .sidebar-top-subtitle {
+    display: block;
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding: 5px;
+    margin-top: -10px;
+    color: #000;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   &.collapsed:not(.hovered) {
     width: var(--sidebar-colapsed-width);
 
@@ -217,6 +244,10 @@ export default Vue.extend({
       width: var(--sidebar-colapsed-width);
       border-bottom: 1px solid transparent;
       justify-content: center;
+    }
+
+    .sidebar-top-subtitle {
+      border-bottom: 1px solid #eee;
     }
 
     .sidebar-top-title {
@@ -321,13 +352,15 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
+
+  &--with-subtitle {
+    height: calc(100vh - 71px);
+  }
 }
 
 .menu-list {
   flex: 1;
   list-style-type: none;
-
-  overflow-y: auto;
   scrollbar-width: thin;
 
   &::-webkit-scrollbar {

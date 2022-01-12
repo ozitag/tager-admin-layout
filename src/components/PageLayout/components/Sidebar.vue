@@ -18,14 +18,12 @@
             {{ brandName }}
           </span>
         </div>
-        <span
-          v-if="shouldDisplaySubtitle" class="sidebar-top-subtitle"
-        >
+        <span v-if="Boolean(subtitle)" class="sidebar-top-subtitle">
             {{ subtitle }}
           </span>
       </div>
 
-      <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': shouldDisplaySubtitle }]">
+      <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
         <div v-if="Boolean(appVersion)" class="sidebar-version">
           <span class="version-word">ver.</span> {{ appVersion }}
         </div>
@@ -161,13 +159,6 @@ export default Vue.extend({
         return !this.shouldDisplayLogo && Boolean(this.brandName);
       } else {
         return Boolean(this.brandName);
-      }
-    },
-    shouldDisplaySubtitle() {
-      if (this.isCollapsed && !this.isHovered) {
-        return !this.shouldDisplayLogo && Boolean(this.brandName);
-      } else {
-        return Boolean(this.brandName) && Boolean(this.brandName);
       }
     },
     activeItemId() {

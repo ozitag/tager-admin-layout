@@ -24,7 +24,7 @@
       </div>
 
       <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
-        <div v-if="Boolean(appVersion)" class="sidebar-version">
+        <div v-if="shouldDisplayVersion" class="sidebar-version">
           <span class="version-word">ver.</span> {{ appVersion }}
         </div>
 
@@ -109,6 +109,9 @@ export default Vue.extend({
     brandConfig: {
       type: Object,
       required: true
+    },
+    displayVersion: {
+      type: Boolean
     }
   },
   data() {
@@ -150,6 +153,9 @@ export default Vue.extend({
           undefined
         );
       }
+    },
+    shouldDisplayVersion() {
+      return Boolean(this.displayVersion) && Boolean(process.env.VUE_APP_VERSION);
     },
     shouldDisplayLogo() {
       return Boolean(this.logoUrl);
@@ -220,8 +226,6 @@ export default Vue.extend({
     text-align: center;
     border-top: 1px solid #eee;
     padding: 5px;
-    margin-top: -10px;
-    color: #000;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

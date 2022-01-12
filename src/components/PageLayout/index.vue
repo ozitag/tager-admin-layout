@@ -9,6 +9,7 @@
     <ErrorPage v-if="error" :code="error.code" :text="error.text" />
     <div v-else>
       <sidebar
+        :display-version="shouldDisplayVersion"
         :is-collapsed="isSidebarCollapsed"
         :menu-item-list="sidebarMenuList"
         :brand-config="brandConfig"
@@ -86,6 +87,9 @@ export default Vue.extend({
     },
     brandConfig() {
       return configStore.getConfig().BRAND;
+    },
+    shouldDisplayVersion() {
+      return false;
     },
     userName() {
       return this.profile?.name ?? '';

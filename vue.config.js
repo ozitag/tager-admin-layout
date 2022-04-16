@@ -1,22 +1,10 @@
-module.exports = {
-  runtimeCompiler: true,
+const { defineConfig } = require("@vue/cli-service");
+
+module.exports = defineConfig({
+  transpileDependencies: true,
   pages: {
     index: {
-      entry: 'src/dev.js',
+      entry: "src/dev/main.ts",
     },
   },
-  publicPath: process.env.VUE_APP_PUBLIC_PATH || '/',
-  chainWebpack: (config) => {
-    const svgRule = config.module.rule('svg');
-
-    svgRule.uses.clear();
-
-    svgRule
-      .use('babel-loader')
-      .loader('babel-loader')
-      .end()
-      .use('vue-svg-loader')
-      .loader('vue-svg-loader')
-      .options({ svgo: { plugins: [{ removeViewBox: false }] } });
-  },
-};
+});

@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown" @mouseenter="openMenu" @mouseleave="closeMenu">
     <button class="user-name">{{ userName }}</button>
-    <dropdown-menu
+    <DropdownMenu
       :options="options"
       :class="['menu', { open: isOpen }]"
       @dropdown-item:click="closeMenu"
@@ -9,85 +9,113 @@
   </div>
 </template>
 
-<script lang="js">
-import Vue from 'vue';
-import { removeAuthTokensAndRedirectToAuthPage } from '@tager/admin-services';
+<script lang="ts">
+import { computed, defineComponent, ref } from "vue";
 
-import { isDevelopment } from '../../../utils/common';
-import { signOut } from '../../../services/requests';
+import {
+  removeAuthTokensAndRedirectToAuthPage,
+  useI18n,
+  useToast,
+} from "@tager/admin-services";
+import { DropdownMenu } from "@tager/admin-ui";
+import { DropdownMenuItemType } from "@tager/admin-ui/dist/typings/common";
 
-export default Vue.extend({
-  name: 'ProfileDropdown',
+import { isDevelopment } from "../../../utils/common";
+import { signOut } from "../../../services/requests";
+
+interface Props {
+  userName: string;
+}
+
+export default defineComponent({
+  name: "ProfileDropdown",
+  components: { DropdownMenu },
   props: {
     userName: {
       type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      isHovered: false,
-      isOpen: false,
-      options: [
-        { type: 'link', text: this.$t('layout:changeUserProfile'), url: '/profile' },
-        {
-          type: 'link',
-          text: this.$t('layout:changeUserPassword'),
-          url: '/profile/password'
-        },
-        { type: 'divider' },
-        { type: 'button', text: this.$t('layout:logout'), onClick: this.logout }
-      ]
-    };
-  },
-  methods: {
-    closeMenu() {
-      this.isOpen = false;
+      default: "",
     },
-    openMenu() {
-      this.isOpen = true;
-    },
-    logout() {
+  },
+  setup(props: Props) {
+    const i18n = useI18n();
+    const toast = useToast();
+    const isSignOutInProgress = ref(false);
+    const isOpen = ref(false);
+
+    function logout() {
       const handleError = () => {
-        this.$toast({
-          variant: 'danger',
-          title: 'Error',
-          body: 'Server error'
+        toast.show({
+          variant: "danger",
+          title: "Error",
+          body: "Server error",
         });
-        this.isSignOutInProgress = false;
+        isSignOutInProgress.value = false;
       };
 
       const handleRedirect = () => {
         if (isDevelopment()) {
-          this.isSignOutInProgress = false;
+          isSignOutInProgress.value = false;
         } else {
           removeAuthTokensAndRedirectToAuthPage();
         }
       };
 
-      this.isSignOutInProgress = true;
+      isSignOutInProgress.value = true;
 
-      signOut()
-        .then(response => {
+      return signOut()
+        .then((response) => {
           if (response.success) {
             handleRedirect();
           } else {
             handleError();
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
 
-          this.$toast({
-            variant: 'danger',
-            title: 'Error',
-            body: 'Server error'
+          toast.show({
+            variant: "danger",
+            title: "Error",
+            body: "Server error",
           });
-          this.isSignOutInProgress = false;
+          isSignOutInProgress.value = false;
         });
     }
 
-  }
+    function closeMenu() {
+      isOpen.value = false;
+    }
+
+    function openMenu() {
+      isOpen.value = true;
+    }
+
+    const options = computed<Array<DropdownMenuItemType>>(() => [
+      {
+        type: "link",
+        text: i18n.t("layout:changeUserProfile"),
+        url: "/profile",
+      },
+      {
+        type: "link",
+        text: i18n.t("layout:changeUserPassword"),
+        url: "/profile/password",
+      },
+      { type: "divider" },
+      {
+        type: "button",
+        text: i18n.t("layout:logout"),
+        onClick: logout,
+      },
+    ]);
+
+    return {
+      isOpen,
+      options,
+      openMenu,
+      closeMenu,
+    };
+  },
 });
 </script>
 

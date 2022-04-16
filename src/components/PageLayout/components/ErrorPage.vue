@@ -7,11 +7,11 @@
   </div>
 </template>
 
-<script>
-import Vue from 'vue';
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default Vue.extend({
-  name: 'ErrorPage',
+export default defineComponent({
+  name: "ErrorPage",
   props: {
     code: {
       type: [Number, String],

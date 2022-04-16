@@ -2,24 +2,24 @@
   <div :class="['navbar', { 'sidebar-collapsed': isSidebarCollapsed }]">
     <div class="navbar-inner">
       <div class="left-block">
-        <base-button variant="icon" @click="toggleSidebar">
-          <svg-icon name="menu" />
-        </base-button>
+        <BaseButton variant="icon" @click="toggleSidebar">
+          <MenuIcon />
+        </BaseButton>
 
         <div class="breadcrumbs">
           <ul>
             <li v-for="(breadcrumb, index) of breadcrumbList" :key="index">
-              <router-link exact active-class="active" :to="breadcrumb.url">
+              <RouterLink exact active-class="active" :to="breadcrumb.url">
                 {{ breadcrumb.text }}
-              </router-link>
-              <svg-icon name="chevronRight" />
+              </RouterLink>
+              <ChevronRightIcon />
             </li>
           </ul>
         </div>
       </div>
 
       <div class="right-block">
-        <base-button
+        <BaseButton
           v-if="Boolean(websiteLink) && userName"
           variant="outline-secondary"
           class="website-button"
@@ -27,56 +27,75 @@
           target="_blank"
         >
           {{ websiteLink.text }}
-        </base-button>
-        <profile-dropdown v-if="userName" :user-name="userName" />
-        <spinner v-else class="auth-spinner" size="30" />
+        </BaseButton>
+        <ProfileDropdown v-if="userName" :user-name="userName" />
+        <Spinner v-else class="auth-spinner" size="30" />
       </div>
     </div>
   </div>
 </template>
 
-<script lang="js">
-import Vue from 'vue';
-import { BaseButton, SvgIcon, Spinner } from '@tager/admin-ui';
+<script lang="ts">
+import { computed, defineComponent, PropType } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 
-import ProfileDropdown from './ProfileDropdown';
+import {
+  BaseButton,
+  Spinner,
+  MenuIcon,
+  ChevronRightIcon,
+  LinkType,
+} from "@tager/admin-ui";
+import { useI18n } from "@tager/admin-services";
 
-export default Vue.extend({
+import ProfileDropdown from "./ProfileDropdown.vue";
+
+interface Props {
+  isSidebarCollapsed: boolean;
+  userName: string;
+  websiteLink: LinkType | null;
+}
+
+export default defineComponent({
   components: {
-    SvgIcon,
     BaseButton,
     Spinner,
     ProfileDropdown,
+    MenuIcon,
+    ChevronRightIcon,
+    RouterLink,
   },
   props: {
-    isSidebarCollapsed: Boolean,
+    isSidebarCollapsed: {
+      type: Boolean,
+      default: false,
+    },
     userName: {
       type: String,
-      default: ''
+      default: "",
     },
     websiteLink: {
-      type: Object,
-      default: null
+      type: Object as PropType<Props["websiteLink"]>,
+      default: null,
+    },
+  },
+  emits: ["sidebar-toggle"],
+  setup(props: Props, context) {
+    const route = useRoute();
+    const i18n = useI18n();
+
+    function toggleSidebar() {
+      context.emit("sidebar-toggle");
     }
-  },
-  data() {
-    return {
-      isSignOutInProgress: false,
-    };
-  },
-  computed: {
-    breadcrumbList() {
-      const routeMeta = this.$route?.meta;
-      return routeMeta?.getBreadcrumbs
-        ? routeMeta.getBreadcrumbs(this.$route, this.$t)
+
+    const breadcrumbList = computed(() => {
+      return route.meta.getBreadcrumbs
+        ? route.meta.getBreadcrumbs(route, i18n)
         : [];
-    }
+    });
+
+    return { breadcrumbList, toggleSidebar };
   },
-  methods: {
-    toggleSidebar() {
-      this.$emit('sidebar-toggle');
-    }
-  }
 });
 </script>
 

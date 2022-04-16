@@ -1,31 +1,29 @@
 <template>
   <div class="spin-wrapper" :style="{ background: backgroundColor }">
-    <img v-if="Boolean(logoUrl)" :src="logoUrl" />
+    <img v-if="Boolean(logoUrl)" :src="logoUrl" alt="logo" />
     <div class="spinner"></div>
   </div>
 </template>
 
-<script lang="js">
-import Vue from 'vue';
+<script lang="ts">
+import { computed, defineComponent } from "vue";
 
-import { getLogoUrl } from '../utils/common';
+import { getLogoUrl } from "../utils/common";
 
-export default Vue.extend({
-  name: 'SplashScreen',
+export default defineComponent({
+  name: "SplashScreen",
   props: {
     config: {
       type: Object,
-      required: true
-    }
-  },
-  computed: {
-    logoUrl() {
-      return getLogoUrl(this.config.logo);
+      required: true,
     },
-    backgroundColor() {
-      return this.config.background;
-    }
-  }
+  },
+  setup(props) {
+    const logoUrl = computed(() => getLogoUrl(props.config.logo));
+    const backgroundColor = computed(() => getLogoUrl(props.config.background));
+
+    return { logoUrl, backgroundColor };
+  },
 });
 </script>
 
@@ -56,7 +54,7 @@ export default Vue.extend({
     animation: spin 3s linear infinite;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       top: 20px;
       left: 20px;
@@ -68,7 +66,7 @@ export default Vue.extend({
       animation: spin-reverse 1.1s linear infinite;
     }
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       top: 45px;
       left: 45px;

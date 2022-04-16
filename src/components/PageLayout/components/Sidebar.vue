@@ -18,12 +18,9 @@
             {{ brandName }}
           </span>
         </div>
-        <span v-if="Boolean(subtitle)" class="sidebar-top-subtitle">
-            {{ subtitle }}
-          </span>
       </div>
 
-      <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
+      <div :class="['sidebar-body']">
         <div v-if="shouldDisplayVersion" class="sidebar-version">
           <span class="version-word">ver.</span> {{ appVersion }}
         </div>
@@ -53,14 +50,14 @@
               "
             >
               <span class="menu-link-icon-container">
-                <svg-icon :name="menuItem.icon" />
+                <component :is="menuItem.icon" />
               </span>
               <span class="menu-link-name">{{ menuItem.text }}</span>
               <span
                 v-show="Array.isArray(menuItem.children)"
                 class="arrow-icon-container"
               >
-                <svg-icon name="expandMore" />
+                <ExpandMoreIcon />
               </span>
             </component>
             <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
@@ -89,124 +86,184 @@
   </aside>
 </template>
 
-<script lang="js">
-import Vue from "vue";
-import { SvgIcon } from "@tager/admin-ui";
+<script lang="ts">
+import {
+  Component,
+  computed,
+  defineComponent,
+  onMounted,
+  PropType,
+  ref,
+  watch,
+} from "vue";
+import { useRoute } from "vue-router";
+
+import { AppConfigType } from "@tager/admin-services/dist/typings/common";
+import { environment } from "@tager/admin-services";
+import { ExpandMoreIcon, LinkType } from "@tager/admin-ui";
 
 import { getLogoUrl } from "../../../utils/common";
 
-export default Vue.extend({
-  components: { SvgIcon },
+export interface BaseMenuItemType {
+  id: string;
+  text: string;
+  url?: string;
+  icon: Component;
+  children?: Array<LinkType>;
+}
+
+export interface MenuItemSingleType extends BaseMenuItemType {
+  url: string;
+}
+
+export interface MenuItemWithChildrenType extends BaseMenuItemType {
+  children: Array<LinkType>;
+}
+
+export type MenuItemType = MenuItemSingleType | MenuItemWithChildrenType;
+
+interface Props {
+  isCollapsed: boolean;
+  menuItemList: Array<MenuItemType>;
+  brandConfig: AppConfigType["BRAND"];
+  displayVersion: boolean;
+}
+
+export default defineComponent({
+  name: "AppSidebar",
+  components: { ExpandMoreIcon },
   props: {
     isCollapsed: {
       type: Boolean,
-      required: true
+      required: true,
     },
     menuItemList: {
-      type: Array,
-      required: true
+      type: Array as PropType<Props["menuItemList"]>,
+      required: true,
     },
     brandConfig: {
-      type: Object,
-      required: true
+      type: Object as PropType<Props["brandConfig"]>,
+      required: true,
     },
     displayVersion: {
-      type: Boolean
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props: Props) {
+    const route = useRoute();
+    const isHovered = ref(false);
+    const appVersion = environment.version;
+
+    const shouldDisplayVersion = computed(() => {
+      return Boolean(props.displayVersion) && Boolean(appVersion);
+    });
+
+    const currentBrand = computed(() => {
+      return props.isCollapsed && !isHovered.value
+        ? props.brandConfig.small
+        : props.brandConfig.large;
+    });
+
+    const logoUrl = computed(() => {
+      return getLogoUrl(currentBrand.value.logo || "");
+    });
+
+    const shouldDisplayLogo = computed(() => {
+      return Boolean(logoUrl.value);
+    });
+
+    const brandName = computed(() => {
+      return currentBrand.value.label ?? "";
+    });
+
+    const shouldDisplayBrandName = computed(() => {
+      if (props.isCollapsed && !isHovered.value) {
+        return !shouldDisplayLogo.value && Boolean(brandName.value);
+      } else {
+        return Boolean(brandName.value);
+      }
+    });
+
+    const brandNameColor = computed(() => {
+      if (props.isCollapsed && !isHovered.value) {
+        return (
+          props.brandConfig.small["label-color"] ??
+          props.brandConfig.large["label-color"] ??
+          undefined
+        );
+      } else {
+        return (
+          props.brandConfig.large["label-color"] ??
+          props.brandConfig.small["label-color"] ??
+          undefined
+        );
+      }
+    });
+
+    function handleMouseOver() {
+      isHovered.value = true;
     }
-  },
-  data() {
-    return {
-      isHovered: false,
-      openItemIdList: [],
-      appVersion: process.env.VUE_APP_VERSION
-    };
-  },
-  computed: {
-    logoUrl() {
-      if (this.isCollapsed && !this.isHovered) {
-        return getLogoUrl(this.brandConfig.small.logo);
-      } else {
-        return getLogoUrl(this.brandConfig.large.logo);
-      }
-    },
-    brandName() {
-      if (this.isCollapsed && !this.isHovered) {
-        return this.brandConfig.small.label ?? "";
-      } else {
-        return this.brandConfig.large.label ?? "";
-      }
-    },
-    subtitle() {
-      return this.brandConfig.subtitle ?? "";
-    },
-    brandNameColor() {
-      if (this.isCollapsed && !this.isHovered) {
-        return (
-          this.brandConfig.small["label-color"] ??
-          this.brandConfig.large["label-color"] ??
-          undefined
-        );
-      } else {
-        return (
-          this.brandConfig.large["label-color"] ??
-          this.brandConfig.small["label-color"] ??
-          undefined
-        );
-      }
-    },
-    shouldDisplayVersion() {
-      return Boolean(this.displayVersion) && Boolean(process.env.VUE_APP_VERSION);
-    },
-    shouldDisplayLogo() {
-      return Boolean(this.logoUrl);
-    },
-    shouldDisplayBrandName() {
-      if (this.isCollapsed && !this.isHovered) {
-        return !this.shouldDisplayLogo && Boolean(this.brandName);
-      } else {
-        return Boolean(this.brandName);
-      }
-    },
-    activeItemId() {
-      const activeItem = this.menuItemList.find(
-        menuItem => menuItem.children
-          ? menuItem.children.some(
-            childItem => childItem.url === this.$route.path
-          )
-          : menuItem.url === this.$route.path
+
+    function handleMouseLeave() {
+      isHovered.value = false;
+    }
+
+    const openItemIdList = ref<string[]>([]);
+
+    const activeItemId = computed(() => {
+      const activeItem = props.menuItemList.find((menuItem) =>
+        menuItem.children
+          ? menuItem.children.some((childItem) => childItem.url === route.path)
+          : menuItem.url === route.path
       );
 
       return activeItem ? activeItem.id : null;
-    }
-  },
-  watch: {
-    activeItemId() {
-      this.openActiveItem();
-    }
-  },
-  mounted() {
-    this.openActiveItem();
-  },
-  methods: {
-    openActiveItem() {
-      if (this.activeItemId && !this.openItemIdList.includes(this.activeItemId)) {
-        this.openItemIdList.push(this.activeItemId);
+    });
+
+    function openActiveItem() {
+      if (
+        activeItemId.value &&
+        !openItemIdList.value.includes(activeItemId.value)
+      ) {
+        openItemIdList.value.push(activeItemId.value);
       }
-    },
-    handleMouseOver() {
-      this.isHovered = true;
-    },
-    handleMouseLeave() {
-      this.isHovered = false;
-    },
-    toggleMenuItem(itemId) {
-      if (this.openItemIdList.includes(itemId)) {
-        this.openItemIdList = this.openItemIdList.filter(id => id !== itemId);
+    }
+
+    watch(activeItemId, () => {
+      openActiveItem();
+    });
+
+    function toggleMenuItem(itemId: string) {
+      if (openItemIdList.value.includes(itemId)) {
+        openItemIdList.value = openItemIdList.value.filter(
+          (id) => id !== itemId
+        );
       } else {
-        this.openItemIdList.push(itemId);
+        openItemIdList.value.push(itemId);
       }
     }
-  }
+
+    onMounted(() => {
+      openActiveItem();
+    });
+
+    return {
+      isHovered,
+      toggleMenuItem,
+      handleMouseOver,
+      handleMouseLeave,
+      logoUrl,
+      shouldDisplayLogo,
+      brandName,
+      shouldDisplayBrandName,
+      brandNameColor,
+      appVersion,
+      shouldDisplayVersion,
+      activeItemId,
+      openItemIdList,
+    };
+  },
 });
 </script>
 
@@ -221,16 +278,6 @@ export default Vue.extend({
   width: var(--sidebar-width);
   z-index: 1000;
 
-  .sidebar-top-subtitle {
-    display: block;
-    text-align: center;
-    border-top: 1px solid #eee;
-    padding: 5px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
   &.collapsed:not(.hovered) {
     width: var(--sidebar-colapsed-width);
 
@@ -239,10 +286,6 @@ export default Vue.extend({
       width: var(--sidebar-colapsed-width);
       border-bottom: 1px solid transparent;
       justify-content: center;
-    }
-
-    .sidebar-top-subtitle {
-      border-bottom: 1px solid #eee;
     }
 
     .sidebar-top-title {
@@ -347,10 +390,6 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
-
-  &--with-subtitle {
-    height: calc(100vh - 71px);
-  }
 }
 
 .menu-list {

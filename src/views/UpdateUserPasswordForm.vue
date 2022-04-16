@@ -28,20 +28,20 @@
   </page>
 </template>
 
-<script lang="js">
-import Vue from 'vue';
-import {
-  convertRequestErrorToMap
-} from '@tager/admin-services';
-import { updateUserPassword } from '../services/requests';
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default Vue.extend({
-  name: 'UpdateUserPasswordForm',
+import { convertRequestErrorToMap } from "@tager/admin-services";
+
+import { updateUserPassword } from "../services/requests";
+
+export default defineComponent({
+  name: "UpdateUserPasswordForm",
   data() {
     return {
       values: {
-        oldPassword: '',
-        newPassword: '',
+        oldPassword: "",
+        newPassword: "",
       },
       errors: {},
       isSubmitting: false,
@@ -56,22 +56,22 @@ export default Vue.extend({
           this.errors = {};
 
           if (shouldExit) {
-            this.$router.push('/');
+            this.$router.push("/");
           }
 
           this.$toast({
-            variant: 'success',
-            title: 'Success',
-            body: this.$t('layout:changeUserPasswordSuccess'),
+            variant: "success",
+            title: "Success",
+            body: this.$t("layout:changeUserPasswordSuccess"),
           });
         })
         .catch((error) => {
           console.error(error);
           this.errors = convertRequestErrorToMap(error);
           this.$toast({
-            variant: 'danger',
-            title: 'Error',
-            body: this.$t('layout:changeUserPasswordFailure'),
+            variant: "danger",
+            title: "Error",
+            body: this.$t("layout:changeUserPasswordFailure"),
           });
         })
         .finally(() => {

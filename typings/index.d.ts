@@ -1,27 +1,12 @@
-import Vue, { PluginFunction, VueConstructor } from 'vue';
-import VueRouter, { Route, RouterOptions } from 'vue-router';
-import { IconName, LinkType } from '@tager/admin-ui';
+import Vue, { PluginFunction, VueConstructor } from "vue";
+import VueRouter, { Route, RouterOptions } from "vue-router";
 import {
   RouteConfigMultipleViews,
   RouteConfigSingleView,
-} from 'vue-router/types/router';
-import { TFunction } from 'i18next';
+} from "vue-router/types/router";
+import { TFunction } from "i18next";
 
-export type MenuItemType =
-  | {
-      id: string;
-      text: string;
-      url: string;
-      icon: IconName;
-      children?: Array<LinkType>;
-    }
-  | {
-      id: string;
-      text: string;
-      url?: string;
-      icon: IconName;
-      children: Array<LinkType>;
-    };
+import { IconName, LinkType } from "@tager/admin-ui";
 
 export declare const PageLayout: VueConstructor<Vue>;
 export declare const Page: VueConstructor<Vue>;

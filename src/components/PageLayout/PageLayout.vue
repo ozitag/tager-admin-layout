@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, ref } from "vue";
+import { computed, defineComponent, onMounted, type PropType, ref } from "vue";
 
 import {
   configStore,
@@ -46,15 +46,15 @@ import {
   RequestError,
   useI18n,
   useToast,
+  type AppConfigType,
 } from "@tager/admin-services";
-import { LinkType, ToastList } from "@tager/admin-ui";
-import { AppConfigType } from "@tager/admin-services/dist/typings/common";
+import { type LinkType, ToastList } from "@tager/admin-ui";
 
 import SplashScreen from "../SplashScreen.vue";
-import { getUserProfile, UserProfileType } from "../../services/requests";
+import { getUserProfile, type UserProfileType } from "../../services/requests";
 import { isProduction } from "../../utils/common";
 
-import Sidebar, { MenuItemType } from "./components/Sidebar.vue";
+import Sidebar, { type MenuItemType } from "./components/Sidebar.vue";
 import Navbar from "./components/NavBar.vue";
 import ErrorPage from "./components/ErrorPage.vue";
 

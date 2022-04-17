@@ -73,10 +73,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue/dist/vue";
+import { defineComponent } from "vue";
 
 import PageLayout from "../components/PageLayout/PageLayout.vue";
-import Page from "../components/Page/index.vue";
+import Page from "../components/Page/Page.vue";
 
 import { sidebarMenuList } from "./sidebar-menu-list";
 
@@ -94,7 +94,7 @@ export default defineComponent({
     return {
       sidebarMenuList,
       headerButtons: [
-        { variant: "secondary", text: "say cow2", onClick: this.sayCow },
+        { variant: "secondary", text: "say cow2", onClick: sayCow },
         {
           variant: "secondary",
           text: "Create entity link",

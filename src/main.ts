@@ -1,12 +1,8 @@
-import { i18n } from "@tager/admin-services";
+import { applyTranslations } from "./i18n/locales/apply";
 
-import { RU } from "./i18n/locales/ru";
-import { EN } from "./i18n/locales/en";
-
-i18n.addTranslations("ru", "layout", RU);
-i18n.addTranslations("en", "layout", EN);
+applyTranslations();
 
 export { default as PageLayout } from "./components/PageLayout/PageLayout.vue";
-export { default as Page } from "./components/Page/index.vue";
+export { default as Page } from "./components/Page/Page.vue";
 export { default as NotFoundView } from "./views/NotFound.vue";
 export { createRouter } from "./router";

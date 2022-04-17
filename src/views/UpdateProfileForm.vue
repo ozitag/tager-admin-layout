@@ -1,114 +1,129 @@
 <template>
-  <page
-    :title="$t('layout:changeUserProfile')"
+  <Page
+    :title="$i18n.t('layout:changeUserProfile')"
     :is-content-loading="isInitialLoading"
-    :footer="{
-      backHref: '/',
-      backLabel: $t('layout:back'),
-      onSubmit: submitForm,
-      isSubmitting: isSubmitting,
-    }"
   >
     <form novalidate @submit.prevent>
-      <form-field
-        v-model="values.name"
+      <FormField
+        v-model:value="values.name"
         name="name"
-        :label="$t('layout:name')"
+        :label="$i18n.t('layout:name')"
         :error="errors.name"
       />
 
-      <form-field
-        v-model="values.email"
+      <FormField
+        v-model:value="values.email"
         name="email"
-        :label="$t('layout:email')"
+        :label="$i18n.t('layout:email')"
         :error="errors.email"
       />
     </form>
-  </page>
+
+    <template #footer>
+      <FormFooter
+        :back-label="$i18n.t('layout:back')"
+        :is-submitting="isSubmitting"
+        @submit="handleFormSubmit"
+      ></FormFooter>
+    </template>
+  </Page>
 </template>
 
-<script lang="js">
-import Vue from 'vue';
+<script lang="ts">
+import { defineComponent, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+
 import {
-  convertRequestErrorToMap
-} from '@tager/admin-services';
-import { getUserProfile, updateUserProfile } from '../services/requests';
+  convertRequestErrorToMap,
+  useI18n,
+  useToast,
+} from "@tager/admin-services";
+import {
+  FormField,
+  FormFooter,
+  type TagerFormSubmitEvent,
+} from "@tager/admin-ui";
 
-export default Vue.extend({
-  name: 'UpdateProfileForm',
-  data() {
-    return {
-      values: {
-        name: '',
-        email: ''
-      },
-      errors: {},
-      isSubmitting: false,
-      isInitialLoading: false
-    };
-  },
-  mounted() {
-    this.isInitialLoading = true;
+import {
+  getUserProfile,
+  updateUserProfile,
+  type UserProfileType,
+} from "../services/requests";
+import Page from "../components/Page/Page.vue";
 
-    getUserProfile()
+export default defineComponent({
+  name: "UpdateProfileForm",
+  components: { Page, FormField, FormFooter },
+  setup() {
+    const router = useRouter();
+    const toast = useToast();
+    const i18n = useI18n();
+    const values = ref({ name: "", email: "" });
+    const errors = ref({});
+    const isSubmitting = ref(false);
+    const isInitialLoading = ref(false);
+
+    function convertProfileToInitialValues(profile: UserProfileType) {
+      return {
+        name: profile.name,
+        email: profile.email,
+      };
+    }
+
+    onMounted(() => {
+      isInitialLoading.value = true;
+
+      getUserProfile()
         .then((response) => {
-          this.values = this.convertProfileToInitialValues(response.data);
-          this.isLoading = false;
+          values.value = convertProfileToInitialValues(response.data);
         })
         .catch((error) => {
           console.error(error);
 
-          this.isLoading = false;
-
-          this.$toast({
-            variant: 'danger',
-            title: 'Error',
-            body: 'Server error'
+          toast.show({
+            variant: "danger",
+            title: "Error",
+            body: "Server error",
           });
         })
         .finally(() => {
-          this.isInitialLoading = false;
+          isInitialLoading.value = false;
         });
+    });
 
-  },
-  methods: {
-    convertProfileToInitialValues(profile) {
-      return {
-        name: profile.name,
-        email: profile.email
-      };
-    },
-    submitForm({ shouldExit }) {
-      this.isSubmitting = true;
+    function handleFormSubmit(event: TagerFormSubmitEvent) {
+      isSubmitting.value = true;
 
-      updateUserProfile(this.values)
-          .then(() => {
-            this.errors = {};
+      updateUserProfile(values.value)
+        .then(() => {
+          errors.value = {};
 
-            if (shouldExit) {
-              this.$router.push('/');
-            }
+          if (event.type === "save_exit") {
+            router.push("/");
+          }
 
-            this.$toast({
-              variant: 'success',
-              title: 'Success',
-              body: this.$t('layout:changeUserProfileSuccess')
-            });
-          })
-          .catch((error) => {
-            console.error(error);
-            this.errors = convertRequestErrorToMap(error);
-            this.$toast({
-              variant: 'danger',
-              title: 'Error',
-              body: this.$t('layout:changeUserProfileFailure')
-            });
-          })
-          .finally(() => {
-            this.isSubmitting = false;
+          toast.show({
+            variant: "success",
+            title: "Success",
+            body: i18n.t("layout:changeUserProfileSuccess"),
           });
+        })
+        .catch((error) => {
+          console.error(error);
+          errors.value = convertRequestErrorToMap(error);
+          toast.show({
+            variant: "danger",
+            title: "Error",
+            body: i18n.t("layout:changeUserProfileFailure"),
+          });
+        })
+        .finally(() => {
+          isSubmitting.value = false;
+        });
     }
-  }
+
+    return { values, errors, isSubmitting, isInitialLoading, handleFormSubmit };
+  },
 });
 </script>
 

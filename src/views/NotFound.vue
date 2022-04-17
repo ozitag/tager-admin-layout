@@ -1,36 +1,42 @@
 <template>
   <div class="not-found-page-container">
     <div class="image-container">
-      <lamp-svg-image />
+      <LampIcon />
     </div>
     <div class="content">
       <h1 class="status-code">404</h1>
-      <h3 class="status-text">{{ $t('layout:pageNotFoundTitle') }}</h3>
+      <h3 class="status-text">{{ $i18n.t("layout:pageNotFoundTitle") }}</h3>
       <p class="message">
-        {{ $t('layout:pageNotFoundMessage') }}
+        {{ $i18n.t("layout:pageNotFoundMessage") }}
       </p>
       <div>
-        <base-button variant="outline-secondary" @click="goToHome">
-          {{ $t('layout:goToHome') }}
-        </base-button>
+        <BaseButton variant="outline-secondary" @click="goToHome">
+          {{ $i18n.t("layout:goToHome") }}
+        </BaseButton>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="js">
-import Vue from 'vue';
-import { BaseButton } from '@tager/admin-ui';
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
-import LampSvgImage from '../assets/svg/lamp.svg';
+import { BaseButton } from "@tager/admin-ui";
 
-export default Vue.extend({
-  name: 'NotFound',
-  components: { LampSvgImage, BaseButton },
-  methods: {
-    goToHome() {
-      this.$router.push('/');
-    },
+import LampIcon from "../components/LampIcon.vue";
+
+export default defineComponent({
+  name: "NotFound",
+  components: { LampIcon, BaseButton },
+  setup() {
+    const router = useRouter();
+
+    function goToHome() {
+      router.push("/");
+    }
+
+    return { goToHome };
   },
 });
 </script>

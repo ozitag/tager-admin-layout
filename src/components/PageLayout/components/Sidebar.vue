@@ -88,19 +88,18 @@
 
 <script lang="ts">
 import {
-  Component,
+  type Component,
   computed,
   defineComponent,
   onMounted,
-  PropType,
+  type PropType,
   ref,
   watch,
 } from "vue";
 import { useRoute } from "vue-router";
 
-import { AppConfigType } from "@tager/admin-services/dist/typings/common";
-import { environment } from "@tager/admin-services";
-import { ExpandMoreIcon, LinkType } from "@tager/admin-ui";
+import { environment, type AppConfigType } from "@tager/admin-services";
+import { ExpandMoreIcon, type LinkType } from "@tager/admin-ui";
 
 import { getLogoUrl } from "../../../utils/common";
 

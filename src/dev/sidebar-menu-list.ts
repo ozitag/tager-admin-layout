@@ -1,6 +1,6 @@
 import { ViewListIcon, AssignmentIcon, SettingsIcon } from "@tager/admin-ui";
 
-import { MenuItemType } from "../components/PageLayout/components/Sidebar.vue";
+import { type MenuItemType } from "../components/PageLayout/components/Sidebar.vue";
 
 export const sidebarMenuList: Array<MenuItemType> = [
   {

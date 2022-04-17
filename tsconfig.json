@@ -16,6 +16,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "dist",
+    "skipLibCheck": true,
     "types": [
       "webpack-env"
     ],

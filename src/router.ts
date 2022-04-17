@@ -1,12 +1,13 @@
 import {
   createRouter as createVueRouter,
-  RouterOptions,
+  type RouterOptions,
   createWebHistory,
-  RouteRecordRaw,
-  RouteLocationNormalizedLoaded,
+  type RouteRecordRaw,
+  type RouteLocationNormalizedLoaded,
 } from "vue-router";
 
 import {
+  type AppConfigType,
   configStore,
   environment,
   previousRouteTracker,
@@ -24,7 +25,7 @@ function getBreadcrumbFromRoute(route: RouteLocationNormalizedLoaded) {
 }
 
 const NOT_FOUND_ROUTE: RouteRecordRaw = {
-  path: "*",
+  path: "/:pathMatch(.*)*",
   name: "Not Found",
   component: NotFound,
 };
@@ -97,10 +98,10 @@ export function createRouter(
 
   if (params.useTitleSync) {
     router.afterEach((routeTo) => {
-      const pageName = routeTo.name ?? "Not Found";
+      const pageName = (routeTo.name as string) ?? "Not Found";
 
       document.title = configStore
-        .getConfig()
+        .getConfig<AppConfigType>()
         .TITLE_TEMPLATE.replace(/{{title}}/, pageName);
     });
   }

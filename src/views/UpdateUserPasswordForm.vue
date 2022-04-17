@@ -1,83 +1,94 @@
 <template>
-  <page
-    :title="$t('layout:changeUserPassword')"
-    :footer="{
-      backHref: '/',
-      backLabel: $t('layout:back'),
-      onSubmit: submitForm,
-      isSubmitting: isSubmitting,
-    }"
-  >
+  <Page :title="$i18n.t('layout:changeUserPassword')">
     <form novalidate @submit.prevent>
-      <form-field
-        v-model="values.oldPassword"
+      <FormField
+        v-model:value="values.oldPassword"
         name="oldPassword"
-        :label="$t('layout:currentPassword')"
+        :label="$i18n.t('layout:currentPassword')"
         :error="errors.oldPassword"
         type="password"
       />
 
-      <form-field
-        v-model="values.newPassword"
+      <FormField
+        v-model:value="values.newPassword"
         name="newPassword"
-        :label="$t('layout:newPassword')"
+        :label="$i18n.t('layout:newPassword')"
         :error="errors.newPassword"
         type="password"
       />
     </form>
-  </page>
+
+    <template #footer>
+      <FormFooter
+        :back-label="$i18n.t('layout:back')"
+        :is-submitting="isSubmitting"
+        @submit="handleFormSubmit"
+      ></FormFooter>
+    </template>
+  </Page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
-import { convertRequestErrorToMap } from "@tager/admin-services";
+import {
+  convertRequestErrorToMap,
+  useI18n,
+  useToast,
+} from "@tager/admin-services";
+import {
+  FormField,
+  FormFooter,
+  type TagerFormSubmitEvent,
+} from "@tager/admin-ui";
 
 import { updateUserPassword } from "../services/requests";
+import Page from "../components/Page/Page.vue";
 
 export default defineComponent({
   name: "UpdateUserPasswordForm",
-  data() {
-    return {
-      values: {
-        oldPassword: "",
-        newPassword: "",
-      },
-      errors: {},
-      isSubmitting: false,
-    };
-  },
-  methods: {
-    submitForm({ shouldExit }) {
-      this.isSubmitting = true;
+  components: { Page, FormField, FormFooter },
+  setup() {
+    const router = useRouter();
+    const toast = useToast();
+    const i18n = useI18n();
+    const values = ref({ oldPassword: "", newPassword: "" });
+    const errors = ref({});
+    const isSubmitting = ref(false);
 
-      updateUserPassword(this.values)
+    function handleFormSubmit(event: TagerFormSubmitEvent) {
+      isSubmitting.value = true;
+
+      updateUserPassword(values.value)
         .then(() => {
-          this.errors = {};
+          errors.value = {};
 
-          if (shouldExit) {
-            this.$router.push("/");
+          if (event.type === "save_exit") {
+            router.push("/");
           }
 
-          this.$toast({
+          toast.show({
             variant: "success",
             title: "Success",
-            body: this.$t("layout:changeUserPasswordSuccess"),
+            body: i18n.t("layout:changeUserPasswordSuccess"),
           });
         })
         .catch((error) => {
           console.error(error);
-          this.errors = convertRequestErrorToMap(error);
-          this.$toast({
+          errors.value = convertRequestErrorToMap(error);
+          toast.show({
             variant: "danger",
             title: "Error",
-            body: this.$t("layout:changeUserPasswordFailure"),
+            body: i18n.t("layout:changeUserPasswordFailure"),
           });
         })
         .finally(() => {
-          this.isSubmitting = false;
+          isSubmitting.value = false;
         });
-    },
+    }
+
+    return { values, errors, handleFormSubmit, isSubmitting };
   },
 });
 </script>

@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue";
+import { computed, defineComponent, type PropType } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
 import {
@@ -44,7 +44,7 @@ import {
   Spinner,
   MenuIcon,
   ChevronRightIcon,
-  LinkType,
+  type LinkType,
 } from "@tager/admin-ui";
 import { useI18n } from "@tager/admin-services";
 

@@ -1,54 +1,68 @@
-<script lang="js">
-import Vue from 'vue';
-import { BaseButton, PageTitle } from '@tager/admin-ui';
+<template>
+  <div class="top">
+    <PageTitle v-if="title">{{ title }}</PageTitle>
+    <div v-if="buttonList.length > 0" class="button-list">
+      <BaseButton
+        v-for="(button, index) of buttons"
+        :key="index"
+        v-bind="button.props"
+      >
+        {{ button.children }}
+      </BaseButton>
+    </div>
+  </div>
+</template>
+<script lang="ts">
+import { computed, defineComponent, type PropType } from "vue";
 
-export default Vue.extend({
-  name: 'Top',
+import { BaseButton, PageTitle, type ButtonVariant } from "@tager/admin-ui";
+
+export interface TopButtonConfigType {
+  variant?: ButtonVariant;
+  text?: string;
+  onClick?: (event: Event) => void;
+  class?: string | Record<string, unknown>[] | Record<string, unknown>;
+  style?: string | Record<string, unknown>[] | Record<string, unknown>;
+  href?: string;
+  target?: string;
+}
+
+interface Props {
+  title: string;
+  buttonList: Array<TopButtonConfigType>;
+}
+
+export default defineComponent({
+  name: "PageTop",
+  components: { PageTitle, BaseButton },
   props: {
     title: {
       type: String,
-      default: '',
+      default: "",
     },
     buttonList: {
-      type: Array,
-      default: () => []
-    },
-    topSlot: {
-      type: [Object, Array],
-      default: null
+      type: Array as PropType<Array<TopButtonConfigType>>,
+      default: () => [],
     },
   },
-  render(createElement) {
-    if (this.topSlot) return this.topSlot;
+  setup(props: Props) {
+    const buttons = computed(() => {
+      return props.buttonList.map((buttonConfig) => ({
+        props: {
+          variant: buttonConfig.variant ?? "outline-secondary",
+          href: buttonConfig.href,
+          onClick: buttonConfig.onClick,
+          target: buttonConfig.target,
+          class: buttonConfig.class,
+          style: buttonConfig.style,
+        },
+        children: buttonConfig.text,
+      }));
+    });
 
-    return createElement('div', { class: 'top' }, [
-      this.title ? createElement(PageTitle, this.title) : null,
-      this.buttonList.length > 0 ? createElement('div', { class: 'button-list' }, this.buttonList.map(buttonConfig => {
-        return createElement(
-          BaseButton, {
-            props: {
-              variant: buttonConfig.variant ?? 'outline-secondary',
-              href: buttonConfig.href
-            },
-            on: {
-              click: (event) => {
-                if (buttonConfig.onClick) {
-                  buttonConfig.onClick(event);
-                }
-              }
-            },
-            attrs: {
-              target: buttonConfig.target
-            },
-            class: buttonConfig.class,
-            style: buttonConfig.style,
-          },
-          buttonConfig.text
-        )
-      })) : null
-    ].filter(Boolean))
-  }
-  });
+    return { buttons };
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -63,10 +77,12 @@ export default Vue.extend({
 
 .button-list {
   display: flex;
-  button,a{
+  button,
+  a {
     white-space: nowrap;
   }
-  button:not(:last-child), a:not(:last-child) {
+  button:not(:last-child),
+  a:not(:last-child) {
     margin-right: 1rem;
   }
 }

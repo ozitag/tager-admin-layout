@@ -18,7 +18,7 @@ import {
   useToast,
 } from "@tager/admin-services";
 import { DropdownMenu } from "@tager/admin-ui";
-import { DropdownMenuItemType } from "@tager/admin-ui/dist/typings/common";
+import type { DropdownMenuItemType } from "@tager/admin-ui";
 
 import { isDevelopment } from "../../../utils/common";
 import { signOut } from "../../../services/requests";

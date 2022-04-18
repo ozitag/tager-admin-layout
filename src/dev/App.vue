@@ -75,7 +75,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import PageLayout from "../components/PageLayout/PageLayout.vue";
+import { PageLayout } from "../components/PageLayout";
 import Page from "../components/Page/Page.vue";
 
 import { sidebarMenuList } from "./sidebar-menu-list";

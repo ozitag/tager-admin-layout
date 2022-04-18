@@ -8,18 +8,29 @@ import {
 
 import {
   type AppConfigType,
+  type I18nContext,
   configStore,
   environment,
   previousRouteTracker,
 } from "@tager/admin-services";
+import type { LinkType } from "@tager/admin-ui";
 
 import NotFound from "./views/NotFound.vue";
 import UpdateProfileForm from "./views/UpdateProfileForm.vue";
 import UpdateUserPasswordForm from "./views/UpdateUserPasswordForm.vue";
 
-const HOME_BREADCRUMB = { url: "/", text: "Home" };
+const HOME_BREADCRUMB: LinkType = { url: "/", text: "Home" };
 
-function getBreadcrumbFromRoute(route: RouteLocationNormalizedLoaded) {
+declare module "vue-router" {
+  interface RouteMeta {
+    getBreadcrumbs?: (
+      route: RouteLocationNormalizedLoaded,
+      i18n: I18nContext
+    ) => Array<LinkType>;
+  }
+}
+
+export function getBreadcrumbFromRoute(route: RouteLocationNormalizedLoaded) {
   const text = typeof route.name === "symbol" ? "Unknown page" : route.name;
   return { url: route.path, text: text || "" };
 }

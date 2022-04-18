@@ -1,12 +1,12 @@
 {
   "name": "@tager/admin-layout",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "license": "MIT",
   "exports": {
     "./css": "./dist/style.css",
     ".": "./dist/index.mjs"
   },
-  "types": "typings/main.d.ts",
+  "types": "./dist/main.d.ts",
   "files": [
     "dist",
     "typings"
@@ -30,12 +30,10 @@
     "@typescript-eslint/parser": "^5.18.0",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vue/cli-plugin-babel": "^5.0.4",
-    "@vue/cli-plugin-eslint": "^5.0.4",
     "@vue/cli-plugin-typescript": "^5.0.4",
     "@vue/cli-service": "~5.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
-    "babel-eslint": "^10.1.0",
     "concurrently": "^7.1.0",
     "core-js": "^3.21.1",
     "eslint": "^8.13.0",

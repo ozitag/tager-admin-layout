@@ -41,7 +41,7 @@ import {
   type TagerFormSubmitEvent,
 } from "@tager/admin-ui";
 
-import Top from "./components/Top.vue";
+import Top, { type TopButtonConfigType } from "./components/Top.vue";
 
 interface PageFooterType {
   backHref?: string;
@@ -54,7 +54,7 @@ interface PageFooterType {
 
 interface Props {
   title: string;
-  headerButtons: Array<unknown>;
+  headerButtons: Array<TopButtonConfigType>;
   footer: PageFooterType;
   isContentLoading: boolean;
   isHeaderHidden: boolean;
@@ -69,7 +69,7 @@ export default defineComponent({
       default: "",
     },
     headerButtons: {
-      type: Array,
+      type: Array as PropType<Props["headerButtons"]>,
       default: () => [],
     },
     footer: {

@@ -10,7 +10,7 @@
           <Spinner size="50" />
         </div>
 
-        <div class="content-inner">
+        <div class="content-inner" data-sticky-panel-limiter="true">
           <slot name="default"></slot>
           <slot name="content"></slot>
         </div>

@@ -22,68 +22,67 @@
             {{ subtitle }}
           </span>
       </div>
-    </div>
+      <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
+        <div v-if="shouldDisplayVersion" class="sidebar-version">
+          <span class="version-word">ver.</span> {{ appVersion }}
+        </div>
 
-    <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
-      <div v-if="shouldDisplayVersion" class="sidebar-version">
-        <span class="version-word">ver.</span> {{ appVersion }}
-      </div>
-
-      <ul
-        class="menu-list"
-        @mouseover="handleMouseOver"
-        @mouseleave="handleMouseLeave"
-      >
-        <li
-          v-for="menuItem in menuItemList"
-          :key="menuItem.id"
-          :class="[
+        <ul
+          class="menu-list"
+          @mouseover="handleMouseOver"
+          @mouseleave="handleMouseLeave"
+        >
+          <li
+            v-for="menuItem in menuItemList"
+            :key="menuItem.id"
+            :class="[
               'menu-item',
               {
                 active: menuItem.id === activeItemId,
                 expanded: openItemIdList.includes(menuItem.id),
               },
             ]"
-        >
-          <component
-            :is="menuItem.children ? 'button' : 'router-link'"
-            class="menu-link"
-            :to="menuItem.children ? undefined : menuItem.url"
-            @click="
+          >
+            <component
+              :is="menuItem.children ? 'button' : 'router-link'"
+              class="menu-link"
+              :to="menuItem.children ? undefined : menuItem.url"
+              @click="
                 menuItem.children ? toggleMenuItem(menuItem.id) : undefined
               "
-          >
+            >
               <span class="menu-link-icon-container">
                 <component :is="menuItem.icon" />
               </span>
-            <span class="menu-link-name">{{ menuItem.text }}</span>
-            <span
-              v-show="Array.isArray(menuItem.children)"
-              class="arrow-icon-container"
-            >
+              <span class="menu-link-name">{{ menuItem.text }}</span>
+              <span
+                v-show="Array.isArray(menuItem.children)"
+                class="arrow-icon-container"
+              >
                 <ExpandMoreIcon />
               </span>
-          </component>
-          <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
-            <li
-              v-for="childItem of menuItem.children"
-              :key="childItem.url"
-              class="child-menu-item"
-            >
-              <router-link
-                active-class="active"
-                class="child-menu-link"
-                :to="childItem.url"
-                exact
+            </component>
+            <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
+              <li
+                v-for="childItem of menuItem.children"
+                :key="childItem.url"
+                class="child-menu-item"
               >
-                {{ childItem.text }}
-              </router-link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <div class="footer">
-        <span class="brand">TAGER</span>
+                <router-link
+                  active-class="active"
+                  class="child-menu-link"
+                  :to="childItem.url"
+                  exact
+                >
+                  {{ childItem.text }}
+                </router-link>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="footer">
+          <span class="brand">TAGER</span>
+        </div>
       </div>
     </div>
   </aside>

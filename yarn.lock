@@ -1099,19 +1099,19 @@
   resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.2.2.tgz#03ecc29279e3c0c832f6185a5bfa3497858ac8ca"
   integrity sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==
 
-"@tager/admin-services@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.0.0.tgz#b9b170234689737ef972e56b4ded45c216c7c723"
-  integrity sha512-4YxFBLoA42ia1lDjDcq0qujXYrlkf0ilP4++I/zpSqLu5rRnMql467gmlb+E+Dm603c+s4JX3RDxCfP4g51+xQ==
+"@tager/admin-services@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.0.1.tgz#d536e9ddbff8bc7a9604e64816a0703b63d7f76e"
+  integrity sha512-9VRlFDM4hpOSRoP9QowNKLX9iwXm3R4XBW0nEThrFl3mm8Z39fDVaoFdGk8+zRVCq8FKQPFCyFnTrJz9L9fj1w==
   dependencies:
     i18next "^21.6.16"
     nanoid "^3.3.3"
     zod "^3.14.4"
 
-"@tager/admin-ui@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.1.tgz#e0568add22f66f1a9bdaa529743f53767eb70992"
-  integrity sha512-XD6H3DOZ6hUs4J3ovXAlM1S7kHJ4wfbeWfft9vt1j/DhqWp7JmILXxfpEHPsTFIgewJgOO0VX+sPgUQsSkVrzw==
+"@tager/admin-ui@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.3.tgz#27c2fa89fb091ff644c570dd9d0e1a83b56c73df"
+  integrity sha512-tksGVjIX5UylWrg4pVGTYITRwsMV3zxvlRzkBYqdplq7pSQmnHEAayq796cfixY3iK7YsMMl6tnbDBx25JUo1g==
   dependencies:
     "@ckeditor/ckeditor5-vue" "^4.0.0"
     "@floating-ui/dom" "^0.4.5"

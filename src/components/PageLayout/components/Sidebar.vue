@@ -18,69 +18,72 @@
             {{ brandName }}
           </span>
         </div>
+        <span v-if="Boolean(subtitle)" class="sidebar-top-subtitle">
+            {{ subtitle }}
+          </span>
+      </div>
+    </div>
+
+    <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
+      <div v-if="shouldDisplayVersion" class="sidebar-version">
+        <span class="version-word">ver.</span> {{ appVersion }}
       </div>
 
-      <div :class="['sidebar-body']">
-        <div v-if="shouldDisplayVersion" class="sidebar-version">
-          <span class="version-word">ver.</span> {{ appVersion }}
-        </div>
-
-        <ul
-          class="menu-list"
-          @mouseover="handleMouseOver"
-          @mouseleave="handleMouseLeave"
-        >
-          <li
-            v-for="menuItem in menuItemList"
-            :key="menuItem.id"
-            :class="[
+      <ul
+        class="menu-list"
+        @mouseover="handleMouseOver"
+        @mouseleave="handleMouseLeave"
+      >
+        <li
+          v-for="menuItem in menuItemList"
+          :key="menuItem.id"
+          :class="[
               'menu-item',
               {
                 active: menuItem.id === activeItemId,
                 expanded: openItemIdList.includes(menuItem.id),
               },
             ]"
-          >
-            <component
-              :is="menuItem.children ? 'button' : 'router-link'"
-              class="menu-link"
-              :to="menuItem.children ? undefined : menuItem.url"
-              @click="
+        >
+          <component
+            :is="menuItem.children ? 'button' : 'router-link'"
+            class="menu-link"
+            :to="menuItem.children ? undefined : menuItem.url"
+            @click="
                 menuItem.children ? toggleMenuItem(menuItem.id) : undefined
               "
-            >
+          >
               <span class="menu-link-icon-container">
                 <component :is="menuItem.icon" />
               </span>
-              <span class="menu-link-name">{{ menuItem.text }}</span>
-              <span
-                v-show="Array.isArray(menuItem.children)"
-                class="arrow-icon-container"
-              >
+            <span class="menu-link-name">{{ menuItem.text }}</span>
+            <span
+              v-show="Array.isArray(menuItem.children)"
+              class="arrow-icon-container"
+            >
                 <ExpandMoreIcon />
               </span>
-            </component>
-            <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
-              <li
-                v-for="childItem of menuItem.children"
-                :key="childItem.url"
-                class="child-menu-item"
+          </component>
+          <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
+            <li
+              v-for="childItem of menuItem.children"
+              :key="childItem.url"
+              class="child-menu-item"
+            >
+              <router-link
+                active-class="active"
+                class="child-menu-link"
+                :to="childItem.url"
+                exact
               >
-                <router-link
-                  active-class="active"
-                  class="child-menu-link"
-                  :to="childItem.url"
-                  exact
-                >
-                  {{ childItem.text }}
-                </router-link>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <div class="footer">
-          <span class="brand">TAGER</span>
-        </div>
+                {{ childItem.text }}
+              </router-link>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="footer">
+        <span class="brand">TAGER</span>
       </div>
     </div>
   </aside>
@@ -94,7 +97,7 @@ import {
   onMounted,
   type PropType,
   ref,
-  watch,
+  watch
 } from "vue";
 import { useRoute } from "vue-router";
 
@@ -134,20 +137,20 @@ export default defineComponent({
   props: {
     isCollapsed: {
       type: Boolean,
-      required: true,
+      required: true
     },
     menuItemList: {
       type: Array as PropType<Props["menuItemList"]>,
-      required: true,
+      required: true
     },
     brandConfig: {
       type: Object as PropType<Props["brandConfig"]>,
-      required: true,
+      required: true
     },
     displayVersion: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup(props: Props) {
     const route = useRoute();
@@ -174,6 +177,10 @@ export default defineComponent({
 
     const brandName = computed(() => {
       return currentBrand.value.label ?? "";
+    });
+
+    const subtitle = computed(() => {
+      return props.brandConfig.subtitle ?? "";
     });
 
     const shouldDisplayBrandName = computed(() => {
@@ -248,6 +255,7 @@ export default defineComponent({
     });
 
     return {
+      subtitle,
       isHovered,
       toggleMenuItem,
       handleMouseOver,
@@ -260,9 +268,9 @@ export default defineComponent({
       appVersion,
       shouldDisplayVersion,
       activeItemId,
-      openItemIdList,
+      openItemIdList
     };
-  },
+  }
 });
 </script>
 
@@ -285,6 +293,10 @@ export default defineComponent({
       width: var(--sidebar-colapsed-width);
       border-bottom: 1px solid transparent;
       justify-content: center;
+    }
+
+    .sidebar-top-subtitle {
+      border-bottom: 1px solid #eee;
     }
 
     .sidebar-top-title {
@@ -389,6 +401,10 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
+
+  &--with-subtitle {
+    height: calc(100vh - 71px);
+  }
 }
 
 .menu-list {
@@ -535,5 +551,17 @@ export default defineComponent({
     letter-spacing: 0.15em;
     font-size: 20px;
   }
+}
+
+.sidebar-top-subtitle {
+  display: block;
+  text-align: center;
+  border-top: 1px solid #eee;
+  padding: 5px;
+  margin-top: -10px;
+  color: #000;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

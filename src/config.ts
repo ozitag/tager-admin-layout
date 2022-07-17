@@ -13,6 +13,7 @@ export const PRESETBOX_CONFIG: AppConfigType = {
       label: "Preset Box",
       "label-color": "#0b2525",
     },
+    subtitle: "SubTitle"
   },
   SPLASH_SCREEN: {
     enabled: true,
@@ -34,6 +35,7 @@ export const OZITAG_CONFIG: AppConfigType = {
       label: "OZiTAG",
       "label-color": "#DD6900",
     },
+    subtitle: ''
   },
   SPLASH_SCREEN: {
     enabled: true,
@@ -53,6 +55,7 @@ export const GETCLEAN_CONFIG: AppConfigType = {
     large: {
       logo: "getclean-logo.svg",
     },
+    subtitle: ''
   },
   SPLASH_SCREEN: {
     enabled: true,

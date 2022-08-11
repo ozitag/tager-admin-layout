@@ -15,15 +15,15 @@ export default defineComponent({
   props: {
     config: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const logoUrl = computed(() => getLogoUrl(props.config.logo));
-    const backgroundColor = computed(() => getLogoUrl(props.config.background));
+    const backgroundColor = computed(() => props.config.background);
 
     return { logoUrl, backgroundColor };
-  },
+  }
 });
 </script>
 
@@ -65,6 +65,7 @@ export default defineComponent({
       border-top-color: #ff5252;
       animation: spin-reverse 1.1s linear infinite;
     }
+
     &:after {
       content: "";
       position: absolute;
@@ -88,6 +89,7 @@ export default defineComponent({
     transform: rotate(360deg);
   }
 }
+
 @keyframes spin-reverse {
   0% {
     transform: rotate(0deg);

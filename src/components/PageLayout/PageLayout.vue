@@ -36,7 +36,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, type PropType, ref, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  type PropType,
+  ref,
+  watch,
+} from "vue";
+import { storeToRefs } from "pinia";
 
 import {
   configStore,
@@ -46,17 +54,18 @@ import {
   RequestError,
   useI18n,
   useToast,
-  type AppConfigType, useUserStore
+  type AppConfigType,
+  useUserStore,
 } from "@tager/admin-services";
 import { type LinkType, ToastList } from "@tager/admin-ui";
 
 import SplashScreen from "../SplashScreen.vue";
 import { isProduction } from "../../utils/common";
+import { MenuItemType } from "../../typings/menu";
 
-import Sidebar, { type MenuItemType } from "./components/Sidebar.vue";
+import Sidebar from "./components/Sidebar.vue";
 import Navbar from "./components/NavBar.vue";
 import ErrorPage from "./components/ErrorPage.vue";
-import { storeToRefs } from "pinia";
 
 interface Props {
   sidebarMenuList: Array<MenuItemType>;
@@ -69,12 +78,12 @@ export default defineComponent({
   props: {
     sidebarMenuList: {
       type: Array as PropType<Props["sidebarMenuList"]>,
-      default: () => []
+      default: () => [],
     },
     websiteLink: {
       type: Object as PropType<Props["websiteLink"]>,
-      default: null
-    }
+      default: null,
+    },
   },
   setup(props) {
     const i18n = useI18n();
@@ -119,7 +128,6 @@ export default defineComponent({
       isLoading.value = false;
 
       if (profileError.value instanceof RequestError) {
-
         if (isProduction()) {
           if (
             profileError.value.status >= 400 &&
@@ -136,21 +144,20 @@ export default defineComponent({
 
         profileRequestError.value = {
           code: profileError.value.status,
-          text: jsonResult?.message || ""
+          text: jsonResult?.message || "",
         };
       } else {
         profileRequestError.value = {
           code: "Error",
-          text: "Something goes wrong. Please ask administrator"
+          text: "Something goes wrong. Please ask administrator",
         };
       }
 
       toast.show({
         variant: "danger",
         title: "Error",
-        body: "User profile fetching has been failed"
+        body: "User profile fetching has been failed",
       });
-
     }
 
     watch([profileError], updateProfileError);
@@ -180,18 +187,19 @@ export default defineComponent({
       const url = isAbsoluteUrl(urlFromEnv)
         ? urlFromEnv
         : isAbsoluteUrl(environment.websiteUrl)
-          ? environment.websiteUrl
-          : window.location.origin;
+        ? environment.websiteUrl
+        : window.location.origin;
 
       return {
         url,
-        text: i18n.t("layout:openWebsite")
+        text: i18n.t("layout:openWebsite"),
       };
     });
 
     const isSplashScreenVisible = computed(() => {
       return (
-        isSplashScreenEnabled && (isTimeoutInProgress.value || profileStatus.value === "LOADING")
+        isSplashScreenEnabled &&
+        (isTimeoutInProgress.value || profileStatus.value === "LOADING")
       );
     });
 
@@ -204,11 +212,10 @@ export default defineComponent({
       isSidebarCollapsed,
       handleSidebarToggle,
       isSplashScreenVisible,
-      profileRequestError
+      profileRequestError,
     };
-  }
-})
-;
+  },
+});
 </script>
 
 <style>

@@ -1099,10 +1099,10 @@
   resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.2.2.tgz#03ecc29279e3c0c832f6185a5bfa3497858ac8ca"
   integrity sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==
 
-"@tager/admin-services@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.1.1.tgz#ddedf0fd52ff0d1e994543b120bb43e05e6fafa0"
-  integrity sha512-5PR4mRiZ5ahebnlWO/SwwuK4ez54XXrmgp3ogxJTaggBSYjKfusL9HQ3Tuz7F21sNdH1f/XvF7flG/Gsy0zeKQ==
+"@tager/admin-services@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.1.2.tgz#64413a39ae6b13ad321ef42ed0abeb70f3fe5efb"
+  integrity sha512-Q3yc4hK995VMcOFq+HaEOydyzJunTUXu6W8hdN2byyajz9r4euk1YZgBKTq1fo1JZcNA5nvlikAxgnIfqSTnUQ==
   dependencies:
     i18next "^21.6.16"
     nanoid "^3.3.3"

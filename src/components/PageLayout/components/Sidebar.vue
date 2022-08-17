@@ -19,10 +19,15 @@
           </span>
         </div>
         <span v-if="Boolean(subtitle)" class="sidebar-top-subtitle">
-            {{ subtitle }}
-          </span>
+          {{ subtitle }}
+        </span>
       </div>
-      <div :class="['sidebar-body', { 'sidebar-body--with-subtitle': Boolean(subtitle) }]">
+      <div
+        :class="[
+          'sidebar-body',
+          { 'sidebar-body--with-subtitle': Boolean(subtitle) },
+        ]"
+      >
         <div v-if="shouldDisplayVersion" class="sidebar-version">
           <span class="version-word">ver.</span> {{ appVersion }}
         </div>
@@ -33,7 +38,7 @@
           @mouseleave="handleMouseLeave"
         >
           <li
-            v-for="menuItem in menuItemList"
+            v-for="menuItem in menuItemListFiltered"
             :key="menuItem.id"
             :class="[
               'menu-item',
@@ -90,38 +95,25 @@
 
 <script lang="ts">
 import {
-  type Component,
   computed,
   defineComponent,
   onMounted,
   type PropType,
   ref,
-  watch
+  watch,
 } from "vue";
 import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
 
-import { environment, type AppConfigType } from "@tager/admin-services";
-import { ExpandMoreIcon, type LinkType } from "@tager/admin-ui";
+import {
+  environment,
+  type AppConfigType,
+  useUserStore,
+} from "@tager/admin-services";
+import { ExpandMoreIcon } from "@tager/admin-ui";
 
 import { getLogoUrl } from "../../../utils/common";
-
-export interface BaseMenuItemType {
-  id: string;
-  text: string;
-  url?: string;
-  icon: Component;
-  children?: Array<LinkType>;
-}
-
-export interface MenuItemSingleType extends BaseMenuItemType {
-  url: string;
-}
-
-export interface MenuItemWithChildrenType extends BaseMenuItemType {
-  children: Array<LinkType>;
-}
-
-export type MenuItemType = MenuItemSingleType | MenuItemWithChildrenType;
+import { MenuItemType } from "../../../typings/menu";
 
 interface Props {
   isCollapsed: boolean;
@@ -136,22 +128,24 @@ export default defineComponent({
   props: {
     isCollapsed: {
       type: Boolean,
-      required: true
+      required: true,
     },
     menuItemList: {
       type: Array as PropType<Props["menuItemList"]>,
-      required: true
+      required: true,
     },
     brandConfig: {
       type: Object as PropType<Props["brandConfig"]>,
-      required: true
+      required: true,
     },
     displayVersion: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props: Props) {
+    const { checkScopes } = storeToRefs(useUserStore());
+
     const route = useRoute();
     const isHovered = ref(false);
     const appVersion = environment.version;
@@ -253,6 +247,32 @@ export default defineComponent({
       openActiveItem();
     });
 
+    const menuItemListFiltered = computed<Array<MenuItemType>>(() => {
+      return props.menuItemList
+        .filter((menuItem) => {
+          if (!menuItem.scopes) {
+            return true;
+          }
+
+          return checkScopes.value(menuItem.scopes, menuItem.scopesOperand);
+        })
+        .map((menuItem) => {
+          if (menuItem.children) {
+            menuItem.children = menuItem.children.filter((childItem) => {
+              if (!childItem.scopes) {
+                return true;
+              }
+              return checkScopes.value(
+                childItem.scopes,
+                childItem.scopesOperand
+              );
+            });
+          }
+
+          return menuItem;
+        });
+    });
+
     return {
       subtitle,
       isHovered,
@@ -267,9 +287,10 @@ export default defineComponent({
       appVersion,
       shouldDisplayVersion,
       activeItemId,
-      openItemIdList
+      openItemIdList,
+      menuItemListFiltered,
     };
-  }
+  },
 });
 </script>
 

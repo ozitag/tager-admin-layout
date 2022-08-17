@@ -7,3 +7,5 @@ export { type TopButtonConfigType } from "./components/Page/components/Top.vue";
 export { default as Page } from "./components/Page/Page.vue";
 export { default as NotFoundView } from "./views/NotFound.vue";
 export { createRouter, getBreadcrumbFromRoute } from "./router";
+
+export * from "./typings/menu";

@@ -1,11 +1,10 @@
 import { Component } from "vue";
 
 import { LinkType } from "@tager/admin-ui";
-import { Scopes, ScopesOperand } from "@tager/admin-services";
+import { Scopes } from "@tager/admin-services";
 
 type MenuItemChildrenLink = LinkType & {
   scopes?: Scopes;
-  scopesOperand?: ScopesOperand;
 };
 
 export interface BaseMenuItemType {
@@ -14,7 +13,6 @@ export interface BaseMenuItemType {
   url?: string;
   icon: Component;
   scopes?: Scopes;
-  scopesOperand?: ScopesOperand;
   children?: Array<MenuItemChildrenLink>;
 }
 

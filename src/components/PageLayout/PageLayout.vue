@@ -8,7 +8,7 @@
       :code="profileRequestError.code"
       :text="profileRequestError.text"
     />
-    <div v-else>
+    <div v-if="!isSplashScreenVisible">
       <Sidebar
         :display-version="shouldDisplayVersion"
         :is-collapsed="isSidebarCollapsed"

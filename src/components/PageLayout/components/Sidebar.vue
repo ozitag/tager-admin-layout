@@ -254,7 +254,7 @@ export default defineComponent({
             return true;
           }
 
-          return checkScopes.value(menuItem.scopes, menuItem.scopesOperand);
+          return checkScopes.value(menuItem.scopes);
         })
         .map((menuItem) => {
           if (menuItem.children) {
@@ -262,10 +262,8 @@ export default defineComponent({
               if (!childItem.scopes) {
                 return true;
               }
-              return checkScopes.value(
-                childItem.scopes,
-                childItem.scopesOperand
-              );
+
+              return checkScopes.value(childItem.scopes);
             });
           }
 

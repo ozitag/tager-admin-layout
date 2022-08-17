@@ -7,14 +7,12 @@ export const sidebarMenuList: Array<MenuItemType> = [
     id: "catalog",
     text: "Services",
     icon: ViewListIcon,
-    scopes: ["brands.view", "services.view"],
-    scopesOperand: "OR",
+    scopes: ["OR", "brands.view", "services.view"],
     children: [
       {
         url: "/presets",
         text: "All presets",
         scopes: ["brands.view", "services.view"],
-        scopesOperand: "AND",
       },
       {
         url: "/presets/create",

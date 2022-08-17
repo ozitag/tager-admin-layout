@@ -77,10 +77,12 @@ export default defineComponent({
 
 .button-list {
   display: flex;
+
   button,
   a {
     white-space: nowrap;
   }
+
   button:not(:last-child),
   a:not(:last-child) {
     margin-right: 1rem;

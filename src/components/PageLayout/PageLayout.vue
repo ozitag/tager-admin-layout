@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, type PropType, ref } from "vue";
+import { computed, defineComponent, onMounted, type PropType, ref, watch } from "vue";
 
 import {
   configStore,
@@ -46,17 +46,17 @@ import {
   RequestError,
   useI18n,
   useToast,
-  type AppConfigType,
+  type AppConfigType, useUserStore
 } from "@tager/admin-services";
 import { type LinkType, ToastList } from "@tager/admin-ui";
 
 import SplashScreen from "../SplashScreen.vue";
-import { getUserProfile, type UserProfileType } from "../../services/requests";
 import { isProduction } from "../../utils/common";
 
 import Sidebar, { type MenuItemType } from "./components/Sidebar.vue";
 import Navbar from "./components/NavBar.vue";
 import ErrorPage from "./components/ErrorPage.vue";
+import { storeToRefs } from "pinia";
 
 interface Props {
   sidebarMenuList: Array<MenuItemType>;
@@ -69,12 +69,12 @@ export default defineComponent({
   props: {
     sidebarMenuList: {
       type: Array as PropType<Props["sidebarMenuList"]>,
-      default: () => [],
+      default: () => []
     },
     websiteLink: {
       type: Object as PropType<Props["websiteLink"]>,
-      default: null,
-    },
+      default: null
+    }
   },
   setup(props) {
     const i18n = useI18n();
@@ -93,7 +93,6 @@ export default defineComponent({
 
     const config: AppConfigType = configStore.getConfig();
     const isSplashScreenEnabled = Boolean(config.SPLASH_SCREEN.enabled);
-    const profile = ref<UserProfileType | null>(null);
     const isLoading = ref(true);
     const isTimeoutInProgress = ref(false);
     const profileRequestError = ref<{
@@ -102,46 +101,61 @@ export default defineComponent({
     } | null>(null);
     const toast = useToast();
 
+    const userStore = useUserStore();
+    const { profileStatus, profileError, profile } = storeToRefs(userStore);
+
     onMounted(() => {
-      getUserProfile()
-        .then((response) => {
-          profile.value = response.data;
-          isLoading.value = false;
-        })
-        .catch((error) => {
-          console.error(error);
+      userStore.fetchProfile();
 
-          isLoading.value = false;
+      updateProfileError();
+    });
 
-          if (isProduction()) {
-            if (error instanceof RequestError) {
-              if (error.status >= 500) {
-                profileRequestError.value = {
-                  code: error.status,
-                  text: error.statusText,
-                };
-                return;
-              }
+    function updateProfileError() {
+      if (!profileError.value) {
+        profileRequestError.value = null;
+        return;
+      }
 
-              if (error.status >= 400 && error.status < 500) {
-                removeAuthTokensAndRedirectToAuthPage();
-                return;
-              }
-            }
+      isLoading.value = false;
 
-            profileRequestError.value = {
-              code: "Error",
-              text: "Something goes wrong. Please ask administrator",
-            };
-          } else {
-            toast.show({
-              variant: "danger",
-              title: "Error",
-              body: "User profile fetching has been failed",
-            });
+      if (profileError.value instanceof RequestError) {
+
+        if (isProduction()) {
+          if (
+            profileError.value.status >= 400 &&
+            profileError.value.status < 500
+          ) {
+            removeAuthTokensAndRedirectToAuthPage();
+            return;
           }
-        });
+        }
 
+        const jsonResult = profileError.value.body as {
+          [key: string]: any;
+        };
+
+        profileRequestError.value = {
+          code: profileError.value.status,
+          text: jsonResult?.message || ""
+        };
+      } else {
+        profileRequestError.value = {
+          code: "Error",
+          text: "Something goes wrong. Please ask administrator"
+        };
+      }
+
+      toast.show({
+        variant: "danger",
+        title: "Error",
+        body: "User profile fetching has been failed"
+      });
+
+    }
+
+    watch([profileError], updateProfileError);
+
+    onMounted(() => {
       if (isSplashScreenEnabled) {
         isTimeoutInProgress.value = true;
         setTimeout(() => {
@@ -166,18 +180,18 @@ export default defineComponent({
       const url = isAbsoluteUrl(urlFromEnv)
         ? urlFromEnv
         : isAbsoluteUrl(environment.websiteUrl)
-        ? environment.websiteUrl
-        : window.location.origin;
+          ? environment.websiteUrl
+          : window.location.origin;
 
       return {
         url,
-        text: i18n.t("layout:openWebsite"),
+        text: i18n.t("layout:openWebsite")
       };
     });
 
     const isSplashScreenVisible = computed(() => {
       return (
-        isSplashScreenEnabled && (isTimeoutInProgress.value || isLoading.value)
+        isSplashScreenEnabled && (isTimeoutInProgress.value || profileStatus.value === "LOADING")
       );
     });
 
@@ -190,10 +204,11 @@ export default defineComponent({
       isSidebarCollapsed,
       handleSidebarToggle,
       isSplashScreenVisible,
-      profileRequestError,
+      profileRequestError
     };
-  },
-});
+  }
+})
+;
 </script>
 
 <style>

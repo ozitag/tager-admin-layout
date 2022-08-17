@@ -1099,19 +1099,20 @@
   resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.2.2.tgz#03ecc29279e3c0c832f6185a5bfa3497858ac8ca"
   integrity sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==
 
-"@tager/admin-services@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.0.1.tgz#d536e9ddbff8bc7a9604e64816a0703b63d7f76e"
-  integrity sha512-9VRlFDM4hpOSRoP9QowNKLX9iwXm3R4XBW0nEThrFl3mm8Z39fDVaoFdGk8+zRVCq8FKQPFCyFnTrJz9L9fj1w==
+"@tager/admin-services@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.1.1.tgz#ddedf0fd52ff0d1e994543b120bb43e05e6fafa0"
+  integrity sha512-5PR4mRiZ5ahebnlWO/SwwuK4ez54XXrmgp3ogxJTaggBSYjKfusL9HQ3Tuz7F21sNdH1f/XvF7flG/Gsy0zeKQ==
   dependencies:
     i18next "^21.6.16"
     nanoid "^3.3.3"
+    pinia "^2.0.18"
     zod "^3.14.4"
 
-"@tager/admin-ui@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.3.tgz#27c2fa89fb091ff644c570dd9d0e1a83b56c73df"
-  integrity sha512-tksGVjIX5UylWrg4pVGTYITRwsMV3zxvlRzkBYqdplq7pSQmnHEAayq796cfixY3iK7YsMMl6tnbDBx25JUo1g==
+"@tager/admin-ui@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.6.tgz#6256180dac78fbe0defc894b3ae99730c23f46a4"
+  integrity sha512-PbYDv+N1bcFyGgtgUz+VqPb8138dsndXMgPpA7mP3bwOuL2V3B+1yOTEO7A+I/IK7sYXKYppgMkQDGaBuxhdjg==
   dependencies:
     "@ckeditor/ckeditor5-vue" "^4.0.0"
     "@floating-ui/dom" "^0.4.5"
@@ -1815,6 +1816,11 @@
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.1.4.tgz#b4aec2f4b4599e11ba774a50c67fa378c9824e53"
   integrity sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==
+
+"@vue/devtools-api@^6.2.1":
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.2.1.tgz#6f2948ff002ec46df01420dfeff91de16c5b4092"
+  integrity sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ==
 
 "@vue/eslint-config-prettier@^7.0.0":
   version "7.0.0"
@@ -5193,6 +5199,14 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
+pinia@^2.0.18:
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.18.tgz#b29ed34bcb4c032b7da7c24c10db18b88d9254d8"
+  integrity sha512-I5MW05UVX6a5Djka136oH3VzYFiZUgeOApBwFjMx6pL91eHtGVlE3adjNUKLgtwGnrxiBRuJ8+4R3LKJKwnyZg==
+  dependencies:
+    "@vue/devtools-api" "^6.2.1"
+    vue-demi "*"
+
 pkg-dir@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-4.2.0.tgz#f099133df7ede422e81d1d8448270eeb3e4261f3"
@@ -6549,6 +6563,11 @@ vite@^2.9.6:
     rollup "^2.59.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+vue-demi@*:
+  version "0.13.7"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.7.tgz#5ae380b15c13be556ac4a0da0a48450c98a01d4b"
+  integrity sha512-hbhlvpx1gFW3TB5HxJ0mNxyA9Jh5iQt409taOs6zkhpvfJ7YzLs1rsLufJmDsjH5PI1cOyfikY1fE/meyHfU5A==
 
 vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
   version "8.3.0"

@@ -55,7 +55,7 @@ export const GETCLEAN_CONFIG: AppConfigType = {
     large: {
       logo: "getclean-logo.svg",
     },
-    subtitle: "",
+    subtitle: "GetClean",
   },
   SPLASH_SCREEN: {
     enabled: true,

@@ -85,9 +85,10 @@
             </ul>
           </li>
         </ul>
-        <div class="footer">
-          <span class="brand">TAGER</span>
-        </div>
+      </div>
+
+      <div class="footer">
+        <span class="brand">TAGER</span>
       </div>
     </div>
   </aside>
@@ -415,17 +416,16 @@ export default defineComponent({
 }
 
 .sidebar-body {
-  height: calc(100vh - 51px);
+  height: calc(100vh - 67px - 55px);
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
 
   &--with-subtitle {
-    height: calc(100vh - 71px);
+    height: calc(100vh - 90px - 55px);
   }
-}
 
-.menu-list {
+  overflow: auto;
   flex: 1;
   list-style-type: none;
   scrollbar-width: thin;
@@ -439,12 +439,16 @@ export default defineComponent({
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(170, 170, 170, 0.6);
+    background-color: rgba(170, 170, 170, 0.2);
 
     &:hover {
-      background-color: rgba(153, 153, 153, 0.6);
+      background-color: rgba(153, 153, 153, 0.2);
     }
   }
+}
+
+.menu-list {
+  flex: 1;
 }
 
 .menu-item {

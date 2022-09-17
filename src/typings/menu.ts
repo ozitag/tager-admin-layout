@@ -10,7 +10,7 @@ type MenuItemChildrenLink = LinkType & {
 export interface BaseMenuItemType {
   id: string;
   text: string;
-  url?: string;
+  url?: string | null;
   icon: Component;
   scopes?: Scopes;
   children?: Array<MenuItemChildrenLink>;

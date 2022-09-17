@@ -17,7 +17,7 @@ export interface BaseMenuItemType {
 }
 
 export interface MenuItemSingleType extends BaseMenuItemType {
-  url: string;
+  url: string | null;
 }
 
 export interface MenuItemWithChildrenType extends BaseMenuItemType {

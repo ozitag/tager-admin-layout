@@ -6,6 +6,7 @@
       title="Page Title"
       :header-buttons="headerButtons"
       :is-content-loading="false"
+      :is-overlay-loading="false"
       :footer="{
         backHref: '/home',
         backLabel: 'Back to presets',
@@ -101,7 +102,7 @@ export default defineComponent({
           href: "http://ozitag.com",
         },
       ],
-      displayRouterView: true,
+      displayRouterView: false,
       sayCow,
       saySubmit,
     };

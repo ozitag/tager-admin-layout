@@ -1,5 +1,8 @@
 <template>
   <div class="page-container">
+    <div class="overlay-loading" v-if="isOverlayLoading">
+      <Spinner size="50" />
+    </div>
     <slot v-if="!isHeaderHidden" name="top">
       <Top :title="title" :button-list="headerButtons"></Top>
     </slot>
@@ -38,7 +41,7 @@ import { computed, defineComponent, type PropType } from "vue";
 import {
   Spinner,
   FormFooter,
-  type TagerFormSubmitEvent,
+  type TagerFormSubmitEvent
 } from "@tager/admin-ui";
 
 import Top, { type TopButtonConfigType } from "./components/Top.vue";
@@ -66,24 +69,28 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     headerButtons: {
       type: Array as PropType<Props["headerButtons"]>,
-      default: () => [],
+      default: () => []
     },
     footer: {
       type: Object as PropType<Props["footer"]>,
-      default: () => ({}),
+      default: () => ({})
     },
     isContentLoading: {
       type: Boolean,
-      default: false,
+      default: false
+    },
+    isOverlayLoading: {
+      type: Boolean,
+      default: false
     },
     isHeaderHidden: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup(props: Props, context) {
     const isFooterEnabled = computed(() => {
@@ -91,7 +98,7 @@ export default defineComponent({
     });
 
     return { isFooterEnabled };
-  },
+  }
 });
 </script>
 
@@ -103,6 +110,17 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   margin-right: -10px;
+  position: relative;
+}
+
+.overlay-loading {
+  position: absolute;
+  inset: 0;
+  background: rgba(243, 243, 243, 0.5);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content-outer {

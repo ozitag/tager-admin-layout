@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="overlay-loading" v-if="isOverlayLoading">
+    <div v-if="isOverlayLoading" class="overlay-loading">
       <Spinner size="50" />
     </div>
     <slot v-if="!isHeaderHidden" name="top">
@@ -28,6 +28,7 @@
 
     <slot v-if="isFooterEnabled" name="footer">
       <FormFooter
+        v-if="isDefaultFooterEnabled"
         :back-href="footer.backHref"
         :back-label="footer.backLabel"
         :submit-label="footer.submitLabel"
@@ -79,23 +80,23 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      default: ""
+      default: "",
     },
     headerButtons: {
       type: Array as PropType<Props["headerButtons"]>,
-      default: () => []
+      default: () => [],
     },
     footer: {
       type: Object as PropType<Props["footer"]>,
-      default: () => ({})
+      default: () => ({}),
     },
     isContentLoading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isOverlayLoading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isHeaderHidden: {
       type: Boolean,
@@ -114,11 +115,15 @@ export default defineComponent({
   emits: ["update:tab-id"],
   setup(props: Props, context) {
     const isFooterEnabled = computed(() => {
-      return context.slots.footer && Object.keys(props.footer).length !== 0;
+      return context.slots.footer || Object.keys(props.footer).length !== 0;
     });
 
-    return { isFooterEnabled };
-  }
+    const isDefaultFooterEnabled = computed(
+      () => Object.keys(props.footer).length !== 0
+    );
+
+    return { isFooterEnabled, isDefaultFooterEnabled };
+  },
 });
 </script>
 

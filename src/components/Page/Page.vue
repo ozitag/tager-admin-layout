@@ -2,6 +2,12 @@
   <div class="page-container">
     <slot v-if="!isHeaderHidden" name="top">
       <Top :title="title" :button-list="headerButtons"></Top>
+      <TabList
+        v-if="tabs && tabs.length"
+        :tab-list="tabs"
+        :tab-id="tabId"
+        @update:tab-id="(value) => $emit('update:tab-id', value)"
+      />
     </slot>
 
     <div class="content-outer">
@@ -38,7 +44,9 @@ import { computed, defineComponent, type PropType } from "vue";
 import {
   Spinner,
   FormFooter,
+  TabList,
   type TagerFormSubmitEvent,
+  type TabType,
 } from "@tager/admin-ui";
 
 import Top, { type TopButtonConfigType } from "./components/Top.vue";
@@ -58,11 +66,13 @@ interface Props {
   footer: PageFooterType;
   isContentLoading: boolean;
   isHeaderHidden: boolean;
+  tabs?: Array<TabType>;
+  tabId?: string;
 }
 
 export default defineComponent({
   name: "AppPage",
-  components: { Top, Spinner, FormFooter },
+  components: { Top, Spinner, FormFooter, TabList },
   props: {
     title: {
       type: String,
@@ -84,10 +94,20 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    tabs: {
+      type: Array as PropType<Props["tabs"]>,
+      required: false,
+      default: null,
+    },
+    tabId: {
+      type: String,
+      default: "",
+    },
   },
+  emits: ["update:tab-id"],
   setup(props: Props, context) {
     const isFooterEnabled = computed(() => {
-      return context.slots.footer || Object.keys(props.footer).length !== 0;
+      return context.slots.footer && Object.keys(props.footer).length !== 0;
     });
 
     return { isFooterEnabled };

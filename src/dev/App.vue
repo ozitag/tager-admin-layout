@@ -3,6 +3,7 @@
     <router-view v-if="displayRouterView" />
     <Page
       v-else
+      v-model:tab-id="selectedTab"
       title="Page Title"
       :header-buttons="headerButtons"
       :is-content-loading="false"
@@ -13,8 +14,11 @@
         onSubmit: saySubmit,
         isSubmitting: false,
       }"
+      :tabs="tabs"
     >
       <template #content>
+        <h2>Active Tab: {{ selectedTab }}</h2>
+        <br /><br />
         <div style="max-width: 400px">
           What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing
           and typesetting industry. Lorem Ipsum has been the industry's standard
@@ -73,7 +77,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+
+import { TabType } from "@tager/admin-ui";
 
 import { PageLayout } from "../components/PageLayout";
 import Page from "../components/Page/Page.vue";
@@ -91,6 +97,15 @@ export default defineComponent({
       alert("submit");
     }
 
+    const tabs: Array<TabType> = [
+      { id: "common", label: "Основное" },
+      { id: "services", label: "Услуги" },
+      { id: "workers", label: "Клинеры" },
+      { id: "user", label: "Клиент" },
+      { id: "map", label: "Карта" },
+    ];
+    const selectedTab = ref<string>(tabs[1].id);
+
     return {
       sidebarMenuList,
       headerButtons: [
@@ -101,9 +116,11 @@ export default defineComponent({
           href: "http://ozitag.com",
         },
       ],
-      displayRouterView: true,
-      sayCow,
+      displayRouterView: false,
       saySubmit,
+
+      tabs,
+      selectedTab,
     };
   },
 });

@@ -28,6 +28,8 @@ export interface TopButtonConfigType {
   style?: string | Record<string, unknown>[] | Record<string, unknown>;
   href?: string;
   target?: string;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 interface Props {
@@ -54,12 +56,8 @@ export default defineComponent({
     const buttons = computed(() => {
       return props.buttonList.map((buttonConfig) => ({
         props: {
+          ...buttonConfig,
           variant: buttonConfig.variant ?? "outline-secondary",
-          href: buttonConfig.href,
-          onClick: buttonConfig.onClick,
-          target: buttonConfig.target,
-          class: buttonConfig.class,
-          style: buttonConfig.style,
         },
         children: buttonConfig.text,
       }));

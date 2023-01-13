@@ -17,7 +17,7 @@
       }"
       :tabs="tabs"
     >
-      <template #topRight>
+      <!--<template #topRight>
         Top Right Top Right Top Right Top Right Top Right Top Right Top Right
         Top Right Top Right Top Right Top Right Top Right Top Right Top Right
         Top Right Top Right Top Right Top Right Top Right Top Right Top Right
@@ -26,7 +26,7 @@
         Top Right Top Right Top Right Top Right Top Right Top Right Top Right
         Top Right Top Right Top Right Top Right Top Right Top Right Top Right
         Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-      </template>
+      </template>-->
       <template #content>
         <h2>Active Tab: {{ selectedTab }}</h2>
         <br /><br />
@@ -120,11 +120,17 @@ export default defineComponent({
     return {
       sidebarMenuList,
       headerButtons: [
-        { variant: "secondary", text: "say cow2", onClick: sayCow },
+        {
+          variant: "secondary",
+          text: "say cow2",
+          onClick: sayCow,
+          disabled: true,
+        },
         {
           variant: "secondary",
           text: "Create entity link",
           href: "http://ozitag.com",
+          loading: true,
         },
       ],
       displayRouterView: false,

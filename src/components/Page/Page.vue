@@ -4,7 +4,12 @@
       <Spinner size="50" />
     </div>
     <slot v-if="!isHeaderHidden" name="top">
-      <Top :title="title" :button-list="headerButtons"></Top>
+      <Top :title="title" :button-list="headerButtons">
+        <template v-for="(_, name) in $slots" #[name]="slotProps">
+          <slot v-if="slotProps" :name="name" v-bind="slotProps" />
+          <slot v-else :name="name" />
+        </template>
+      </Top>
       <TabList
         v-if="tabs && tabs.length"
         :tab-list="tabs"

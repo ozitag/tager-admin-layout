@@ -1,7 +1,10 @@
 <template>
   <div class="top">
     <PageTitle v-if="title">{{ title }}</PageTitle>
-    <div v-if="buttonList.length > 0" class="button-list">
+    <div v-if="slots.topRight">
+      <slot name="topRight" />
+    </div>
+    <div v-else-if="buttonList.length > 0" class="button-list">
       <BaseButton
         v-for="(button, index) of buttons"
         :key="index"
@@ -13,7 +16,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, type PropType } from "vue";
+import { computed, defineComponent, type PropType, useSlots } from "vue";
 
 import { BaseButton, PageTitle, type ButtonVariant } from "@tager/admin-ui";
 
@@ -46,6 +49,8 @@ export default defineComponent({
     },
   },
   setup(props: Props) {
+    const slots = useSlots();
+
     const buttons = computed(() => {
       return props.buttonList.map((buttonConfig) => ({
         props: {
@@ -60,7 +65,7 @@ export default defineComponent({
       }));
     });
 
-    return { buttons };
+    return { buttons, slots };
   },
 });
 </script>
@@ -73,6 +78,13 @@ export default defineComponent({
   border-bottom: 1px solid #eee;
   padding: 10px 15px;
   min-height: 60px;
+
+  > *:first-child {
+    min-width: 300px;
+    + * {
+      margin-left: 20px;
+    }
+  }
 }
 
 .button-list {

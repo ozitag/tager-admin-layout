@@ -17,6 +17,16 @@
       }"
       :tabs="tabs"
     >
+      <template #topRight>
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
+      </template>
       <template #content>
         <h2>Active Tab: {{ selectedTab }}</h2>
         <br /><br />

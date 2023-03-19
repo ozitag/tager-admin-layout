@@ -56,7 +56,7 @@ export const GETCLEAN_CONFIG: AppConfigType = {
     subtitle: "GetClean",
   },
   SPLASH_SCREEN: {
-    background: "#000",
-    color: "#fff",
+    background: "#fff",
+    color: "#000",
   },
 };

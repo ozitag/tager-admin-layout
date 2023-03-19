@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-layout",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "license": "MIT",
   "exports": {
     "./css": "./dist/style.css",
@@ -22,8 +22,8 @@
     "@babel/core": "^7.17.9",
     "@babel/eslint-parser": "^7.17.0",
     "@rushstack/eslint-patch": "^1.1.3",
-    "@tager/admin-services": "^1.1.13",
-    "@tager/admin-ui": "^1.0.76",
+    "@tager/admin-services": "^1.1.14",
+    "@tager/admin-ui": "^1.0.77",
     "@types/node": "16.x",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",

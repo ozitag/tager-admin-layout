@@ -3,11 +3,13 @@
     :class="{ 'spin-wrapper': true, _visible: visible }"
     :style="{ background: backgroundColor }"
   >
-    <template v-if="logoUrl">
-      <img v-if="Boolean(logoUrl)" :src="logoUrl" alt="logo" />
-      <div class="spinner-logo"></div>
-    </template>
-    <Spinner v-else size="50" :color="color" />
+    <div class="spin-wrapper__inner">
+      <template v-if="logoUrl">
+        <img v-if="Boolean(logoUrl)" :src="logoUrl" alt="logo" />
+        <div class="spinner-logo"></div>
+      </template>
+      <Spinner v-else size="50" :color="color" />
+    </div>
   </div>
 </template>
 
@@ -48,18 +50,30 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background: #1e1e1e;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 
-  transition: 0.6s all ease;
+  transition: 1s all ease;
   opacity: 0;
   visibility: hidden;
   &._visible {
     opacity: 1;
     visibility: visible;
+
+    .spin-wrapper__inner {
+      opacity: 1;
+    }
+  }
+
+  &__inner {
+    transition: 0.3s opacity ease;
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   img {

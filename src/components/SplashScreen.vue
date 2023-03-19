@@ -1,29 +1,43 @@
 <template>
-  <div class="spin-wrapper" :style="{ background: backgroundColor }">
-    <img v-if="Boolean(logoUrl)" :src="logoUrl" alt="logo" />
-    <div class="spinner"></div>
+  <div
+    :class="{ 'spin-wrapper': true, _visible: visible }"
+    :style="{ background: backgroundColor }"
+  >
+    <template v-if="logoUrl">
+      <img v-if="Boolean(logoUrl)" :src="logoUrl" alt="logo" />
+      <div class="spinner-logo"></div>
+    </template>
+    <Spinner v-else size="50" :color="color" />
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 
+import { Spinner } from "@tager/admin-ui";
+
 import { getLogoUrl } from "../utils/common";
 
 export default defineComponent({
   name: "SplashScreen",
+  components: { Spinner },
   props: {
+    visible: {
+      type: Boolean,
+      default: false,
+    },
     config: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const logoUrl = computed(() => getLogoUrl(props.config.logo));
-    const backgroundColor = computed(() => props.config.background);
+    const backgroundColor = computed(() => props.config.background || "#fff");
+    const color = computed(() => props.config.color || "#000");
 
-    return { logoUrl, backgroundColor };
-  }
+    return { logoUrl, backgroundColor, color };
+  },
 });
 </script>
 
@@ -40,11 +54,19 @@ export default defineComponent({
   align-items: center;
   z-index: 9999;
 
+  transition: 0.6s all ease;
+  opacity: 0;
+  visibility: hidden;
+  &._visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
   img {
     width: 120px;
   }
 
-  .spinner {
+  .spinner-logo {
     position: absolute;
     width: 290px;
     height: 290px;

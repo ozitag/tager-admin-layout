@@ -1,6 +1,10 @@
 export const EN = {
   back: "Back",
   logout: "Logout",
+  error: "Error",
+
+  somethingGoesWrong: "Something goes wrong",
+  pleaseAskAdministrator: "Please, ask the administrator to help",
 
   name: "Name",
   email: "E-Mail",

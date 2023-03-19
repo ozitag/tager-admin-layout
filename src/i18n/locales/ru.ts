@@ -3,6 +3,9 @@ import { EN } from "./en";
 export const RU: typeof EN = {
   back: "Назад",
   logout: "Выход",
+  error: "Ошибка",
+  somethingGoesWrong: "Что-то пошло не так",
+  pleaseAskAdministrator: "Пожалуйста, обратитесь к администратору",
 
   name: "Имя",
   email: "Электронная почта",

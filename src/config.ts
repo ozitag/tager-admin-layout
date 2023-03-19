@@ -16,7 +16,6 @@ export const PRESETBOX_CONFIG: AppConfigType = {
     subtitle: "SubTitle",
   },
   SPLASH_SCREEN: {
-    enabled: true,
     logo: "presetbox-logo.svg",
     background: "#fff",
   },
@@ -38,7 +37,6 @@ export const OZITAG_CONFIG: AppConfigType = {
     subtitle: "",
   },
   SPLASH_SCREEN: {
-    enabled: true,
     logo: "ozitag-logo-white.svg",
     background: "#1e1e1e",
   },
@@ -58,8 +56,7 @@ export const GETCLEAN_CONFIG: AppConfigType = {
     subtitle: "GetClean",
   },
   SPLASH_SCREEN: {
-    enabled: true,
-    logo: "getclean-logo.svg",
-    background: "#fff",
+    background: "#000",
+    color: "#fff",
   },
 };

@@ -1,14 +1,18 @@
 <template>
   <div>
     <ToastList />
-    <SplashScreen v-show="isSplashScreenVisible" :config="splashScreenConfig" />
+
+    <SplashScreen
+      :visible="isSplashScreenVisible"
+      :config="splashScreenConfig"
+    />
 
     <ErrorPage
       v-if="profileRequestError"
-      :code="profileRequestError.code"
-      :text="profileRequestError.text"
+      :code="profileRequestError?.code || 'Error'"
+      :text="profileRequestError?.text || 'Unknown error'"
     />
-    <div v-if="!isSplashScreenVisible">
+    <div v-else>
       <Sidebar
         :display-version="shouldDisplayVersion"
         :is-collapsed="isSidebarCollapsed"
@@ -53,11 +57,10 @@ import {
   removeAuthTokensAndRedirectToAuthPage,
   RequestError,
   useI18n,
-  useToast,
   type AppConfigType,
   useUserStore,
 } from "@tager/admin-services";
-import { type LinkType, ToastList } from "@tager/admin-ui";
+import { type LinkType, ToastList, Spinner } from "@tager/admin-ui";
 
 import SplashScreen from "../SplashScreen.vue";
 import { isProduction } from "../../utils/common";
@@ -74,7 +77,7 @@ interface Props {
 
 export default defineComponent({
   name: "PageLayout",
-  components: { Sidebar, Navbar, ToastList, SplashScreen, ErrorPage },
+  components: { Sidebar, Navbar, ToastList, SplashScreen, Spinner, ErrorPage },
   props: {
     sidebarMenuList: {
       type: Array as PropType<Props["sidebarMenuList"]>,
@@ -101,14 +104,12 @@ export default defineComponent({
     }
 
     const config: AppConfigType = configStore.getConfig();
-    const isSplashScreenEnabled = Boolean(config.SPLASH_SCREEN.enabled);
     const isLoading = ref(true);
     const isTimeoutInProgress = ref(false);
     const profileRequestError = ref<{
       code: string | number;
       text: string;
     } | null>(null);
-    const toast = useToast();
 
     const userStore = useUserStore();
     const { profileStatus, profileError, profile } = storeToRefs(userStore);
@@ -148,22 +149,20 @@ export default defineComponent({
         };
       } else {
         profileRequestError.value = {
-          code: "Error",
-          text: "Something goes wrong. Please ask administrator",
+          code: String(i18n.t("layout:error")) || "Error",
+          text: String(
+            i18n.t("layout:somethingGoesWrong") +
+              ".\n" +
+              i18n.t("layout:pleaseAskAdministrator")
+          ),
         };
       }
-
-      toast.show({
-        variant: "danger",
-        title: "Error",
-        body: "User profile fetching has been failed",
-      });
     }
 
     watch([profileError], updateProfileError);
 
     onMounted(() => {
-      if (isSplashScreenEnabled) {
+      if (config?.SPLASH_SCREEN?.logo) {
         isTimeoutInProgress.value = true;
         setTimeout(() => {
           isTimeoutInProgress.value = false;
@@ -196,12 +195,9 @@ export default defineComponent({
       };
     });
 
-    const isSplashScreenVisible = computed(() => {
-      return (
-        isSplashScreenEnabled &&
-        (isTimeoutInProgress.value || profileStatus.value === "LOADING")
-      );
-    });
+    const isSplashScreenVisible = computed<boolean>(
+      () => isTimeoutInProgress.value || profileStatus.value === "LOADING"
+    );
 
     return {
       splashScreenConfig: config.SPLASH_SCREEN,
@@ -244,5 +240,13 @@ export default defineComponent({
   padding: 75px 10px 0 10px;
   display: flex;
   flex-direction: column;
+}
+
+.spinner-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
 }
 </style>

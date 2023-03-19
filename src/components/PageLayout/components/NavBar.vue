@@ -29,6 +29,7 @@
           {{ websiteLink.text }}
         </BaseButton>
         <ProfileDropdown v-if="userName" :user-name="userName" />
+        <span v-if="userName" class="profileError" :user-name="userName" />
         <Spinner v-else class="auth-spinner" size="30" />
       </div>
     </div>

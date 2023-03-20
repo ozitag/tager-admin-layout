@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-layout",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "license": "MIT",
   "exports": {
     "./css": "./dist/style.css",

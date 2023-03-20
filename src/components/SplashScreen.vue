@@ -29,8 +29,8 @@ export default defineComponent({
       default: false,
     },
     config: {
-      type: Object,
-      required: true,
+      type: Object || null,
+      default: null,
     },
   },
   setup(props) {
@@ -74,6 +74,9 @@ export default defineComponent({
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   img {

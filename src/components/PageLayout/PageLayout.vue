@@ -200,7 +200,7 @@ export default defineComponent({
     );
 
     return {
-      splashScreenConfig: config.SPLASH_SCREEN,
+      splashScreenConfig: config.SPLASH_SCREEN || null,
       brandConfig: config.BRAND,
       shouldDisplayVersion: false,
       userName,

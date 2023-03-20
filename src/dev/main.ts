@@ -4,7 +4,7 @@ import { createPinia } from "pinia";
 import { configStore, i18n, i18nPlugin } from "@tager/admin-services";
 import "@tager/admin-ui/css";
 
-import { GETCLEAN_CONFIG } from "../config";
+import { GETCLEAN_CONFIG, OZITAG_CONFIG, PRESETBOX_CONFIG } from "../config";
 import { createRouter } from "../router";
 import { applyTranslations } from "../i18n/locales/apply";
 

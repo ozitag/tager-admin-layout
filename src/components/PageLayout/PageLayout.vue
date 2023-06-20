@@ -30,9 +30,13 @@
           :user-name="userName"
           :website-link="computedWebsiteLink"
           @sidebar-toggle="handleSidebarToggle"
-        />
+        >
+          <template #center>
+            <slot name="header_center"></slot>
+          </template>
+        </Navbar>
         <main class="main">
-          <slot></slot>
+          <slot/>
         </main>
       </div>
     </div>

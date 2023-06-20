@@ -6,7 +6,7 @@
           <MenuIcon />
         </BaseButton>
 
-        <div class="breadcrumbs">
+        <div v-if="breadcrumbList && breadcrumbList.length" class="breadcrumbs">
           <ul>
             <li v-for="(breadcrumb, index) of breadcrumbList" :key="index">
               <RouterLink exact active-class="active" :to="breadcrumb.url">
@@ -16,6 +16,10 @@
             </li>
           </ul>
         </div>
+      </div>
+
+      <div class="center-block">
+        <slot name="center"></slot>
       </div>
 
       <div class="right-block">
@@ -149,6 +153,7 @@ export default defineComponent({
 .breadcrumbs {
   margin-left: 1rem;
   font-size: 0.9rem;
+  margin-right: 1rem;
 
   ul {
     display: flex;
@@ -181,5 +186,9 @@ export default defineComponent({
       height: 16px;
     }
   }
+}
+
+.center-block {
+  flex: 1;
 }
 </style>

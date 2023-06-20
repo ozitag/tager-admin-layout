@@ -1099,7 +1099,7 @@
   resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.2.2.tgz#03ecc29279e3c0c832f6185a5bfa3497858ac8ca"
   integrity sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==
 
-"@tager/admin-services@^1.1.14", "@tager/admin-services@workspace:*":
+"@tager/admin-services@1.1.14", "@tager/admin-services@^1.1.14":
   version "1.1.14"
   resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.1.14.tgz#39aea1cbac1f676d53b5bd61e9db6ed87badd5c7"
   integrity sha512-aA26UJNZ6iTm1BSDMpy/CuFLFlrulodra4TbEassaSmmH1ow9Zq5EDogny9jTpE53xSdwcPSdXRxvdWJTldaVg==

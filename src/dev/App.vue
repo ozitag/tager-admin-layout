@@ -1,5 +1,10 @@
 <template>
   <PageLayout :sidebar-menu-list="sidebarMenuList">
+    <template #header_center>
+      <div class="header-container">
+      Header Container
+      </div>
+    </template>
     <router-view v-if="displayRouterView" />
     <Page
       v-else
@@ -143,4 +148,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.header-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+</style>

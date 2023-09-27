@@ -12,12 +12,6 @@ export const EN = {
   changeUserProfileSuccess: "Profile successfully changed",
   changeUserProfileFailure: "Profile change has been failed",
 
-  currentPassword: "Current password",
-  newPassword: "New password",
-  changeUserPassword: "Change password",
-  changeUserPasswordSuccess: "Password successfully changed",
-  changeUserPasswordFailure: "Password change has been failed",
-
   pageNotFoundTitle: "Oops Page Not Found",
   pageNotFoundMessage:
     "The page you are looking for does not exist or has been moved.",

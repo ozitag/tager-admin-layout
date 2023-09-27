@@ -96,11 +96,6 @@ export default defineComponent({
         text: i18n.t("layout:changeUserProfile"),
         url: "/profile",
       },
-      {
-        type: "link",
-        text: i18n.t("layout:changeUserPassword"),
-        url: "/profile/password",
-      },
       { type: "divider" },
       {
         type: "button",
@@ -138,5 +133,6 @@ export default defineComponent({
   padding: 0.5rem;
   cursor: pointer;
   font-weight: 600;
+  white-space: nowrap;
 }
 </style>

@@ -17,7 +17,6 @@ import type { LinkType } from "@tager/admin-ui";
 
 import NotFound from "./views/NotFound.vue";
 import UpdateProfileForm from "./views/UpdateProfileForm.vue";
-import UpdateUserPasswordForm from "./views/UpdateUserPasswordForm.vue";
 
 const HOME_BREADCRUMB: LinkType = { url: "/", text: "Home" };
 
@@ -50,15 +49,6 @@ const USER_PROFILE_FORM_ROUTE: RouteRecordRaw = {
   },
 };
 
-const USER_PASSWORD_FORM_ROUTE: RouteRecordRaw = {
-  path: "/profile/password",
-  name: "Change password",
-  component: UpdateUserPasswordForm,
-  meta: {
-    getBreadcrumbs: (route) => [HOME_BREADCRUMB, getBreadcrumbFromRoute(route)],
-  },
-};
-
 interface RouterParams {
   shouldMergeRoutes: boolean;
   useTitleSync: boolean;
@@ -74,7 +64,6 @@ function configureParams(userParams: Partial<RouterParams>): RouterParams {
 }
 
 const predefinedRoutes: Array<RouteRecordRaw> = [
-  USER_PASSWORD_FORM_ROUTE,
   USER_PROFILE_FORM_ROUTE,
   NOT_FOUND_ROUTE,
 ];

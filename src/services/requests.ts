@@ -28,9 +28,3 @@ interface UpdatePasswordPayload {
   oldPassword: string;
   newPassword: string;
 }
-
-export function updateUserPassword(
-  payload: UpdatePasswordPayload
-): Promise<void> {
-  return request.post({ path: "/admin/self/password", body: payload });
-}

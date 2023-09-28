@@ -36,7 +36,7 @@ export default defineComponent({
 
     watch([zoomValue], () => {
       const pageContainer = document.querySelector(
-        ".page-container"
+        "main.main > *:first-child"
       ) as HTMLElement;
 
       if (pageContainer) {
@@ -44,6 +44,14 @@ export default defineComponent({
         // @ts-ignore
         pageContainer.style.zoom = String(zoomValue.value);
       }
+
+      const changeZoomEvent = new CustomEvent('zoom-changed', {
+        detail:{
+          zoom: zoomValue.value
+        }
+      });
+
+      document.body.dispatchEvent(changeZoomEvent);
 
       localStorage.setItem("tagerPageZoom", zoomValue.value.toFixed(1));
     });

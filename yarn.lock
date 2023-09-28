@@ -1099,26 +1099,27 @@
   resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.2.2.tgz#03ecc29279e3c0c832f6185a5bfa3497858ac8ca"
   integrity sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==
 
-"@tager/admin-services@1.1.14", "@tager/admin-services@^1.1.14":
-  version "1.1.14"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.1.14.tgz#39aea1cbac1f676d53b5bd61e9db6ed87badd5c7"
-  integrity sha512-aA26UJNZ6iTm1BSDMpy/CuFLFlrulodra4TbEassaSmmH1ow9Zq5EDogny9jTpE53xSdwcPSdXRxvdWJTldaVg==
+"@tager/admin-services@^1.1.15", "@tager/admin-services@workspace:*":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-1.1.15.tgz#22b1982343744d696baaafe016d73cdd28e2f300"
+  integrity sha512-lc/lAP6wSUaMvwBmH3HVfnt89TSulOXEe6U2dyeVwmryDUS+7rGoK8Zc1se2MVUXIFgWGE6jWYT3NwWyr0mzmg==
   dependencies:
     i18next "^21.9.1"
     nanoid "^4.0.0"
     zod "^3.18.0"
 
-"@tager/admin-ui@^1.0.77":
-  version "1.0.77"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.77.tgz#265d623b9348f8d6b02b7c1dc3b7eee9c54d1233"
-  integrity sha512-18RQ4Jak0vYhk/uEjkNHic2DYOsA+ruAgMMU36AZZYRw14lvZx2BMPWOJBz1IcbIu8pKXAcBwM5o09ITySKQoA==
+"@tager/admin-ui@^1.0.99":
+  version "1.0.99"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.99.tgz#22b69dd01f0f2c5d3dd0895a847c10f4692deba7"
+  integrity sha512-XqXBcKN5ZIve/yN83zJCyNtkdqWE/EEItdyJ0+MAn27Q9hCiP9fPw7Dd1wzhyHv2j4as7j5uJ3A5S0FhW7tvfg==
   dependencies:
     "@ckeditor/ckeditor5-vue" "^4.0.1"
     "@floating-ui/dom" "^0.4.5"
-    "@tager/admin-services" "1.1.14"
+    "@tager/admin-services" "1.1.15"
     "@tager/admin-wysiwyg" "^1.0.0"
     autosize "^5.0.1"
     leaflet "^1.8.0"
+    libphonenumber-js "^1.10.28"
     lodash-es "*"
     smoothscroll-polyfill "^0.4.4"
     sortablejs "^1.15.0"
@@ -4522,6 +4523,11 @@ levn@^0.4.1:
   dependencies:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
+
+libphonenumber-js@^1.10.28:
+  version "1.10.45"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.45.tgz#cbaebe6bfae746dbfb42730cd043fcb8c472ca00"
+  integrity sha512-eeHcvGafEYCaKB4fo2uBINfG7j7PcGwBHUaTVfbwl/6KcjCgIKNlIOsSXVRp9BH10NQwmvvk+nQ1e/Yp4BGB7w==
 
 lilconfig@^2.0.3:
   version "2.0.5"

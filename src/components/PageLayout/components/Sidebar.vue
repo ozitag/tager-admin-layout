@@ -87,9 +87,7 @@
         </ul>
       </div>
 
-      <div class="footer">
-        <span class="brand">TAGER</span>
-      </div>
+      <SidebarTager :collapsed="isCollapsed"/>
     </div>
   </aside>
 </template>
@@ -115,6 +113,7 @@ import { ExpandMoreIcon } from "@tager/admin-ui";
 
 import { getLogoUrl } from "../../../utils/common";
 import { MenuItemType } from "../../../typings/menu";
+import SidebarTager from "./SidebarTager.vue";
 
 interface Props {
   isCollapsed: boolean;
@@ -125,7 +124,7 @@ interface Props {
 
 export default defineComponent({
   name: "AppSidebar",
-  components: { ExpandMoreIcon },
+  components: { SidebarTager, ExpandMoreIcon },
   props: {
     isCollapsed: {
       type: Boolean,
@@ -331,13 +330,6 @@ export default defineComponent({
 
     .menu-link-icon-container {
       margin-right: 0;
-    }
-
-    .footer {
-      .brand {
-        letter-spacing: normal;
-        font-size: 16px;
-      }
     }
   }
 }
@@ -555,23 +547,6 @@ export default defineComponent({
 
   &.active {
     color: #000;
-  }
-}
-
-.footer {
-  padding: 0.75rem 0.5rem 0.75rem;
-  text-align: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.0625);
-  min-height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .brand {
-    display: block;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    font-size: 20px;
   }
 }
 

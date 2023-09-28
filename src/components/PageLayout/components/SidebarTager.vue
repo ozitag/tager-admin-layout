@@ -36,19 +36,17 @@ export default defineComponent({
 
     watch([zoomValue], () => {
       const pageContainer = document.querySelector(
-        "main.main > *:first-child"
+        "main.main"
       ) as HTMLElement;
 
       if (pageContainer) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        pageContainer.style.zoom = String(zoomValue.value);
+        pageContainer.style.setProperty('--zoom', String(zoomValue.value));
       }
 
-      const changeZoomEvent = new CustomEvent('zoom-changed', {
-        detail:{
-          zoom: zoomValue.value
-        }
+      const changeZoomEvent = new CustomEvent("zoom-changed", {
+        detail: {
+          zoom: zoomValue.value,
+        },
       });
 
       document.body.dispatchEvent(changeZoomEvent);
@@ -57,7 +55,7 @@ export default defineComponent({
     });
 
     const changeZoom = (delta: number) => {
-      zoomValue.value = zoomValue.value + delta;
+      zoomValue.value = Math.round((zoomValue.value + delta) * 10) / 10;
     };
 
     const onZoomOut = () => changeZoom(-0.1);
@@ -89,6 +87,15 @@ export default defineComponent({
   svg {
     display: block;
     margin: 0 0.5rem;
+  }
+
+  button:not(:disabled) {
+    svg {
+      transition: 0.3s all ease;
+    }
+    &:hover svg {
+      opacity: 0.75;
+    }
   }
 
   .brand {

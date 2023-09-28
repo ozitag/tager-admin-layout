@@ -244,6 +244,10 @@ export default defineComponent({
   padding: 75px 10px 0 10px;
   display: flex;
   flex-direction: column;
+
+  :deep(> *) {
+    zoom: var(--zoom);
+  }
 }
 
 .spinner-wrapper {

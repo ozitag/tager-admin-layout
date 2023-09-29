@@ -35,13 +35,7 @@ export default defineComponent({
     });
 
     watch([zoomValue], () => {
-      const pageContainer = document.querySelector(
-        "main.main"
-      ) as HTMLElement;
-
-      if (pageContainer) {
-        pageContainer.style.setProperty('--zoom', String(zoomValue.value));
-      }
+      document.body.style.setProperty('--zoom', String(zoomValue.value));
 
       const changeZoomEvent = new CustomEvent("zoom-changed", {
         detail: {

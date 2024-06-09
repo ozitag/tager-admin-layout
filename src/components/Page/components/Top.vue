@@ -91,6 +91,7 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  position: relative;
 }
 
 .button-list {

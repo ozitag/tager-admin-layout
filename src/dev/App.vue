@@ -24,7 +24,9 @@
         Top Center
       </template>
       <template #topRight>
+        <div>
         Top Right
+        </div>
       </template>
       <template #topBottom>
        Top Bottom

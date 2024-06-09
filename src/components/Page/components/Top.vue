@@ -5,9 +5,7 @@
       <div v-if="slots.topCenter" class="top-center">
         <slot name="topCenter" />
       </div>
-      <div v-if="slots.topRight">
-        <slot name="topRight" />
-      </div>
+      <slot v-if="slots.topRight" name="topRight" />
       <div v-else-if="buttonList.length > 0" class="button-list">
         <BaseButton
           v-for="(button, index) of buttons"
@@ -18,9 +16,7 @@
         </BaseButton>
       </div>
     </div>
-    <div v-if="slots.topBottom" class="top-bottom">
-      <slot name="topBottom" />
-    </div>
+    <slot name="topBottom" />
   </div>
 </template>
 <script lang="ts">
@@ -79,9 +75,6 @@ export default defineComponent({
 <style scoped lang="scss">
 .top-wrapper {
   border-bottom: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
   padding: 10px 15px;
   min-height: 60px;
 }
@@ -89,6 +82,7 @@ export default defineComponent({
 .top-center {
   flex: 1 1 1px;
   display: flex;
+  margin-right: 10px;
   justify-content: center;
 }
 

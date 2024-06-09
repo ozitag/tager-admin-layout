@@ -75,8 +75,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .top-wrapper {
   border-bottom: 1px solid #eee;
-  padding: 10px 15px;
-  min-height: 60px;
+  padding: 15px;
 }
 
 .top-center {

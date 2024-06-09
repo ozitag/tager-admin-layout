@@ -1,9 +1,7 @@
 <template>
   <PageLayout :sidebar-menu-list="sidebarMenuList">
     <template #header_center>
-      <div class="header-container">
-      Header Container
-      </div>
+      <div class="header-container">Header Container</div>
     </template>
     <router-view v-if="displayRouterView" />
     <Page
@@ -22,16 +20,15 @@
       }"
       :tabs="tabs"
     >
-      <!--<template #topRight>
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-        Top Right Top Right Top Right Top Right Top Right Top Right Top Right
-      </template>-->
+      <template #topCenter>
+        Top Center
+      </template>
+      <template #topRight>
+        Top Right
+      </template>
+      <template #topBottom>
+       Top Bottom
+      </template>
       <template #content>
         <h2>Active Tab: {{ selectedTab }}</h2>
         <br /><br />
@@ -149,7 +146,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.header-container{
+.header-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;

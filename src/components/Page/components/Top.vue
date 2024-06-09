@@ -1,17 +1,25 @@
 <template>
-  <div class="top">
-    <PageTitle v-if="title">{{ title }}</PageTitle>
-    <div v-if="slots.topRight">
-      <slot name="topRight" />
+  <div class="top-wrapper">
+    <div class="top">
+      <PageTitle v-if="title">{{ title }}</PageTitle>
+      <div v-if="slots.topCenter" class="top-center">
+        <slot name="topCenter" />
+      </div>
+      <div v-if="slots.topRight">
+        <slot name="topRight" />
+      </div>
+      <div v-else-if="buttonList.length > 0" class="button-list">
+        <BaseButton
+          v-for="(button, index) of buttons"
+          :key="index"
+          v-bind="button.props"
+        >
+          {{ button.children }}
+        </BaseButton>
+      </div>
     </div>
-    <div v-else-if="buttonList.length > 0" class="button-list">
-      <BaseButton
-        v-for="(button, index) of buttons"
-        :key="index"
-        v-bind="button.props"
-      >
-        {{ button.children }}
-      </BaseButton>
+    <div v-if="slots.topBottom" class="top-bottom">
+      <slot name="topBottom" />
     </div>
   </div>
 </template>
@@ -69,20 +77,26 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.top-wrapper {
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 15px;
+  min-height: 60px;
+}
+
+.top-center {
+  flex: 1 1 1px;
+  display: flex;
+  justify-content: center;
+}
+
 .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
-  padding: 10px 15px;
-  min-height: 60px;
-
-  > *:first-child {
-    min-width: 300px;
-    + * {
-      margin-left: 20px;
-    }
-  }
+  gap: 1rem;
 }
 
 .button-list {

@@ -95,7 +95,7 @@ export default defineComponent({
 
 .button-list {
   display: flex;
-  margin: -5px 0;
+  margin: -9px 0;
 
   button,
   a {

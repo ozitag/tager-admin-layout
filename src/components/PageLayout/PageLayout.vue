@@ -183,7 +183,7 @@ export default defineComponent({
 
       const urlFromEnv = environment.websiteButtonUrl;
 
-      const isDisabled = ["false", "null"].includes(urlFromEnv);
+      const isDisabled = ["false", "null"].includes(urlFromEnv) || !urlFromEnv;
 
       if (isDisabled) return null;
 

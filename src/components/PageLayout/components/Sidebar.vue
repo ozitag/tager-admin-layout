@@ -555,7 +555,6 @@ export default defineComponent({
   text-align: center;
   border-top: 1px solid #eee;
   padding: 5px;
-  margin-top: -10px;
   color: #000;
   white-space: nowrap;
   text-overflow: ellipsis;

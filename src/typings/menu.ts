@@ -1,7 +1,7 @@
-import { Component } from "vue";
+import type { Component } from "vue";
 
-import { LinkType } from "@tager/admin-ui";
-import { Scopes } from "@tager/admin-services";
+import type { LinkType } from "@tager/admin-ui";
+import type { Scopes } from "@tager/admin-services";
 
 type MenuItemChildrenLink = LinkType & {
   scopes?: Scopes;

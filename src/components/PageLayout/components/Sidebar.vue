@@ -70,7 +70,7 @@
             <ul v-if="Array.isArray(menuItem.children)" class="child-menu-list">
               <li
                 v-for="childItem of menuItem.children"
-                :key="childItem.url"
+                :key="childItem.url ?? childItem.text"
                 class="child-menu-item"
               >
                 <router-link
@@ -112,7 +112,7 @@ import {
 import { ExpandMoreIcon } from "@tager/admin-ui";
 
 import { getLogoUrl } from "../../../utils/common";
-import { MenuItemType } from "../../../typings/menu";
+import type { MenuItemType } from "../../../typings/menu";
 import SidebarTager from "./SidebarTager.vue";
 
 interface Props {
@@ -161,7 +161,7 @@ export default defineComponent({
     });
 
     const logoUrl = computed(() => {
-      return getLogoUrl(currentBrand.value.logo || "");
+      return getLogoUrl(currentBrand.value.logo || "") ?? undefined;
     });
 
     const shouldDisplayLogo = computed(() => {

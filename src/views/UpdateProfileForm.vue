@@ -59,7 +59,7 @@ export default defineComponent({
     const toast = useToast();
     const i18n = useI18n();
     const values = ref({ name: "", email: "" });
-    const errors = ref({});
+    const errors = ref<Record<string, string>>({});
     const isSubmitting = ref(false);
     const isInitialLoading = ref(false);
 

@@ -14,9 +14,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, type PropType } from "vue";
 
 import { Spinner } from "@tager/admin-ui";
+import type { AppConfigType } from "@tager/admin-services";
 
 import { getLogoUrl } from "../utils/common";
 
@@ -29,14 +30,14 @@ export default defineComponent({
       default: false,
     },
     config: {
-      type: Object || null,
+      type: Object as PropType<AppConfigType["SPLASH_SCREEN"] | null>,
       default: null,
     },
   },
   setup(props) {
-    const logoUrl = computed(() => getLogoUrl(props.config.logo));
-    const backgroundColor = computed(() => props.config.background || "#fff");
-    const color = computed(() => props.config.color || "#000");
+    const logoUrl = computed(() => getLogoUrl(props.config?.logo ?? ""));
+    const backgroundColor = computed(() => props.config?.background || "#fff");
+    const color = computed(() => props.config?.color || "#000");
 
     return { logoUrl, backgroundColor, color };
   },

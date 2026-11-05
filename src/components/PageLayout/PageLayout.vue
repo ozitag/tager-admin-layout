@@ -68,7 +68,7 @@ import { type LinkType, ToastList, Spinner } from "@tager/admin-ui";
 
 import SplashScreen from "../SplashScreen.vue";
 import { isProduction } from "../../utils/common";
-import { MenuItemType } from "../../typings/menu";
+import type { MenuItemType } from "../../typings/menu";
 
 import Sidebar from "./components/Sidebar.vue";
 import Navbar from "./components/NavBar.vue";

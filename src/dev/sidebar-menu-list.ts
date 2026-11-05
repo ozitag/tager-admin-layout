@@ -1,6 +1,6 @@
 import { ViewListIcon, AssignmentIcon, SettingsIcon } from "@tager/admin-ui";
 
-import { MenuItemType } from "../typings/menu";
+import type { MenuItemType } from "../typings/menu";
 
 export const sidebarMenuList: Array<MenuItemType> = [
   {

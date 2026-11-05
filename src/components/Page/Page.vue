@@ -14,7 +14,7 @@
         v-if="tabs && tabs.length"
         :tab-list="tabs"
         :tab-id="tabId"
-        @update:tab-id="(value) => $emit('update:tab-id', value)"
+        @update:tab-id="(value: string) => $emit('update:tab-id', value)"
       />
     </slot>
 

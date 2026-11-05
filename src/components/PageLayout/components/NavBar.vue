@@ -9,7 +9,7 @@
         <div v-if="breadcrumbList && breadcrumbList.length" class="breadcrumbs">
           <ul>
             <li v-for="(breadcrumb, index) of breadcrumbList" :key="index">
-              <RouterLink exact active-class="active" :to="breadcrumb.url">
+              <RouterLink exact active-class="active" :to="breadcrumb.url ?? ''">
                 {{ breadcrumb.text }}
               </RouterLink>
               <ChevronRightIcon />
@@ -24,7 +24,7 @@
 
       <div class="right-block">
         <BaseButton
-          v-if="Boolean(websiteLink) && userName"
+          v-if="websiteLink && userName"
           variant="outline-secondary"
           class="website-button"
           :href="websiteLink.url"

@@ -94,10 +94,11 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 
-import { TabType } from "@tager/admin-ui";
+import type { TabType } from "@tager/admin-ui";
 
 import { PageLayout } from "../components/PageLayout";
 import Page from "../components/Page/Page.vue";
+import type { TopButtonConfigType } from "../components/Page/components/Top.vue";
 
 import { sidebarMenuList } from "./sidebar-menu-list";
 
@@ -112,6 +113,21 @@ export default defineComponent({
       alert("submit");
     }
 
+    const headerButtons: Array<TopButtonConfigType> = [
+      {
+        variant: "secondary",
+        text: "say cow2",
+        onClick: sayCow,
+        disabled: true,
+      },
+      {
+        variant: "secondary",
+        text: "Create entity link",
+        href: "http://ozitag.com",
+        loading: true,
+      },
+    ];
+
     const tabs: Array<TabType> = [
       { id: "common", label: "Основное" },
       { id: "services", label: "Услуги" },
@@ -123,20 +139,7 @@ export default defineComponent({
 
     return {
       sidebarMenuList,
-      headerButtons: [
-        {
-          variant: "secondary",
-          text: "say cow2",
-          onClick: sayCow,
-          disabled: true,
-        },
-        {
-          variant: "secondary",
-          text: "Create entity link",
-          href: "http://ozitag.com",
-          loading: true,
-        },
-      ],
+      headerButtons,
       displayRouterView: false,
       saySubmit,
 

@@ -27,7 +27,7 @@
           v-if="websiteLink && userName"
           variant="outline-secondary"
           class="website-button"
-          :href="websiteLink.url"
+          :href="websiteLink.url ?? undefined"
           target="_blank"
         >
           {{ websiteLink.text }}

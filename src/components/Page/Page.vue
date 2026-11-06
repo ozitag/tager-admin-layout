@@ -60,7 +60,10 @@ import {
 
 import Top, { type TopButtonConfigType } from "./components/Top.vue";
 
-interface PageFooterType {
+// Экспортируется, потому что попадает в публичный тип компонента:
+// генератор деклараций Vue 3.5 не может сослаться на неэкспортированное
+// имя из внешнего модуля (TS4023).
+export interface PageFooterType {
   backHref?: string;
   backLabel?: string;
   onSubmit?: (event: TagerFormSubmitEvent) => void;

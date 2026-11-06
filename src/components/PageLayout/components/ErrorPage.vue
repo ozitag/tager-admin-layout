@@ -2,7 +2,7 @@
   <div class="error-page">
     <div class="inner">
       <span class="status-code">{{ code }}</span>
-      <Nl2Br class="status-text" tag="p" :text="text" />
+      <Nl2Br class="status-text" tag="p" :text="String(text)" />
     </div>
   </div>
 </template>
